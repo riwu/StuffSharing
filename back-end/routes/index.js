@@ -1,9 +1,16 @@
+var mysql = require('promise-mysql');
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+const createConnection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: 'mydb',
+});
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  const response = createConnection.then(connection => connection.query('SELECT * FROM table1'))
+  return response.then(data => res.send(data));
 });
 
 module.exports = router;
