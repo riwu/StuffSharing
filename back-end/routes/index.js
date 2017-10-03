@@ -49,7 +49,9 @@ router.get('/stuff', function(req, res, next) {
 
 router.get('/stuff/:stuffid', function(req, res, next) {
 	// Detail view for stuff with stuff id
-	const response = createConnection.then(connection => connection.query(queries.getStuffData(req.params['stuffid'])));
+	const response = createConnection.then(connection => {
+		connection.query(queries.getStuffData(req.params['stuffId']));
+	});
 	return response.then(data => res.send(data));
 });
 

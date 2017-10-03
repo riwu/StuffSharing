@@ -9,7 +9,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:username', function(req, res, next) {
-	const response = createConnection.then(connection => connection.query(queries.getUserData(req.params['username'])));
+	const response = createConnection.then(connection => {
+		connection.query(queries.getUserData(req.params['username']));
+	});
 	return response.then(data => res.send(data));
 });
 
