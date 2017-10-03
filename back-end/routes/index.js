@@ -1,6 +1,6 @@
 var mysql = require('promise-mysql');
 var express = require('express');
-var queries = require('queries');
+var queries = require('./queries.js');
 var router = express.Router();
 
 const createConnection = mysql.createConnection({
