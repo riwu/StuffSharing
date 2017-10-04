@@ -1,48 +1,37 @@
--- MySQL Workbench Forward Engineering
+-- MySQL Workbench Synchronization
+-- Generated: 2017-10-04 14:18
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: singhaniasnigdha
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
-
--- -----------------------------------------------------
--- Table `mydb`.`user`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(100) NOT NULL,
   `password` VARCHAR(16) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NOT NULL,
+  `first_name` VARCHAR(45) NULL DEFAULT NULL,
+  `last_name` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-
--- -----------------------------------------------------
--- Table `mydb`.`stuff`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`stuff` (
-  `id` INT ZEROFILL NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `desc` VARCHAR(255) NOT NULL,
-  `condition` INT NOT NULL,
-  `price` FLOAT NOT NULL DEFAULT 0,
-  `owner` INT NOT NULL,
+  `condition` INT(11) NOT NULL,
+  `price` FLOAT(11) NOT NULL DEFAULT 0,
+  `owner` INT(11) NOT NULL,
   `location` VARCHAR(200) NOT NULL,
-  `available_from` DATE NULL,
-  `max_loan_period` INT NOT NULL,
+  `available_from` DATE NULL DEFAULT NULL,
+  `max_loan_period` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `owner_idx` (`owner` ASC),
@@ -51,40 +40,35 @@ CREATE TABLE IF NOT EXISTS `mydb`.`stuff` (
     REFERENCES `mydb`.`user` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-
--- -----------------------------------------------------
--- Table `mydb`.`bid_log`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`bid_log` (
-  `stuff` INT NOT NULL,
-  `bidder` INT NOT NULL,
-  `bid_amt` FLOAT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`bidder`, `stuff`),
-  INDEX `stuff_idx` (`stuff` ASC),
-  CONSTRAINT `stuff`
-    FOREIGN KEY (`stuff`)
-    REFERENCES `mydb`.`stuff` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `bidder`
-    FOREIGN KEY (`bidder`)
+  `bid_amt` FLOAT(11) NULL DEFAULT 0,
+  `user_id` INT(11) NOT NULL,
+  `stuff_id` INT(11) NOT NULL,
+  PRIMARY KEY (`user_id`, `stuff_id`),
+  INDEX `fk_bid_log_user1_idx` (`user_id` ASC),
+  INDEX `fk_bid_log_stuff1_idx` (`stuff_id` ASC),
+  CONSTRAINT `fk_bid_log_user1`
+    FOREIGN KEY (`user_id`)
     REFERENCES `mydb`.`user` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bid_log_stuff1`
+    FOREIGN KEY (`stuff_id`)
+    REFERENCES `mydb`.`stuff` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-
--- -----------------------------------------------------
--- Table `mydb`.`loan_log`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`loan_log` (
-  `stuff` INT NOT NULL,
-  `borrower` INT NOT NULL,
+  `stuff` INT(11) NOT NULL,
+  `borrower` INT(11) NOT NULL,
   `loan_date` DATE NOT NULL,
-  `return_date` DATE NULL,
-  `price` FLOAT NULL DEFAULT 0,
+  `return_date` DATE NULL DEFAULT NULL,
+  `price` FLOAT(11) NULL DEFAULT 0,
   PRIMARY KEY (`stuff`, `borrower`),
   INDEX `borrower_idx` (`borrower` ASC),
   CONSTRAINT `stuff`
@@ -97,7 +81,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`loan_log` (
     REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
