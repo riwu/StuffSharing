@@ -11,20 +11,20 @@ function deleteUser(username) {
 }
 
 function getStuffData(stuffId) {
-	return 'SELECT * FROM stuff WHERE sid=' + stuffId;
+	return 'SELECT * FROM stuff WHERE id=' + stuffId;
 }
 
 function updateStuffDetails(stuffId, params) {
-	return 'UPDATE stuff SET' + paramsToString(params) + ' WHERE sid='+ stuffId;
+	return 'UPDATE stuff SET' + paramsToString(params) + ' WHERE id='+ stuffId;
 }
 
 function deleteStuffData(stuffId) {
-	return 'DELETE FROM stuff WHERE sid=' + stuffId;
+	return 'DELETE FROM stuff WHERE id=' + stuffId;
 }
 
 function bidForStuff(stuffId, params) {
 	var keyValues = getCommaSeparatedKeysValues(params);
-	return 'INSERT INTO bid_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ') WHERE sid='+stuffId;
+	return 'INSERT INTO bid_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ') WHERE id='+stuffId;
 }
 
 function addLoanLog(params) {
@@ -50,7 +50,7 @@ function getCommaSeparatedKeysValues(params) {
 }
 
 module.exports = {
-	allSafeUserData: 'SELECT name, email, location FROM user ORDER BY name',
+	allSafeUserData: 'SELECT first_name, last_name, email, location FROM user ORDER BY name',
 	allUserData: 'SELECT * FROM user',
 	allStuffData: 'SELECT * FROM stuff',
 
