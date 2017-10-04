@@ -3,11 +3,12 @@ var express = require('express');
 var queries = require('./queries.js');
 var router = express.Router();
 
-const createConnection = mysql.createConnection({
+let connection;
+mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'mydb',
-});
+}).then(conn => { connection = conn });
 
 router.get('/', function(req, res, next) {
 	// view homepage
