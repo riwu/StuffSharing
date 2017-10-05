@@ -22,4 +22,5 @@ INSERT INTO `bid_log`(`bid_amt`, `user_id`, `stuff_id`) VALUES (100, 20, 55);
 INSERT INTO `bid_log`(`bid_amt`, `user_id`, `stuff_id`) VALUES (31.2, 19, 3);
 INSERT INTO `bid_log`(`bid_amt`, `user_id`, `stuff_id`) VALUES (30, 2, 14);
 INSERT INTO `bid_log`(`bid_amt`, `user_id`, `stuff_id`) VALUES (17.5, 17, 15);
-INSERT INTO `bid_log`(`bid_amt`, `user_id`, `stuff_id`) VALUES (20, 10, 22);
+INSERT INTO `bid_log`(`bid_amt`, `user_id`, `stuff_id`) VALUES (34.2, 45, 23);
+INSERT INTO `bid_log`(`bid_amt`, `user_id`, `stuff_id`) VALUES (10.5, 15, 24);
