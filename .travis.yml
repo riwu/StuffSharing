@@ -3,5 +3,7 @@ node_js:
   - 6
 env:
   - TEST_DIR=front-end
-script: 
+script:
   - cd $TEST_DIR && npm install && npm run build
+notifications:
+  email: false
