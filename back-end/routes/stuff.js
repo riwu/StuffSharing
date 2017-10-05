@@ -3,13 +3,13 @@ var express = require('express');
 var queries = require('./queries');
 var router = express.Router();
 
-router.get('/stuff', function(req, res, next) {
+router.get('/', function(req, res, next) {
 	// List of all available things
 	const response = connection.then(conn => conn.query(queries.allStuffData));
 	return response.then(data => res.send(data));
 });
 
-router.get('/stuff/:stuffid', function(req, res, next) {
+router.get('/:stuffid', function(req, res, next) {
 	// Detail view for stuff with stuff id
 	const response = connection.query(queries.getStuffData(req.params['stuffId']));
 	return response.then(data => res.send(data));

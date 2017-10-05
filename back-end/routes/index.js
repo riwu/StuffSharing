@@ -40,12 +40,12 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/bids', function(req, res, next) {
-	const response = connection.query(queries.allBidData);
+	const response = connection.then(conn => conn.query(queries.allBidData));
 	return response.then(data => res.send(data));
 });
 
 router.get('/loans', function(req, res, next) {
-	const response = connection.query(queries.allLoanData);
+	const response = connection.then(conn => conn.query(queries.allLoanData));
 	return response.then(data => res.send(data));
 });
 
