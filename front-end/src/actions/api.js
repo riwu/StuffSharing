@@ -1,4 +1,4 @@
-const API_BASE_URL = 'localhost:3001/';
+const API_BASE_URL = 'http://localhost:3001/';
 
 const get = path => fetch(API_BASE_URL + path).then(response => response.json());
 
