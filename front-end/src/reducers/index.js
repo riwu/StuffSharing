@@ -1,11 +1,14 @@
 import { combineReducers } from 'redux';
-
-function reducer(state = 0, action) {
-  return state;
-}
+import users from './users';
+import stuffs from './stuffs';
+import loans from './loans';
+import bids from './bids';
 
 const app = combineReducers({
-  reducer,
+  users,
+  stuffs,
+  loans,
+  bids,
 });
 
 export default app;
