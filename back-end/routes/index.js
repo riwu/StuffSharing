@@ -1,14 +1,8 @@
-var mysql = require('promise-mysql');
 var express = require('express');
 var queries = require('./queries');
 var router = express.Router();
+import connection from './connection';
 
-let connection;
-mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'mydb',
-}).then(conn => { connection = conn });
 
 router.get('/', function(req, res, next) {
 	// view homepage

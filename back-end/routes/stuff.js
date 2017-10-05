@@ -1,13 +1,7 @@
+import connection from './connection';
 var express = require('express');
 var queries = require('./queries');
 var router = express.Router();
-
-let connection;
-mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'mydb',
-}).then(conn => { connection = conn });
 
 router.get('/stuff', function(req, res, next) {
 	// List of all available things
