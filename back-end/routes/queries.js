@@ -50,7 +50,7 @@ function getCommaSeparatedKeysValues(params) {
 }
 
 module.exports = {
-	allSafeUserData: 'SELECT first_name, last_name, email, location FROM user ORDER BY name',
+	allSafeUserData: 'SELECT * FROM user',
 	allUserData: 'SELECT * FROM user',
 	allStuffData: 'SELECT * FROM stuff',
 	allBidData: 'SELECT * FROM bid_log ORDER BY bid_amt DESC',

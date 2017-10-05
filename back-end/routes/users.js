@@ -5,7 +5,8 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  	const response = connection.query(queries.allSafeUserData);
+  console.log(connection)
+  	const response = connection.then(conn => conn.query(queries.allSafeUserData));
 	return response.then(data => res.send(data));
 });
 

@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.get('/stuff', function(req, res, next) {
 	// List of all available things
-	const response = connection.query(queries.allStuffData);
+	const response = connection.then(conn => conn.query(queries.allStuffData));
 	return response.then(data => res.send(data));
 });
 
