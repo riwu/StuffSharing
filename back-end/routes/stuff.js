@@ -1,18 +1,20 @@
 import connection from './connection';
-var express = require('express');
-var queries = require('./queries');
-var router = express.Router();
 
-router.get('/', function(req, res, next) {
+const express = require('express');
+const queries = require('./queries');
+
+const router = express.Router();
+
+router.get('/', (req, res, next) => {
 	// List of all available things
-	const response = connection.then(conn => conn.query(queries.allStuffData));
-	return response.then(data => res.send(data));
+  const response = connection.then(conn => conn.query(queries.allStuffData));
+  return response.then(data => res.send(data));
 });
 
-router.get('/:stuffid', function(req, res, next) {
+router.get('/:stuffid', (req, res, next) => {
 	// Detail view for stuff with stuff id
-	const response = connection.query(queries.getStuffData(req.params['stuffId']));
-	return response.then(data => res.send(data));
+  const response = connection.query(queries.getStuffData(req.params.stuffId));
+  return response.then(data => res.send(data));
 });
 
 // router.get('/stuff/:stuffid/bid', function(req, res, next) {

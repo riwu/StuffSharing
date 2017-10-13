@@ -1,10 +1,10 @@
 const mysql = require('promise-mysql');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '123qwe',
-  database: 'mydb',
+  host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
+  user: 'stuff_sharing',
+  database: 'stuff_sharing',
+  password: process.env.STUFF_PASSWORD,
 });
 
 export default connection;

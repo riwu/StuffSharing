@@ -1,9 +1,8 @@
 language: node_js
 node_js:
   - 6
-env:
-  - TEST_DIR=front-end
 script:
-  - cd $TEST_DIR && npm install && npm run build
+  - cd front-end && npm install && npm run build
+  - cd back-end && npm install && npm run build
 notifications:
   email: false
