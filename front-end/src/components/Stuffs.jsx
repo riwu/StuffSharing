@@ -21,7 +21,7 @@ class App extends React.Component {
               <div>Condition: {stuff.condition}</div>
               <div>Owner: {ownerLink}</div>
               <div>Available from: {stuff.available_from}</div>
-              <div>Max loan period: {stuff.max_loan_period}</div>
+              <div>Max loan period: {stuff.max_loan_period} days</div>
             </div>
           );
         })}
