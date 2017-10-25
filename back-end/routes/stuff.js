@@ -1,4 +1,4 @@
-import connection from './connection';
+import conn from './connection';
 
 const express = require('express');
 const queries = require('./queries');
@@ -7,13 +7,13 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
 	// List of all available things
-  const response = connection.then(conn => conn.query(queries.allStuffData));
+  const response = conn.query(queries.allStuffData);
   return response.then(data => res.send(data));
 });
 
 router.get('/:stuffid', (req, res, next) => {
 	// Detail view for stuff with stuff id
-  const response = connection.query(queries.getStuffData(req.params.stuffId));
+  const response = conn.query(queries.getStuffData(req.params.stuffId));
   return response.then(data => res.send(data));
 });
 

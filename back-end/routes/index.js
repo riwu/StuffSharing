@@ -1,15 +1,16 @@
-var express = require('express');
-var queries = require('./queries');
-var router = express.Router();
-import connection from './connection';
+import conn from './connection';
 
+const express = require('express');
+const queries = require('./queries');
 
-router.get('/', function(req, res, next) {
+const router = express.Router();
+
+router.get('/', (req, res, next) =>
 	// view homepage
-	return res.send('Welcome to Stuff Sharing');
+   res.send('Welcome to Stuff Sharing'),
   // const response = createConnection.then(connection => connection.query('SELECT * FROM table1'))
   // return response.then(data => res.send(data));
-});
+);
 
 // router.get('/me', function(req, res, next) {
 // 	// view my details
@@ -38,15 +39,14 @@ router.get('/', function(req, res, next) {
 // });
 
 
-
-router.get('/bids', function(req, res, next) {
-	const response = connection.then(conn => conn.query(queries.allBidData));
-	return response.then(data => res.send(data));
+router.get('/bids', (req, res, next) => {
+  const response = conn.query(queries.allBidData);
+  return response.then(data => res.send(data));
 });
 
-router.get('/loans', function(req, res, next) {
-	const response = connection.then(conn => conn.query(queries.allLoanData));
-	return response.then(data => res.send(data));
+router.get('/loans', (req, res, next) => {
+  const response = conn.query(queries.allLoanData);
+  return response.then(data => res.send(data));
 });
 
 module.exports = router;

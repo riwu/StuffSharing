@@ -1,18 +1,19 @@
-import connection from './connection';
-var express = require('express');
-var queries = require('./queries');
-var router = express.Router();
+import conn from './connection';
+
+const express = require('express');
+const queries = require('./queries');
+
+const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  console.log(connection)
-  	const response = connection.then(conn => conn.query(queries.allSafeUserData));
-	return response.then(data => res.send(data));
+router.get('/', (req, res, next) => {
+  const response = conn.query(queries.allSafeUserData);
+  return response.then(data => res.send(data));
 });
 
-router.get('/:username', function(req, res, next) {
-	const response = connection.query(queries.getUserData(req.params['username']));
-	return response.then(data => res.send(data));
+router.get('/:username', (req, res, next) => {
+  const response = conn.query(queries.getUserData(req.params.username));
+  return response.then(data => res.send(data));
 });
 
 module.exports = router;
