@@ -35,8 +35,9 @@ function getFilteredStuff(filterList){
 	var query = "SELECT * FROM stuff s WHERE ";
 	var list = [];
 	var order;
-	if(filterList.stuffName) {
-		list.push("s.name LIKE \'%" + filterList.stuffName + "%\'");
+	console.log(filterList);
+	if(filterList.name) {
+		list.push("s.name LIKE \'%" + filterList.name + "%\'");
 	}
 	if(filterList.category) {
 		list.push("s.location LIKE \'%" + filterList.category + "%\'");
@@ -71,12 +72,14 @@ function getFilteredStuff(filterList){
 	} else {
 		order = "DESC";
 	}
-	query = query + " ORDER BY " + filterList.sort + order;
-	console.log(' query: ' + query);
-	var startIndex = (page - 1) * count, endIndex = page * count
-	query = "SELECT * FROM ( " + query + ")" + " limit " + startIndex + " , " + endIndex;
-	console.log('Final query: ' + query);
-	return query;
+	query = query + " ORDER BY s." + filterList.sort + " " + order;
+	console.log('query: ' + query);
+	var startIndex = (page - 1) * count;
+	var endIndex = page * count;
+	console.log("**");
+	var fquery = "SELECT * FROM ( " + query + ") " + " LIMIT " + startIndex + " , " + endIndex;
+	console.log('Final query: ' + fquery);
+	return fquery;
 }
 
 function paramsToString(params) {
