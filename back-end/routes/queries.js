@@ -73,7 +73,7 @@ function getFilteredStuff(filterList){
 		order = "DESC";
 	}
 	SQLquery = SQLquery + " ORDER BY " + filterList.sort + order;
-	SQLquery = "SELECT * FROM ( " + SQLquery + ")" + " " + " limit " + (page - 1) * count) + " , " + page * count;
+	SQLquery = "SELECT * FROM ( " + SQLquery + ")" + " " + " limit " + (page - 1) * count + " , " + page * count;
 	return SQLquery;
 }
 
