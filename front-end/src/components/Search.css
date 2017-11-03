@@ -1,3 +1,31 @@
 .Search .filter {
   margin-bottom: 30px;
 }
+
+.Search .search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Search .formGroup {
+  margin-right: 20px;
+  z-index: 5;
+}
+
+.Search .country {
+  width: 250px;
+}
+
+.Search .countryContainer {
+  display: flex;
+  align-items: center;
+}
+
+.Search .controlLabel {
+  margin-right: 5px;
+}
+
+.Search .slider {
+  width: 300px;
+}

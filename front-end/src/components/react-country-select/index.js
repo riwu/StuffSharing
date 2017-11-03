@@ -1,5 +1,4 @@
-import React, { Component, PropTypes as t } from 'react';
-import { render } from 'react-dom';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { countries } from './data';
@@ -34,7 +33,7 @@ export default class ReactCountrySelect extends Component {
         color: option.color,
       }}
       >
-        <img src={flagImageUrl} style={optionStyle} />&nbsp; {option.label}
+        <img alt="flag" src={flagImageUrl} style={optionStyle} />&nbsp; {option.label}
       </span>
     );
   }

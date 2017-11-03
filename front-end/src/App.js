@@ -3,12 +3,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import { Route } from 'react-router-dom';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 
 import MainApp from './components/App';
-import User from './components/User';
 import reducer from './reducers';
 import { getUsers, getBids, getLoans, getStuffs } from './actions';
 
@@ -25,10 +23,7 @@ function App() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <div>
-          <Route exact path="/" component={MainApp} />
-          <Route path="/users/:username" component={User} />
-        </div>
+        <MainApp />
       </ConnectedRouter>
     </Provider>
   );
