@@ -5,7 +5,10 @@ const queries = require('./queries');
 
 const router = express.Router();
 
-const filterString = 'name={name}&count={count}&page={page}&sort={sort}&asc={asc}&category={category}&priceLow={priceLow}&priceHigh={priceHigh}&conditionLow={conditionLow}&conditionHigh={conditionHigh}&location={location}&availableDate={availableDate}&maxLoan={maxLoan}&owner={owner}';
+const filterString = 'name={name}&count={count}&page={page}&sort={sort}&asc={asc}&' +
+						'category={category}&priceLow={priceLow}&priceHigh={priceHigh}' + 
+						'&conditionLow={conditionLow}&conditionHigh={conditionHigh}&' +
+						'location={location}&availableDate={availableDate}&maxLoan={maxLoan}&owner={owner}';
 
 router.param('name', (req, res, next, name) => {
 	req.name = null;
@@ -91,7 +94,7 @@ router.param('conditionHigh', (req, res, next, conditionHigh) => {
 router.param('location', (req, res, next, location) => {
 	req.location = null;
 	if (location.length > 0) {
-		req.location = location;
+		req.location = location.split(',');
 	}
 	next();
 });
@@ -128,14 +131,6 @@ router.param('stuffid', (req, res, next, stuffid) => {
 	next();
 });
 
-router.param('bidamt', (req, res, next, bidamt) => {
-	req.bidamt = 0;
-	if (bidamt.length > 0) {
-		req.bidamt = parseFloat(bidamt);
-	}
-	next();
-});
-
 router.get(filterString, (req, res, next) => {
 	// Filter Stuff List depending on params
 	var filterList = {'name': req.name, 'count': req.count, 'page': req.page, 'sort': req.sort,
@@ -143,7 +138,7 @@ router.get(filterString, (req, res, next) => {
 						'priceLow': req.priceLow, 'conditionHigh': req.conditionHigh, 
 						'conditionLow': req.conditionLow, 'location': location,
 						'availableDate': availableDate, 'owner': owner};
-	const response = conn.query(queries.getFilteredStuff(filterList))
+	const response = conn.query(queries.getFilteredStuff(filterList));
 	return response.then(data => res.send(data));
 });
 
@@ -153,8 +148,11 @@ router.get('/:stuffid', (req, res, next) => {
 	return response.then(data => res.send(data));
 });
 
-router.post('/:stuffid/bid/:bidamt', function(req, res, next) {
+router.post('/bid', function(req, res, next) {
 	// Bid for this stuff
+	var bidInfo = {'user': req.body.user, 'bidAmt': req.body.bidAmt, 'stuffId': req.body.stuffId};
+	const response = conn.query(queries.bidForStuff(bidInfo));
+	return response.then(data => res.send(data));
 });
 
 router.get('/', (req, res, next) => {
@@ -162,9 +160,5 @@ router.get('/', (req, res, next) => {
 	const response = conn.query(queries.allStuffData);
 	return response.then(data => res.send(data));
 });
-
-// router.get('/admin', function(req, res, next) {
-// 	// Admin privileges to create, update and delete all entries
-// });
 
 module.exports = router;
