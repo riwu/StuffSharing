@@ -12,8 +12,9 @@ const users = require('./routes/users');
 
 const app = express();
 
-app.all('/*', (req, res, next) => {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
