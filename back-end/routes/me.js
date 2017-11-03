@@ -17,7 +17,8 @@ router.get('/:username/:stuffId', (req, res, next) => {
 });
 
 router.post('/bidSelect', (req, res, next) => {
-	var bidWin = {'user': req.body.username, 'stuffId': req.body.stuffId, 'bidAmt': req.body.bidAmt};
+	var bidWin = {'bidder': req.body.username, 'stuffId': req.body.stuffId,
+					'bidAmt': req.body.bidAmt, 'loanDate': req.body.loanDate};
 	const response = conn.query(queries.setBidWinner(bidWin));
 	return response.then((data) => {
 		conn.query.borrowStuff(bidWin);
