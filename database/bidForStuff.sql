@@ -79,8 +79,8 @@ WHERE stuff_id = '10';*/
 
 -- update stuff 
 UPDATE stuff s
-SET s.available_from = DATE_ADD(loanDate, INTERVAL max_loan_period DAY)
-WHERE s.id = stuff; 
+SET s.available_from = ADDDATE(loanDate, s.max_loan_period)
+WHERE s.id = stuffid; 
 
 -- TEST CASE: WORKING! 
 /*UPDATE stuff s
