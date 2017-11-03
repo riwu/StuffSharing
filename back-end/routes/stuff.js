@@ -32,12 +32,9 @@ router.get('/', (req, res, next) => {
 	if (req.query) {
 		return filterStuff(req.query, res);
 	} else {
-		console.log('stuff list');
 		const response = conn.query(queries.allStuffData);
 		return response.then(data => res.send(data));		
 	}
-	console.log('In stuff list : ' + req.query.name + req.query.maxLoan);
-
 });
 
 function filterStuff(queryList, res) {

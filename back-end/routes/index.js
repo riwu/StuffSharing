@@ -20,7 +20,7 @@ router.get('/login', (req, res, next) => {
 
 router.get('/register', (req, res, next) => {
 	const register = {'username': req.body.username, 'password': req.body.password,
-						'email': req.body.email, 'firstName: 'req.body.firstName,
+						'email': req.body.email, 'firstName': req.body.firstName,
 						'lastName': req.body.lastName};
 	const response = conn.query(queries.checkUsername(register.username));
 	return response.then(data => {
