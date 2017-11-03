@@ -1,17 +1,24 @@
-const API_BASE_URL = 'http://localhost:3001/';
+import axios from 'axios';
 
-const get = path => fetch(API_BASE_URL + path).then(response => response.json());
+axios.defaults.baseURL = 'http://localhost:3001/';
 
-// const [post] = ['POST'].map(method =>
-//   (path, payload) => fetch(API_BASE_URL + path, {
-//     method,
-//     body: JSON.stringify(payload),
-//   }).then(response => response.json()),
-// );
+const get = path => axios.get(path).then(response => response.data);
+
+const [post, patch, put] = ['post', 'patch', 'put'].map(method =>
+  (path, payload) => axios({
+    method,
+    url: path,
+    data: payload,
+  }).catch((err) => {
+    console.log('encountered error for', path, ':', (err.response || {}).data);
+    throw new Error((err.response || {}).data);
+  }));
 
 export default {
   getStuffs: search => get('stuff'),
   getUsers: () => get('users'),
   getLoans: () => get('bids'),
   getBids: () => get('loans'),
+  login: (username, password) => post('login', { username, password }),
+  register: user => post('register', user),
 };

@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import api from './api';
 
 export const getUsers = (dispatch) => {
@@ -42,8 +43,36 @@ export const setFilter = (name, value) => ({
   value,
 });
 
-export const login = (username, password) => ({
-  type: 'LOGIN',
-  username,
-  password,
+export const login = (username, password) => (dispatch) => {
+  api.login(username, password).then(() => {
+    dispatch({
+      type: 'LOG_IN',
+      username,
+      password,
+    });
+    dispatch(push('/'));
+  }).catch(() => {
+    dispatch({
+      type: 'LOG_IN_FAILED',
+    });
+  });
+};
+
+export const logout = () => ({
+  type: 'LOG_OUT',
 });
+
+export const register = user => (dispatch) => {
+  api.register(user).then(() => {
+    dispatch({
+      type: 'LOG_IN',
+      username: user.username,
+      password: user.password,
+    });
+    dispatch(push('/'));
+  }).catch(() => {
+    dispatch({
+      type: 'REGISTER_FAILED',
+    });
+  });
+};
