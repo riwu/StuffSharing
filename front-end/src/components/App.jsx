@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import User from './User';
 import Stuffs from './Stuffs';
 import LoginPage from './LoginPage';
-import Navigation from './Navigation';
+import Navigation from './NavigationContainer';
 
 const App = () => (
   <div>
