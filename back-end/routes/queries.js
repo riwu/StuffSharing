@@ -114,15 +114,15 @@ function getCommaSeparatedKeysValues(params) {
 
 
 function loginUser(details) {
-	return '';
+	return "SELECT * FROM user u WHERE u.name = " + details.username + " AND u.password = " + details.password;
 }
 
 function checkUsername(username) {
-	return '';
+	return "SELECT * FROM user u WHERE u.name = " + username;
 }
 
 function registerUser(details) {
-	return '';
+	return "INSERT INTO user(username, password, email, first_name, last_name) VALUES (" + "\'" + details.username + "\'" + ", " + "\'" + details.password + "\'" + ", " + "\'" + details.email + "\'" + ", " + "\'" + details.first_name + "\'" + ", " + "\'" + details.last_name + "\'" + ")";
 }
 
 module.exports = {
