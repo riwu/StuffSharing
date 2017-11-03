@@ -21,8 +21,16 @@ router.post('/bidSelect', (req, res, next) => {
 					'bidAmt': req.body.bidAmt, 'loanDate': req.body.loanDate};
 	const response = conn.query(queries.setBidWinner(bidWin));
 	return response.then((data) => {
-		conn.query.borrowStuff(bidWin);
+		conn.query.addLoanLog(bidWin);
 	}).then(data => res.send(data));
+});
+
+router.get('/:username/:stuffId/update', (req, res, next) => {
+	const response = conn.query(queries.getStuffData(req.stuffid));
+	response.then(data => {
+		console.log(data.owner);
+		res.send(data);
+	})
 });
 
 

@@ -22,15 +22,30 @@ function deleteStuffData(stuffId) {
 	return 'DELETE FROM stuff WHERE id=' + stuffId;
 }
 
+function getAllMyBids(username) {
+	return 'SELECT * from bid_log AS b, stuff AS s, user AS u ' + 
+				'WHERE b.stuff_id=s.id AND s.owner AND u.id == s.owner AND u.username=' + username;
+}
+
+function getBidsFor(username, stuffId) {
+
+}
+
 function bidForStuff(stuffId, params) {
 	var keyValues = getCommaSeparatedKeysValues(params);
 	return 'INSERT INTO bid_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ') WHERE id='+stuffId;
+}
+
+function setBidWinner() {
+
 }
 
 function addLoanLog(params) {
 	var keyValues = getCommaSeparatedKeysValues(params);
 	return 'INSERT INTO loan_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ')';
 }
+
+
 function getFilteredStuff(filterList){
 	var query = "SELECT * FROM stuff s WHERE ";
 	var list = [];
@@ -98,6 +113,19 @@ function getCommaSeparatedKeysValues(params) {
 	return [keys.join(), values.join()];
 }
 
+
+function loginUser(details) {
+	return '';
+}
+
+function checkUsername(username) {
+	return '';
+}
+
+function registerUser(details) {
+	return '';
+}
+
 module.exports = {
 	allSafeUserData: 'SELECT id, username, email, first_name, last_name FROM user',
 	allUserData: 'SELECT * FROM user',
@@ -114,8 +142,15 @@ module.exports = {
 	deleteUser: deleteUser,
 	deleteStuffData: deleteStuffData,
 
+	getAllMyBids: getAllMyBids,
+	getBidsFor: getBidsFor,
 	bidForStuff: bidForStuff,
+	setBidWinner: setBidWinner,
 	addLoanLog: addLoanLog,
 
 	getFilteredStuff: getFilteredStuff,
+
+	loginUser: loginUser,
+	checkUsername: checkUsername,
+	registerUser: registerUser,
 };
