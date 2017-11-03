@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `email` VARCHAR(100) NOT NULL,
   `first_name` VARCHAR(45) NULL DEFAULT NULL,
   `last_name` VARCHAR(45) NULL DEFAULT NULL,
-  `isAdmin` VARCHAR(10) NOT NULL,
+  `isAdmin` VARCHAR(10) NOT NULL DEFAULT 'false',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
