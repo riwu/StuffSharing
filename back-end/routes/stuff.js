@@ -32,7 +32,6 @@ router.get('/', (req, res, next) => {
 	const pages = conn.query(queries.getPages);
 	return pages.then(pageData => {
 		const numPages = pageData[0]["COUNT(*)"];
-		console.log("Pages: " + numPages);
 		if (req.query) {
 			return filterStuff(req.query, res, numPages);
 		} else {
