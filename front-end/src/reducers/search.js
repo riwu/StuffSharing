@@ -11,9 +11,7 @@ const initialState = {
   category: 'All',
   price: [0, 100],
   condition: [1, 5],
-  location: [
-    { value: 'AF', label: 'Afghanistan' },
-  ],
+  location: [],
   availableDate: moment().format('D MMM YY'),
   minLoan: 50,
   owner: '',
