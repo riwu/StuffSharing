@@ -28,7 +28,7 @@ function getAllMyBids(username) {
 }
 
 function getBidsFor(username, stuffId) {
-
+	return getAllMyBids(username) + ' s.id=' + stuffId;
 }
 
 function bidForStuff(stuffId, params) {
@@ -36,15 +36,14 @@ function bidForStuff(stuffId, params) {
 	return 'INSERT INTO bid_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ') WHERE id='+stuffId;
 }
 
-function setBidWinner() {
-
+function setBidWinner(bidDetails) {
+	
 }
 
 function addLoanLog(params) {
 	var keyValues = getCommaSeparatedKeysValues(params);
 	return 'INSERT INTO loan_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ')';
 }
-
 
 function getFilteredStuff(filterList){
 	var query = "SELECT * FROM stuff s WHERE ";
@@ -73,7 +72,7 @@ function getFilteredStuff(filterList){
 		list.push("s.location LIKE \'%" + filterList.location + "%\'");
 	}
 	if(filterList.availableDate){
-		list.push("s.available_from <= " + filterList.availableDate);
+		list.push("s.available_from <= \"" + filterList.availableDate + "\"");
 	}
 	if(filterList.maxLoan){
 		list.push("s.max_loan_period >= " + filterList.maxLoan);
@@ -115,15 +114,15 @@ function getCommaSeparatedKeysValues(params) {
 
 
 function loginUser(details) {
-	return '';
+	return "SELECT * FROM user u WHERE u.username = " + details.username + " AND u.password = " + details.password;
 }
 
 function checkUsername(username) {
-	return '';
+	return "SELECT * FROM user u WHERE u.username = " + username;
 }
 
 function registerUser(details) {
-	return '';
+	return "INSERT INTO user(username, password, email, first_name, last_name) VALUES (" + "\'" + details.username + "\'" + ", " + "\'" + details.password + "\'" + ", " + "\'" + details.email + "\'" + ", " + "\'" + details.first_name + "\'" + ", " + "\'" + details.last_name + "\'" + ")";
 }
 
 module.exports = {
