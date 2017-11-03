@@ -4,17 +4,21 @@ import Pagination from 'react-paginate';
 import Stuff from './Stuff';
 import './Stuffs.css';
 import Search from './SearchContainer';
+import { setFilter, getStuffs } from '../actions';
 
 const Stuffs = props => (
   <div>
     <Search />
     {props.stuffs.map(stuff => (
-      <Stuff stuff={stuff} users={props.users} />
+      <Stuff stuff={stuff} />
     ))}
     <Pagination
-      onPageChange={({ selected }) => {}}
+      onPageChange={({ selected }) => {
+        props.setFilter('page', selected);
+        props.getStuffs({ ...props.search, page: selected + 1 });
+      }}
       pageCount={10}
-      initialPage={0}
+      forcePage={props.search.page}
       pageRangeDisplayed={5}
       marginPagesDisplayed={1}
       breakLabel={<a href="">...</a>}
@@ -28,7 +32,7 @@ const Stuffs = props => (
 
 const mapStateToProps = state => ({
   stuffs: state.stuffs,
-  users: state.users,
+  search: state.search,
 });
 
-export default connect(mapStateToProps)(Stuffs);
+export default connect(mapStateToProps, { setFilter, getStuffs })(Stuffs);

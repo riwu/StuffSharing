@@ -170,7 +170,13 @@ const Search = ({ search, setFilter, onSubmit }) => (
       <ControlLabel>per page</ControlLabel>
     </Form>
 
-    <Button bsStyle="primary" onClick={() => onSubmit(search)}>Submit</Button>
+    <Button
+      bsStyle="primary"
+      onClick={() => {
+        setFilter('page', 0);
+        onSubmit({ ...search, page: 1 });
+      }}
+    >Submit</Button>
   </div>
 );
 
