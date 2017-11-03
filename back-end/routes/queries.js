@@ -32,11 +32,11 @@ function addLoanLog(params) {
 	return 'INSERT INTO loan_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ')';
 }
 function getFilteredStuff(filterList){
-	var SQLquery = "SELECT * FROM stuff s WHERE ";
+	var query = "SELECT * FROM stuff s WHERE ";
 	var list = [];
 	var order;
-	if(filterList.name) {
-		list.push("s.name LIKE \'%" + filterList.name + "%\'");
+	if(filterList.stuffName) {
+		list.push("s.name LIKE \'%" + filterList.stuffName + "%\'");
 	}
 	if(filterList.category) {
 		list.push("s.location LIKE \'%" + filterList.category + "%\'");
@@ -65,16 +65,18 @@ function getFilteredStuff(filterList){
 	if(filterList.owner){
 		list.push("s.owner LIKE \'%" + filterList.owner + "%\'");
 	}
-	list.join(" AND ");
-	SQLquery = SQLquery + list;
+	query = query + list.join(" AND ");
 	if(filterList.asc) {
 		order = "ASC";
 	} else {
 		order = "DESC";
 	}
-	SQLquery = SQLquery + " ORDER BY " + filterList.sort + order;
-	SQLquery = "SELECT * FROM ( " + SQLquery + ")" + " " + " limit " + (page - 1) * count + " , " + page * count;
-	return SQLquery;
+	query = query + " ORDER BY " + filterList.sort + order;
+	console.log(' query: ' + query);
+	var startIndex = (page - 1) * count, endIndex = page * count
+	query = "SELECT * FROM ( " + query + ")" + " limit " + startIndex + " , " + endIndex;
+	console.log('Final query: ' + query);
+	return query;
 }
 
 function paramsToString(params) {
@@ -112,4 +114,6 @@ module.exports = {
 
 	bidForStuff: bidForStuff,
 	addLoanLog: addLoanLog,
+
+	getFilteredStuff: getFilteredStuff,
 };
