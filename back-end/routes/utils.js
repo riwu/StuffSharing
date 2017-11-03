@@ -1,4 +1,8 @@
-function cleanQueryList (queries) {
+import conn from './connection';
+
+const queries = require('./queries');
+
+function cleanQueryList(queries) {
 	const defaultValues = {'name': undefined, 'count': 20, 'page': 1, 'sort': 'name',
 						'asc': true, 'availableDate': undefined, 'maxLoan': undefined,
 						'category': undefined, 'priceHigh': undefined, 'priceLow': 0,
@@ -11,6 +15,10 @@ function cleanQueryList (queries) {
 		}
 	}
 	return queries;
+}
+
+function isValidUser(username, password) {
+
 }
 
 module.exports = {
