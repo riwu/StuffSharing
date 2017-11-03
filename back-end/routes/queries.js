@@ -72,7 +72,7 @@ function getFilteredStuff(filterList){
 		list.push("s.location LIKE \'%" + filterList.location + "%\'");
 	}
 	if(filterList.availableDate){
-		list.push("s.available_from <= " + filterList.availableDate);
+		list.push("s.available_from <= \"" + filterList.availableDate + "\"");
 	}
 	if(filterList.maxLoan){
 		list.push("s.max_loan_period >= " + filterList.maxLoan);
