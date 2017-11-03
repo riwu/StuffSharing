@@ -20,7 +20,7 @@ function cleanQueryList(queries) {
 function isValidUser(username, password) {
 	const login = {username, password};
 	const response = conn.query(queries.loginUser(login));
-	return response.then(data => return(data && data.length > 0));
+	return response.then(data => data && data.length > 0);
 }
 
 module.exports = {
