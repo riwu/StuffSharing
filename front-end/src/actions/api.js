@@ -18,6 +18,12 @@ const [post, patch, put] = ['post', 'patch', 'put'].map(method =>
 
 export default {
   getStuffs: (search) => {
+    const categoryMap = {
+      Price: 'price',
+      Condition: 'condition',
+      'Max Loan': 'max_loan_period',
+      'Available date': 'available_from',
+    };
     const query = {
       ...Object.entries(search)
         .filter(([key, value]) => ['name', 'count', 'page',
@@ -27,14 +33,17 @@ export default {
           return obj;
         }, {}),
       availableDate: moment(search.availableDate, 'D MMM YY').format('YYYY-MM-DD'),
-      category: search.category === 'All' ? undefined : search.category,
+      category: search.category === 'All' ? undefined : categoryMap[search.category],
       priceLow: search.price[0],
       priceHigh: search.price[1],
       conditionLow: search.condition[0],
       conditionHigh: search.condition[1],
       location: search.location.join(),
     };
-    return get(`stuff?${Object.entries(query).reduce((str, [key, value]) => `${str + key}=${encodeURIComponent(value)}&`, '')}`);
+
+    return get(`stuff?${Object.entries(query)
+      .filter(([key, value]) => value !== undefined && (typeof value !== 'string' || value.trim() !== ''))
+      .reduce((str, [key, value]) => `${str + key}=${encodeURIComponent(value)}&`, '')}`);
   },
   getUsers: () => get('users'),
   getLoans: () => get('bids'),
