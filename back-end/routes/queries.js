@@ -114,17 +114,14 @@ function getCommaSeparatedKeysValues(params) {
 
 
 function loginUser(details) {
-	return "SELECT * FROM user u WHERE u.username = " + details.username + " AND u.password = " + details.password;
+	return "SELECT * FROM user u WHERE u.username LIKE \'%" + details.username + "%\'" + " AND u.password = " + details.password;
 }
 
 function checkUsername(username) {
-	return "SELECT * FROM user u WHERE u.username = " + username;
+	return "SELECT * FROM user u WHERE u.username LIKE \'%" + username + "%\'";
 }
 
 function registerUser(details) {
-	for (var key in details) {
-		details[key] = "\'" + 
-	}
 	return "INSERT INTO user(username, password, email, first_name, last_name) VALUES (" + "\'" + details.username + "\'" + ", " + "\'" + details.password + "\'" + ", " + "\'" + details.email + "\'" + ", " + "\'" + details.first_name + "\'" + ", " + "\'" + details.last_name + "\'" + ")";
 }
 
