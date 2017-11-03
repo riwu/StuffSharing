@@ -3,7 +3,7 @@ import moment from 'moment';
 const initialState = {
   name: '',
   count: '10',
-  page: 1,
+  page: 0,
 
   sort: 'Price',
   asc: true,

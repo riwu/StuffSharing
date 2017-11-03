@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Stuff = ({ stuff, users }) => {
-  const owner = (users.find(user => user.id === stuff.owner) || {}).username;
-  const ownerLink = <Link to={`/users/${owner}`}>{owner}</Link>;
+const Stuff = ({ stuff }) => {
+  const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
   return (
     <div key={stuff.id} className="stuff">
       <div>Name: {stuff.name}</div>

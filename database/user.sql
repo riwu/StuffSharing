@@ -28,3 +28,4 @@ INSERT INTO `user` (`username`, `password`, `email`, `first_name`, `last_name`, 
 INSERT INTO `user` (`username`, `password`, `email`, `first_name`, `last_name`, `isAdmin`) VALUES ('Sonair', '575200075', 'mwhatsizer@feedburner.com', 'Marley', 'Whatsize','false');
 INSERT INTO `user` (`username`, `password`, `email`, `first_name`, `last_name`, `isAdmin`) VALUES ('Redhold', '53329808', 'rforbess@google.com', 'Rosalynd', 'Forbes','false');
 INSERT INTO `user` (`username`, `password`, `email`, `first_name`, `last_name`, `isAdmin`) VALUES ('Biodex', '66357180', 'aquinnellyt@deviantart.com', 'Addison', 'Quinnelly','false');
+INSERT INTO `user` (`username`, `password`, `email`, `first_name`, `last_name`, `isAdmin`) VALUES ('root','root123', 'asdfcv@qaq.com', 'Steven', 'Jobs', 'true');
