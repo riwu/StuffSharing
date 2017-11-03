@@ -111,11 +111,11 @@ function getCommaSeparatedKeysValues(params) {
 
 
 function loginUser(details) {
-	return "SELECT * FROM user u WHERE u.username LIKE \'%" + details.username + "%\'" + " AND u.password = " + details.password;
+	return "SELECT * FROM user u WHERE u.username = \'" + details.username + "\'" + " AND u.password = " + details.password + "\'";
 }
 
 function checkUsername(username) {
-	return "SELECT * FROM user u WHERE u.username LIKE \'%" + username + "%\'";
+	return "SELECT * FROM user u WHERE u.username = \'" + username + "\'";
 }
 
 function registerUser(details) {
