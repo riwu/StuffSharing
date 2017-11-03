@@ -29,19 +29,21 @@ router.post('/:stuffId/bid', function(req, res, next) {
 
 router.get('/', (req, res, next) => {
 	// List of all available things
-	if (req.query) {
-		return filterStuff(req.query, res);
-	} else {
-		const response = conn.query(queries.allStuffData);
-		return response.then(data => res.send(data));		
-	}
+	const pages = conn.query(queries.getPages);
+	return pages.then(numPages => {
+		if (req.query) {
+			return filterStuff(re.query, res, numPages);
+		} else {
+			const response = conn.query(queries.allStuffData);
+			return response.then(data => res.send({data, pages:numPages}));
+		}
+	});
 });
 
-function filterStuff(queryList, res) {
-	console.log('in filter');
+function filterStuff(queryList, res, numPages) {
 	queryList = utils.cleanQueryList(queryList);
 	const response = conn.query(queries.getFilteredStuff(queryList));
-	return response.then(data => res.send(data));
+	return response.then(data => res.send({data, pages: (1.0*numPages)/queryList.count}));
 }
 
 module.exports = router;

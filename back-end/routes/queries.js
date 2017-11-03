@@ -86,12 +86,9 @@ function getFilteredStuff(filterList){
 		order = "ASC";
 	}
 	query = query + " ORDER BY s." + filterList.sort + " " + order;
-	console.log('query: ' + query);
 	const startIndex = (filterList.page - 1) * filterList.count;
 	const endIndex = filterList.page * filterList.count;
-	console.log("**");
 	var query = query + " LIMIT " + startIndex + ", " + endIndex;
-	console.log('Final query: ' + query);
 	return query;
 }
 
@@ -152,4 +149,6 @@ module.exports = {
 	loginUser: loginUser,
 	checkUsername: checkUsername,
 	registerUser: registerUser,
+
+	getPages: 'SELECT COUNT(*) FROM stuff',
 };
