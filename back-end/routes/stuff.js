@@ -5,10 +5,7 @@ const queries = require('./queries');
 
 const router = express.Router();
 
-const filterString = '\?name={name}&count={count}&page={page}&sort={sort}&asc={asc}&
-				category={category}&priceLow={priceLow}&priceHigh={priceHigh}&
-				conditionLow={conditionLow}&conditionHigh={conditionHigh}&location={location}&
-				availableDate={availableDate}&maxLoan={maxLoan}&owner={owner}';
+const filterString = 'name={name}&count={count}&page={page}&sort={sort}&asc={asc}&category={category}&priceLow={priceLow}&priceHigh={priceHigh}&conditionLow={conditionLow}&conditionHigh={conditionHigh}&location={location}&availableDate={availableDate}&maxLoan={maxLoan}&owner={owner}';
 
 router.param('name', (req, res, next, name) => {
 	req.name = null;
@@ -50,13 +47,13 @@ router.param('asc', (req, res, next, asc) => {
 	next();
 });
 
-router.param('category', (req, res, next, category) {
+router.param('category', (req, res, next, category) => {
 	req.category = null;
 	if (category.length > 0) {
 		req.category = category;
 	}
 	next();
-})
+});
 
 router.param('priceLow', (req, res, next, priceLow) => {
 	req.priceLow = 0;

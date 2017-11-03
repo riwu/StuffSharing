@@ -1,5 +1,6 @@
 const mysql = require('promise-mysql');
 
+console.log(process.env.STUFF_PASSWORD);
 let conn;
 mysql.createConnection({
   host: 'mydbinstance.cbmbiclknx5e.ap-southeast-1.rds.amazonaws.com',
