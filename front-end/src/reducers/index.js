@@ -5,6 +5,7 @@ import loans from './loans';
 import bids from './bids';
 import search from './search';
 import user from './user';
+import actionFailed from './actionFailed';
 
 const app = combineReducers({
   users,
@@ -13,6 +14,7 @@ const app = combineReducers({
   bids,
   search,
   user,
+  actionFailed,
 });
 
 export default app;
