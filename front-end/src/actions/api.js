@@ -10,7 +10,7 @@ const get = path => fetch(API_BASE_URL + path).then(response => response.json())
 // );
 
 export default {
-  getStuffs: () => get('stuff'),
+  getStuffs: search => get('stuff'),
   getUsers: () => get('users'),
   getLoans: () => get('bids'),
   getBids: () => get('loans'),

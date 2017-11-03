@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem, DropdownButton, Form, ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { MenuItem, DropdownButton, Form, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 import 'rc-slider/assets/index.css';
@@ -13,7 +13,7 @@ import CountrySelect from './react-country-select';
 import './Search.css';
 
 
-const Search = ({ search, setFilter }) => (
+const Search = ({ search, setFilter, onSubmit }) => (
   <div className="Search">
     <Form inline className="search">
       <FormControl
@@ -170,9 +170,8 @@ const Search = ({ search, setFilter }) => (
       <ControlLabel>per page</ControlLabel>
     </Form>
 
-    <Button bsStyle="primary">Submit</Button>
+    <Button bsStyle="primary" onClick={() => onSubmit(search)}>Submit</Button>
   </div>
 );
-
 
 export default Search;

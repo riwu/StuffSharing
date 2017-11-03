@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Pagination from 'react-paginate';
+import { Button } from 'react-bootstrap';
 import Stuff from './Stuff';
 import './Stuffs.css';
 import Search from './SearchContainer';
+import Login from './Login';
 
 const Stuffs = props => (
   <div>
     <h1>Stuff catalogue</h1>
+    <Login />
     <Search />
     {props.stuffs.map(stuff => (
       <Stuff stuff={stuff} users={props.users} />
