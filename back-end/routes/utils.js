@@ -6,11 +6,11 @@ function cleanQueryList (queries) {
 						'location': undefined};
 	
 	for(var key in defaultValues) {
-		if(!queries.hasOwnProperty(key) || !queries[key]) {
+		if(!queries.hasOwnProperty(key) || queries[key]==null || queries[key]==undefined) {
 			queries[key] = defaultValues[key];
 		}
 	}
-	return defaultValues;
+	return queries;
 }
 
 module.exports = {
