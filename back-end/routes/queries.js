@@ -31,6 +31,51 @@ function addLoanLog(params) {
 	var keyValues = getCommaSeparatedKeysValues(params);
 	return 'INSERT INTO loan_log ('+ keyValues[0] + ') VALUES (' + keyValues[1] + ')';
 }
+function getFilteredStuff(filterList){
+	var SQLquery = "SELECT * FROM stuff s WHERE ";
+	var list = [];
+	var order;
+	if(filterList.name) {
+		list.push("s.name LIKE \'%" + filterList.name + "%\'");
+	}
+	if(filterList.category) {
+		list.push("s.location LIKE \'%" + filterList.category + "%\'");
+	}
+	if(filterList.priceLow) {
+		list.push("s.price >= " + filterList.priceLow);
+	}
+	if(filterList.priceHigh) {
+		list.push("s.price <= " + filterList.priceHigh);
+	}
+	if(filterList.conditionLow) {
+		list.push("s.condition >=" + filterList.conditionLow);
+	}
+	if(filterList.conditionHigh) {
+		list.push("s.condition <= " + filterList.conditionHigh);
+	}
+	if(filterList.location) {
+		list.push("s.location LIKE \'%" + filterList.location + "%\'");
+	}
+	if(filterList.availableDate){
+		list.push("s.available_from <= " + filterList.availableDate);
+	}
+	if(filterList.maxLoan){
+		list.push("s.max_loan_period >= " + filterList.maxLoan);
+	}
+	if(filterList.owner){
+		list.push("s.owner LIKE \'%" + filterList.owner + "%\'");
+	}
+	list.join(" AND ");
+	SQLquery = SQLquery + list;
+	if(filterList.asc) {
+		order = "ASC";
+	} else {
+		order = "DESC";
+	}
+	SQLquery = SQLquery + " ORDER BY " + filterList.sort + order;
+	SQLquery = "SELECT * FROM ( " + SQLquery + ")" + " " + " limit " + (page - 1) * count) + " , " + page * count;
+	return SQLquery;
+}
 
 function paramsToString(params) {
 	var query = '';
