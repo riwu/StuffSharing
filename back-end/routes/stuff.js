@@ -20,7 +20,7 @@ router.get('/:stuffid', (req, res, next) => {
 	return response.then(data => res.send(data));
 });
 
-router.post('/bid', function(req, res, next) {
+router.post('/:stuffId/bid', function(req, res, next) {
 	// Bid for this stuff
 	var bidInfo = {'user': req.body.user, 'bidAmt': req.body.bidAmt, 'stuffId': req.body.stuffId};
 	const response = conn.query(queries.bidForStuff(bidInfo));
