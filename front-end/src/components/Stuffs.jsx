@@ -1,38 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import Pagination from 'react-paginate';
+import Stuff from './Stuff';
 import './Stuffs.css';
+import Search from './SearchContainer';
 
-class App extends React.Component {
-  render() {
-    const props = this.props;
-    return (
-      <div>
-        <h1>Stuff catalogue</h1>
-        {props.stuffs.map((stuff) => {
-          const owner = (props.users.find(user => user.id === stuff.owner) || {}).username;
-          const ownerLink = <Link to={`/users/${owner}`}>{owner}</Link>;
-          return (
-            <div key={stuff.id} className="stuff">
-              <div>Name: {stuff.name}</div>
-              <div>Description: {stuff.desc}</div>
-              <div>Price: ${stuff.price}</div>
-              <div>Location: {stuff.location}</div>
-              <div>Condition: {stuff.condition}</div>
-              <div>Owner: {ownerLink}</div>
-              <div>Available from: {stuff.available_from}</div>
-              <div>Max loan period: {stuff.max_loan_period} days</div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
+const Stuffs = props => (
+  <div>
+    <h1>Stuff catalogue</h1>
+    <Search />
+    {props.stuffs.map(stuff => (
+      <Stuff stuff={stuff} users={props.users} />
+    ))}
+    <Pagination
+      onPageChange={({ selected }) => {}}
+      pageCount={10}
+      initialPage={0}
+      pageRangeDisplayed={5}
+      marginPagesDisplayed={1}
+      breakLabel={<a href="">...</a>}
+      breakClassName={'break-me'}
+      containerClassName={'pagination'}
+      subContainerClassName={'pages pagination'}
+      activeClassName={'active'}
+    />
+  </div>
+);
 
 const mapStateToProps = state => ({
   stuffs: state.stuffs,
   users: state.users,
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Stuffs);
