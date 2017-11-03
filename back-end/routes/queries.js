@@ -122,13 +122,16 @@ function checkUsername(username) {
 }
 
 function registerUser(details) {
+	for (var key in details) {
+		details[key] = "\'" + 
+	}
 	return "INSERT INTO user(username, password, email, first_name, last_name) VALUES (" + "\'" + details.username + "\'" + ", " + "\'" + details.password + "\'" + ", " + "\'" + details.email + "\'" + ", " + "\'" + details.first_name + "\'" + ", " + "\'" + details.last_name + "\'" + ")";
 }
 
 module.exports = {
 	allSafeUserData: 'SELECT id, username, email, first_name, last_name FROM user',
 	allUserData: 'SELECT * FROM user',
-	allStuffData: 'SELECT * FROM stuff',
+	allStuffData: 'SELECT * FROM stuff AS s, user AS u WHERE s.owner=u.id',
 	allBidData: 'SELECT * FROM bid_log ORDER BY bid_amt DESC',
 	allLoanData: 'SELECT * FROM loan_log ORDER BY loan_date',
 
