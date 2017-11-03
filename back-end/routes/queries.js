@@ -67,19 +67,18 @@ function getFilteredStuff(filterList){
 		list.push("s.owner LIKE \'%" + filterList.owner + "%\'");
 	}
 	query = query + list.join(" AND ");
+	var order = "DESC";
 	if(filterList.asc) {
 		order = "ASC";
-	} else {
-		order = "DESC";
 	}
 	query = query + " ORDER BY s." + filterList.sort + " " + order;
 	console.log('query: ' + query);
-	var startIndex = (page - 1) * count;
-	var endIndex = page * count;
+	const startIndex = (filterList.page - 1) * filterList.count;
+	const endIndex = filterList.page * filterList.count;
 	console.log("**");
-	var fquery = "SELECT * FROM ( " + query + ") " + " LIMIT " + startIndex + " , " + endIndex;
-	console.log('Final query: ' + fquery);
-	return fquery;
+	var query = query + " LIMIT " + startIndex + ", " + endIndex;
+	console.log('Final query: ' + query);
+	return query;
 }
 
 function paramsToString(params) {
