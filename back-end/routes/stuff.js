@@ -32,7 +32,7 @@ router.get('/', (req, res, next) => {
 	const pages = conn.query(queries.getPages);
 	return pages.then(numPages => {
 		if (req.query) {
-			return filterStuff(re.query, res, numPages);
+			return filterStuff(req.query, res, numPages);
 		} else {
 			const response = conn.query(queries.allStuffData);
 			return response.then(data => res.send({data, pages:numPages}));
