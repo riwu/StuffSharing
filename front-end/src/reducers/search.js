@@ -14,7 +14,7 @@ const initialState = {
   location: [
     { value: 'AF', label: 'Afghanistan' },
   ],
-  availableDate: moment(),
+  availableDate: moment().format('D MMM YY'),
   minLoan: 50,
   owner: '',
 };

@@ -4,8 +4,14 @@ import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 import 'rc-slider/assets/index.css';
 import { Range } from 'rc-slider';
-import CountrySelect from 'react-country-select';
+
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+
+import CountrySelect from './react-country-select';
+
 import './Search.css';
+
 
 const Search = ({ search, setFilter }) => (
   <div className="Search">
@@ -109,6 +115,28 @@ const Search = ({ search, setFilter }) => (
       />
       {' '}
       <ControlLabel>days</ControlLabel>
+    </Form>
+
+    <Form inline>
+      <ControlLabel>Owner</ControlLabel>
+      {' '}
+      <FormControl
+        type="text"
+        placeholder="Enter owner name"
+        value={search.name}
+        onChange={e => setFilter('name', e.target.value)}
+      />
+    </Form>
+
+
+    <Form inline>
+      <ControlLabel>Available on</ControlLabel>
+      {' '}
+      <DayPickerInput
+        value={search.availableDate}
+        format="D MMM YY"
+        onDayChange={day => setFilter('availableDate', day.format('D MMM YY'))}
+      />
     </Form>
 
     <Form inline>
