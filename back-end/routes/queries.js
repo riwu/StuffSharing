@@ -11,7 +11,7 @@ function deleteUser(username) {
 }
 
 function getStuffData(stuffId) {
-	return 'SELECT * FROM stuff WHERE id=' + stuffId;
+	return 'SELECT * FROM stuff AS s, user AS u WHERE u.id=s.owner AND s.id=' + stuffId;
 }
 
 function updateStuffDetails(stuffId, params) {
