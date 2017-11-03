@@ -23,7 +23,6 @@ app.use(logger((tokens, req, res) => [
   tokens['response-time'](req, res), 'ms',
   JSON.stringify(req.body),
 ].join(' ')));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
