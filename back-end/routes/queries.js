@@ -119,7 +119,7 @@ function checkUsername(username) {
 }
 
 function registerUser(details) {
-	return "INSERT INTO user(username, password, email, first_name, last_name) VALUES (" + "\'" + details.username + "\'" + ", " + "\'" + details.password + "\'" + ", " + "\'" + details.email + "\'" + ", " + "\'" + details.first_name + "\'" + ", " + "\'" + details.last_name + "\'" + ")";
+	return "INSERT INTO user(username, password, email, first_name, last_name, isAdmin) VALUES (" + "\'" + details.username + "\'" + ", " + "\'" + details.password + "\'" + ", " + "\'" + details.email + "\'" + ", " + "\'" + details.first_name + "\'" + ", " + "\'" + details.last_name + "\'" + "\'" + "false" + "\'" + ")";
 }
 
 module.exports = {
