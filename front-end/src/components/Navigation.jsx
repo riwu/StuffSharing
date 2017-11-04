@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import PostNew from './PostNew';
 
 const Navigation = props => (
   <Navbar inverse collapseOnSelect>
@@ -16,8 +17,9 @@ const Navigation = props => (
       {props.username
        ?
          <Nav pullRight>
+           <NavItem onClick={() => props.push('login')}>Post new stuff</NavItem>
 
-           <NavDropdown title={props.username}>
+           <NavDropdown title={props.username} id="user">
              <MenuItem onClick={props.logout}>Log out</MenuItem>
            </NavDropdown>
          </Nav>
@@ -29,6 +31,7 @@ const Navigation = props => (
       }
 
     </Navbar.Collapse>
+    <PostNew />
   </Navbar>
 );
 

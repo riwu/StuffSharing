@@ -11,7 +11,7 @@ const [post, patch, put] = ['post', 'patch', 'put'].map(method =>
     url: path,
     data: payload,
   }).catch((err) => {
-    console.log('encountered error for', path, ':', (err.response || {}).data);
+    console.log('encountered error for', path, ':', 'method:', method, (err.response || {}).data, payload);
     throw new Error((err.response || {}).data);
   }));
 

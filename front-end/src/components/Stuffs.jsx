@@ -9,7 +9,7 @@ import { setFilter, getStuffs } from '../actions';
 const Stuffs = props => (
   <div>
     <Search />
-    {props.stuffs.map(stuff => (
+    {props.stuffs.data.map(stuff => (
       <Stuff stuff={stuff} />
     ))}
     <Pagination

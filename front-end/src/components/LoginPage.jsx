@@ -46,7 +46,7 @@ const LoginPage = props => (
       </FormGroup>
     </Form>
 
-    <Button bsStyle="primary" onClick={() => props.login()}>Login</Button>
+    <Button bsStyle="primary" onClick={() => props.login(props.username, props.password)}>Login</Button>
     {props.loginFailed &&
       <Alert bsStyle="warning">Incorrect username or password!</Alert>
     }

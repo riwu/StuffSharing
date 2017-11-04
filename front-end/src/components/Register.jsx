@@ -78,7 +78,13 @@ const LoginPage = props => (
 
     <Button
       bsStyle="primary"
-      onClick={() => props.register(props)}
+      onClick={() => props.register({
+        username: props.username,
+        password: props.password,
+        email: props.email,
+        firstName: props.firstName,
+        lastName: props.lastName,
+      })}
     >Register</Button>
     {props.registerFailed &&
       <Alert bsStyle="warning">Username/Email taken!</Alert>
