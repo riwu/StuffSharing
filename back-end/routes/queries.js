@@ -11,7 +11,7 @@ function deleteUser(username) {
 }
 
 function getStuffData(stuffId) {
-	return 'SELECT * FROM stuff WHERE id=' + stuffId;
+	return 'SELECT * FROM stuff AS s, user AS u WHERE u.id=s.owner AND s.id=' + stuffId;
 }
 
 function updateStuffDetails(stuffId, params) {
@@ -111,11 +111,11 @@ function getCommaSeparatedKeysValues(params) {
 
 
 function loginUser(details) {
-	return "SELECT * FROM user u WHERE u.username LIKE \'%" + details.username + "%\'" + " AND u.password = " + details.password;
+	return "SELECT * FROM user u WHERE u.username = \'" + details.username + "\'" + " AND u.password = " + details.password + "\'";
 }
 
 function checkUsername(username) {
-	return "SELECT * FROM user u WHERE u.username LIKE \'%" + username + "%\'";
+	return "SELECT * FROM user u WHERE u.username = \'" + username + "\'";
 }
 
 function registerUser(details) {

@@ -5,7 +5,7 @@ const queries = require('./queries');
 
 const router = express.Router();
 
-router.get('/login', (req, res, next) => {
+router.post('/login', (req, res, next) => {
 	const login = {'username': req.body.username, 'password': req.body.password};
 	const response = conn.query(queries.loginUser(login));
 	return response.then(data => {
@@ -18,7 +18,7 @@ router.get('/login', (req, res, next) => {
 	 });
 });
 
-router.get('/register', (req, res, next) => {
+router.post('/register', (req, res, next) => {
 	const register = {'username': req.body.username, 'password': req.body.password,
 						'email': req.body.email, 'firstName': req.body.firstName,
 						'lastName': req.body.lastName};
@@ -28,9 +28,9 @@ router.get('/register', (req, res, next) => {
 			res.status(500);
 		} else {
 			const response2 = conn.query(queries.registerUser(register));
-			response2.then(data => res.end());
+			response2.then(res.end());
+			return;
 		}
-		res.send(data)
 	});
 });
 

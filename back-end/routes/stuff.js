@@ -30,7 +30,8 @@ router.post('/:stuffId/bid', function(req, res, next) {
 router.get('/', (req, res, next) => {
 	// List of all available things
 	const pages = conn.query(queries.getPages);
-	return pages.then(numPages => {
+	return pages.then(pageData => {
+		const numPages = pageData[0]["COUNT(*)"];
 		if (req.query) {
 			return filterStuff(req.query, res, numPages);
 		} else {
