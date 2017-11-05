@@ -4,12 +4,12 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const admin = require('./routes/admin');
+const admin = require('./admin');
 // const analytics = require('./routes/analytics');
-const index = require('./routes/index');
-const me = require('./routes/me');
-const stuff = require('./routes/stuff');
-const users = require('./routes/users');
+const index = require('./index');
+const me = require('./me');
+const stuff = require('./stuff');
+const users = require('./users');
 
 const app = express();
 
