@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`bid_log` (
   `bid_amt` FLOAT(11) NULL DEFAULT 0,
   `user_id` INT(11) NOT NULL,
   `stuff_id` INT(11) NOT NULL,
-  `date_and_time` VARCHAR(100) NOT NULL,
+  `date_and_time` TIMESTAMP(10),
   PRIMARY KEY (`user_id`, `stuff_id`, `date_and_time`),
   INDEX `fk_bid_log_user1_idx` (`user_id` ASC),
   INDEX `fk_bid_log_stuff1_idx` (`stuff_id` ASC),
@@ -69,9 +69,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`loan_log` (
   `stuff` INT(11) NOT NULL,
   `borrower` INT(11) NOT NULL,
   `loan_date` DATE NOT NULL,
+  `date_and_time` TIMESTAMP(10),
   `return_date` DATE NULL DEFAULT NULL,
   `price` FLOAT(11) NULL DEFAULT 0,
-  PRIMARY KEY (`stuff`, `borrower`),
+  PRIMARY KEY (`stuff`, `borrower`, `date_and_time`),
   INDEX `borrower_idx` (`borrower` ASC),
   CONSTRAINT `stuff`
     FOREIGN KEY (`stuff`)
