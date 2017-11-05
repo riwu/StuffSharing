@@ -1,17 +1,13 @@
 .Stuffs {
-  display: flex;
-  justify-content: space-between;
-}
-
-.Stuffs .stuffsWithPagination {
-  margin-left: 400px;
+  margin-left: 420px;
   text-align: center;
 }
 
 .Stuffs .stuffsList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+
 }
 
 .Stuffs .pagination {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { lifecycle, withStateHandlers, compose, mapProps } from 'recompose';
+import { lifecycle, withStateHandlers } from 'recompose';
 import api from '../actions/api';
 import './User.css';
 
@@ -35,15 +35,6 @@ const addLifeCycle = lifecycle({
   },
 });
 
-const combine = compose(
-  addState,
-  addLifeCycle,
-  mapProps((props) => {
-    console.log(props);
-    // return { user, stuffs })
-  }),
-);
-
 const User = ({ user }) => (
   <div>
     <div>Username: {user.username}</div>
@@ -58,4 +49,4 @@ const mapStateToProps = state => ({
   loggedUser: state.user,
 });
 
-export default connect(mapStateToProps)(combine(User));
+export default connect(mapStateToProps)(addState(addLifeCycle(User)));
