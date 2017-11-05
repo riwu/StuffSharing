@@ -51,19 +51,17 @@ router.post('/stuff/:stuffId/update', (req, res, next) => {
 		return res.send(404);
 	}
 	var stuffInfo = {'name': req.body.name, 'desc': req.body.desc, 'condition': req.body.condition, 'category': category,
-					  	'location': req.body.location, 'owner': req.body.owner, 'price': req.body.price,
+					  	'location': req.body.location, 'owner': req.body.user.username, 'price': req.body.price,
 					  	'available_from': req.body.available_from, 'max_loan_period': req.body.max_loan_period};
 	const response = conn.query(update.updateStuff(stuffId, stuffInfo));
 	return response.then(data => res.send(data));
 })
 
 router.get('/:username', (req, res, next) => {
-	// console.log(req);
 	console.log(req.username);
 	var list = getUserInfo(req.username, req.body.months);
 	return Promise.all(list).then(values => {
 		console.log('All User Info loaded');
-		console.log(JSON.stringify(values));
 		res.send(arrangeValues(values));
 	});
 });
