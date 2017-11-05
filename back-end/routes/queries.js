@@ -48,7 +48,7 @@ function addLoanLog(params) {
 }
 
 function getFilteredStuff(filterList) {
-  var query = 'SELECT * FROM stuff AS s, user AS u WHERE ';
+  var query = 'SELECT * FROM user AS u, stuff AS s WHERE ';
   const list = ['s.owner=u.id'];
   var order;
   console.log(filterList);

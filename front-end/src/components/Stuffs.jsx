@@ -7,26 +7,28 @@ import Search from './SearchContainer';
 import { setFilter, getStuffs } from '../actions';
 
 const Stuffs = props => (
-  <div>
+  <div className="Stuffs">
     <Search />
-    {props.stuffs.data.map(stuff => (
-      <Stuff stuff={stuff} />
+    <div>
+      {props.stuffs.data.map(stuff => (
+        <Stuff key={stuff.id} stuff={stuff} />
     ))}
-    <Pagination
-      onPageChange={({ selected }) => {
-        props.setFilter('page', selected);
-        props.getStuffs({ ...props.search, page: selected + 1 });
-      }}
-      pageCount={10}
-      forcePage={props.search.page}
-      pageRangeDisplayed={5}
-      marginPagesDisplayed={1}
-      breakLabel={<a href="">...</a>}
-      breakClassName={'break-me'}
-      containerClassName={'pagination'}
-      subContainerClassName={'pages pagination'}
-      activeClassName={'active'}
-    />
+      <Pagination
+        onPageChange={({ selected }) => {
+          props.setFilter('page', selected);
+          props.getStuffs({ ...props.search, page: selected + 1 });
+        }}
+        pageCount={props.stuffs.pages}
+        forcePage={props.search.page}
+        pageRangeDisplayed={5}
+        marginPagesDisplayed={1}
+        breakLabel={<a href="">...</a>}
+        breakClassName={'break-me'}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        activeClassName={'active'}
+      />
+    </div>
   </div>
 );
 
