@@ -9,18 +9,21 @@ import { setFilter, getStuffs } from '../actions';
 const Stuffs = props => (
   <div className="Stuffs">
     <Search />
-    <div>
-      {props.stuffs.data.map(stuff => (
-        <Stuff key={stuff.id} stuff={stuff} />
-    ))}
+    <div className="stuffsWithPagination">
+      <div className="stuffsList">
+        {props.stuffs.data.map(stuff => (
+          <Stuff key={stuff.id} stuff={stuff} />
+        ))}
+      </div>
       <Pagination
+        className="pagination"
         onPageChange={({ selected }) => {
           props.setFilter('page', selected);
           props.getStuffs({ ...props.search, page: selected + 1 });
         }}
         pageCount={props.stuffs.pages}
         forcePage={props.search.page}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={2}
         marginPagesDisplayed={1}
         breakLabel={<a href="">...</a>}
         breakClassName={'break-me'}

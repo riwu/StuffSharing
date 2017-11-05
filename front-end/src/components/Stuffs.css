@@ -2,3 +2,18 @@
   display: flex;
   justify-content: space-between;
 }
+
+.Stuffs .stuffsWithPagination {
+  margin-left: 300px;
+}
+
+.Stuffs .stuffsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Stuffs .pagination {
+  display: flex;
+  justify-content: center;
+}

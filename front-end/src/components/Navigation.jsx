@@ -15,7 +15,7 @@ const addState = withStateHandlers(
 );
 
 const Navigation = props => (
-  <Navbar inverse collapseOnSelect>
+  <Navbar inverse collapseOnSelect fixedTop>
     <Navbar.Header>
       <Navbar.Brand>
         <a tabIndex={0} role="link" onClick={() => props.push('')}>Stuff Sharing</a>
