@@ -26,6 +26,7 @@ const Login = props => (
     <FormGroup className="formGroup">
       <ControlLabel className="formLabel">Username</ControlLabel>
       <FormControl
+        autoComplete="username"
         value={props.username}
         onChange={e => props.setUsername(e.target.value)}
       />

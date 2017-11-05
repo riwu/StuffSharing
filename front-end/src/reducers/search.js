@@ -13,7 +13,7 @@ const initialState = {
   condition: [1, 5],
   location: [],
   availableDate: moment().format('D MMM YY'),
-  minLoan: 50,
+  minLoan: 0,
   owner: '',
 };
 

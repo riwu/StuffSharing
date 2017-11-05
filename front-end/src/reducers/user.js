@@ -1,5 +1,7 @@
 const initialState = {
   login: {},
+  info: {},
+  stuffs: [],
 };
 
 const user = (state = initialState, action) => {

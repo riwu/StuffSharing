@@ -37,6 +37,7 @@ export const setFilter = (name, value) => ({
 
 export const login = (username, password) => (dispatch) => {
   api.login(username, password).then(() => {
+    console.log('successfully logged in');
     dispatch({
       type: 'SET_LOG_IN',
       username,
@@ -48,14 +49,15 @@ export const login = (username, password) => (dispatch) => {
         type: 'RECEIVE_LOG_IN_USER_INFO',
         info,
       });
-    });
+    }).catch(() => console.log('failed to get user'));
     api.getStuffs({ owner: username }).then((stuffs) => {
       dispatch({
         type: 'RECEIVE_LOG_IN_USER_STUFFS',
         stuffs,
       });
-    });
-  }).catch(() => {
+    }).catch(() => console.log('failed to get stuffs'));
+  }).catch((e) => {
+    console.log('failed', e.message);
     dispatch({
       type: 'LOG_IN_FAILED',
     });
