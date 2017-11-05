@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const admin = require('./routes/admin');
-const analytics = require('./routes/analytics');
+// const analytics = require('./routes/analytics');
 const index = require('./routes/index');
 const me = require('./routes/me');
 const stuff = require('./routes/stuff');
@@ -35,7 +35,7 @@ app.use('/me', me);
 app.use('/users', users);
 app.use('/stuff', stuff);
 app.use('/admin', admin);
-app.use('/admin/analytics', analytics);
+// app.use('/admin/analytics', analytics);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
