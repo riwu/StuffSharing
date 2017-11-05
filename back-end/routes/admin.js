@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/add/stuff', (req, res, next) => {
 	// Add new stuff
-	if (utils.isAdmin({'username:' req.body.username, 'password': req.body.password}) == false) {
+	if (utils.isAdmin({username: req.body.username, password: req.body.password}) == false) {
 		return res.send(404);
 	}
 	var stuffInfo = {'name': req.body.name, 'desc': req.body.desc, 'condition': req.body.condition, 'category': category,
@@ -21,7 +21,7 @@ router.post('/add/stuff', (req, res, next) => {
 
 router.post('/delete/stuff', (req, res, next) => {
 	// Delete this stuff
-	if (utils.isAdmin({'username:' req.body.username, 'password': req.body.password}) == false) {
+	if (utils.isAdmin({username: req.body.username, password: req.body.password}) == false) {
 		return res.send(404);
 	}
 	const response = conn.query(queries.deleteStuff(req.body.stuffId));
@@ -30,7 +30,7 @@ router.post('/delete/stuff', (req, res, next) => {
 
 router.post('/delete/user', (req, res, next) => {
 	// Delete this user
-	if (utils.isAdmin({'username:' req.body.username, 'password': req.body.password}) == false) {
+	if (utils.isAdmin({username: req.body.username, password: req.body.password}) == false) {
 		return res.send(404);
 	}
 	const response = conn.query(queries.deleteUser(req.body.username));
