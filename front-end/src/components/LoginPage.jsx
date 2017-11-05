@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withStateHandlers } from 'recompose';
 import { login } from '../actions';
 import Register from './Register';
+import './LoginPage.css';
 
 const addState = withStateHandlers(
   {
@@ -21,9 +22,9 @@ const addState = withStateHandlers(
 );
 
 const LoginPage = props => (
-  <div>
-    <h2>Log in to your account</h2>
-    <Form inline>
+  <div className="LoginPage">
+    <h2 className="formGroup">Log in to your account</h2>
+    <Form inline className="formGroup">
       <FormGroup>
         <ControlLabel>Username</ControlLabel>
         {' '}
@@ -35,7 +36,7 @@ const LoginPage = props => (
       </FormGroup>
     </Form>
 
-    <Form inline>
+    <Form inline className="formGroup">
       <FormGroup>
         <ControlLabel>Password</ControlLabel>
         {' '}
@@ -47,7 +48,13 @@ const LoginPage = props => (
       </FormGroup>
     </Form>
 
-    <Button bsStyle="primary" onClick={() => props.login(props.username, props.password)}>Login</Button>
+    <Button
+      style={{ width: '200px' }}
+      bsStyle="primary"
+      onClick={() => props.login(props.username, props.password)}
+    >
+      Login
+    </Button>
     {props.loginFailed &&
       <Alert bsStyle="warning">Incorrect username or password!</Alert>
     }
