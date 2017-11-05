@@ -11,13 +11,21 @@ function getBidsFor(username, stuffId) {
   return `${getAllMyBids(username)} s.id=${stuffId}`;
 }
 
-function bidForStuff(stuffId, params) {
-  const keyValues = getCommaSeparatedKeysValues(params);
-  return `INSERT INTO bid_log (${keyValues[0]}) VALUES (${keyValues[1]}) WHERE id=${stuffId}`;
+function bidForStuff(bidDetails){
+  return `INSERT INTO bid_log (bid_amt, user_id, stuff_id, date_and_time) VALUES (` +
+        `${bidDetails.bidAmt},(SELECT u.id FROM user u WHERE u.username=${bidDetails.user}),` + 
+        `${bidDetails.stuffId}, ${bidDetails.timestamp})`;
 }
 
-function setBidWinner(bidDetails) {
+function updateBidLog(bidDetails){
+  return `UPDATE bid_log b SET b.bid_amt=${bidDetails.bidAmt}, date_and_time=${bidDetails.timestamp}` + 
+              ` WHERE b.stuff_id=${bidDetails.stuffId}` + 
+              ` AND b.user_id=(SELECT u.id FROM user u WHERE u.username=${bidDetails.user})`;
+}
 
+function deleteBidLog(bidDetails) {
+  return `DELETE FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND date_and_time=${bidDetails.timestamp}` +
+          ` AND user_id=(SELECT id FROM user WHERE username=${bidDetails.user})`;
 }
 
 function paramsToString(params) {
@@ -45,6 +53,8 @@ module.exports = {
 	getAllMyBids,
 	getBidsFor,
 	bidForStuff,
-	setBidWinner,
+
+  updateBidLog,
+  deleteBidLog,
 };
 

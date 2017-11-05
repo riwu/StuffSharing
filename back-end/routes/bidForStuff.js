@@ -1,18 +1,3 @@
-function bidForStuff(bidDetails){
-	var query = "INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (" + 
-				bidDetails.bidAmt + ",(SELECT u.id FROM user u WHERE u.username = " + 
-                bidDetails.user + "," + bidDetails.stuffId + ")";
-    return query;
-}
-
-function updateBidLog(bidDetails){
-	var query = "UPDATE bid_log b SET b.bid_amt = " + bidDetails.bidAmt + 
-	            "WHERE b.stuff_id = " + bidDetails.stuffId + 
-	            "AND b.user_id = (SELECT u.id FROM user u WHERE u.username = " + bidDetails.user 
-	            + ")";
-    return query;
-}
-
 function selectBiddingItems(bidDetails){
 	var query = "SELECT DISTINCT s.name, u1.username, b.bid_amt FROM stuff s, bid_log b, user u1, user u2
                 WHERE b.user_id = (SELECT u2.id FROM user u2 WHERE u2.username = " + bidDetails.user +

@@ -1,5 +1,4 @@
 function stuffBorrowed(username) {
-	console.log('stuffBorrowed');
 	var stuffId = `SELECT l.stuff FROM loan_log AS l, user AS u` +
 			` WHERE l.borrower=u.id AND u.username=` + "\"" + username + "\"";
 	var q = `SELECT * FROM stuff WHERE id = ANY(${stuffId})`
@@ -8,7 +7,6 @@ function stuffBorrowed(username) {
 } 
 
 function stuffLent(username) {
-	console.log('stuff ent');
 	var stuffId = `SELECT l.stuff` +
 					` FROM loan_log AS l, user AS u, stuff AS s` +
 					` WHERE s.id=l.stuff AND s.owner=u.id AND u.username=` + "\"" + username + "\"";
@@ -16,7 +14,6 @@ function stuffLent(username) {
 }
 
 function totalEarned(username) {
-	console.log('TE');
 	return `SELECT SUM(l.price) FROM loan_log AS l, user AS u, stuff AS s` +
 			` WHERE s.id=l.stuff AND s.owner=u.id AND u.username=` + "\"" + username + "\"";
 }
@@ -26,8 +23,6 @@ function monthlyEarned(username) {
 }
 
 function totalSpent(username) {
-
-	console.log('TE');
 	return `SELECT SUM(l.price) FROM loan_log AS l, user AS u` + 
 			` WHERE l.borrower=u.id AND u.username=` + "\"" + username + "\"";
 }

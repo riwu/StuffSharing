@@ -33,7 +33,7 @@ function loginUser(login) {
 }
 
 function checkUsername(user) {
-  return conn.query('SELECT * FROM user u WHERE u.username = ? or u.email = ?', [user.username, user.email]);
+  return conn.query('SELECT * FROM user u WHERE u.username = ? OR u.email = ?', [user.username, user.email]);
 }
 
 function registerUser(details) {
