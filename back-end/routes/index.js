@@ -1,7 +1,7 @@
 import conn from './connection';
 
 const express = require('express');
-const queries = require('./queries');
+const queries = require('./queries/users');
 
 const router = express.Router();
 
@@ -49,9 +49,9 @@ router.get('/', (req, res, next) =>
 // });
 
 
-router.get('/loans', (req, res, next) => {
-  const response = conn.query(queries.allLoanData);
-  return response.then(data => res.send(data));
-});
+// router.get('/loans', (req, res, next) => {
+//   const response = conn.query(queries.allLoanData);
+//   return response.then(data => res.send(data));
+// });
 
 module.exports = router;

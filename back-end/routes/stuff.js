@@ -1,10 +1,18 @@
 import conn from './connection';
 
 const express = require('express');
-const queries = require('./queries');
+const bid = require('./queries/bid')
+const queries = require('./queries/stuff');
 const utils = require('./utils');
 
 const router = express.Router();
+
+router.all('*', (req, res, next) => {
+	if (utils.isValidUser({username: req.body.username, password: req.body.password}) == false) {
+		return res.send(404);
+	}
+	next();
+});
 
 router.param('stuffid', (req, res, next, stuffid) => {
 	req.stuffid = null;
@@ -23,7 +31,7 @@ router.get('/:stuffid', (req, res, next) => {
 router.post('/:stuffId/bid', function(req, res, next) {
 	// Bid for this stuff
 	var bidInfo = {'user': req.body.user, 'bidAmt': req.body.bidAmt, 'stuffId': req.body.stuffId};
-	const response = conn.query(queries.bidForStuff(bidInfo));
+	const response = conn.query(bid.bidForStuff(bidInfo));
 	return response.then(data => res.send(data));
 });
 
