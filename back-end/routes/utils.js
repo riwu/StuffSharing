@@ -17,9 +17,8 @@ function cleanQueryList(queries) {
 	return queries;
 }
 
-function isValidUser(username, password) {
-	const login = {username, password};
-	const response = conn.query(queries.loginUser(login));
+function isValidUser(details) {
+	const response = conn.query(queries.loginUser(details));
 	return response.then(data => data && data.length > 0);
 }
 

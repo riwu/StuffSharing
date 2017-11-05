@@ -41,14 +41,6 @@ router.get('/', (req, res, next) =>
   // return response.then(data => res.send(data));
 );
 
-
-// router.get('/me/update', function(req, res, next) {
-// 	// update my name password or email
-// 	// cannot change username
-// });
-
-
-
 router.get('/loans', (req, res, next) => {
   const response = conn.query(queries.allLoanData);
   return response.then(data => res.send(data));
