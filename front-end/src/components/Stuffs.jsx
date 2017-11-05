@@ -10,11 +10,18 @@ const Stuffs = props => (
   <div className="Stuffs">
     <Search />
     <div className="stuffsWithPagination">
+      {props.stuffs.data.length === 0 &&
+        <h1 className="noResult">
+          No results found!
+        </h1>
+      }
+
       <div className="stuffsList">
         {props.stuffs.data.map(stuff => (
           <Stuff key={stuff.id} stuff={stuff} />
         ))}
       </div>
+
       {props.stuffs.pages > 1 &&
         <Pagination
           className="pagination"
