@@ -52,5 +52,5 @@ export default {
   getBids: () => get('loans'),
   login: (username, password) => post('login', { username, password }),
   register: user => post('register', user),
-  postNew: stuff => post('new', stuff),
+  postNew: stuff => post('users/add/stuff', stuff),
 };

@@ -151,7 +151,15 @@ const PostNew = ({ setFilter, ...props }) => (
         bsStyle="primary"
         onClick={() => {
           api.postNew({
-
+            name: props.name,
+            desc: props.description,
+            condition: props.condition,
+            category: props.category,
+            location: props.location.label,
+            price: props.price,
+            available_from: moment(props.available_from, 'D MMM YY').format('YYYY-MM-DD'),
+            max_loan_period: props.loanDays,
+            user: props.user,
           }).then(() => props.onHide())
           .catch(e => props.setPostFailed(e.message));
         }}
@@ -163,4 +171,8 @@ const PostNew = ({ setFilter, ...props }) => (
   </Modal>
 );
 
-export default connect(null, {})(addState(PostNew));
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps, {})(addState(PostNew));
