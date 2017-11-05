@@ -1,7 +1,7 @@
 import conn from './connection';
 
 const express = require('express');
-const analytics = require('./analyticQueries');
+// const analytics = require('./analyticQueries');
 const stuff = require('./queries/stuff');
 const users = require('./queries/users');
 const utils = require('./utils');
