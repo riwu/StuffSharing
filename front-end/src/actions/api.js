@@ -38,7 +38,7 @@ export default {
       priceHigh: search.price[1] === 100 ? Number.MAX_VALUE : search.price[1],
       conditionLow: search.condition[0],
       conditionHigh: search.condition[1],
-      location: search.location.join(),
+      location: search.location.map(location => location.label).join(),
     };
 
     console.log('query', query);
