@@ -18,7 +18,7 @@ router.all('*', (req, res, next) => {
 router.post('/add/stuff', (req, res, next) => {
 	// Add new stuff
 	var stuffInfo = {'name': req.body.name, 'desc': req.body.desc, 'condition': req.body.condition, 'category': category,
-					  	'location': req.body.location, 'owner': req.body.owner, 'price': req.body.price,
+					  	'location': req.body.location, 'owner': req.body.user.username, 'price': req.body.price,
 					  	'available_from': req.body.available_from, 'max_loan_period': req.body.max_loan_period};
 
 	const response = conn.query(stuff.addStuff(stuffInfo));

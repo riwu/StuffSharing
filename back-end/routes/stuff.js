@@ -8,7 +8,7 @@ const utils = require('./utils');
 const router = express.Router();
 
 router.all('*', (req, res, next) => {
-	if (utils.isValidUser({username: req.body.username, password: req.body.password}) == false) {
+	if (utils.isValidUser({username: req.body.user.username, password: req.body.user.password}) == false) {
 		return res.send(404);
 	}
 	next();
