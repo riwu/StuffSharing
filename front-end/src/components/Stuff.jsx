@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Stuff = ({ stuff }) => {
   const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
   return (
-    <div key={stuff.id} className="stuff">
+    <div className="stuff">
       <div>Name: {stuff.name}</div>
       <div>Description: {stuff.desc}</div>
       <div>Price: ${stuff.price}</div>
