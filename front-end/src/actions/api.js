@@ -4,7 +4,7 @@ axios.defaults.baseURL = 'http://localhost:3001/';
 
 const get = path => axios.get(path).then(response => response.data);
 
-const [post, patch, put] = ['post', 'patch', 'put'].map(method =>
+const [post] = ['post'].map(method =>
   (path, payload) => axios({
     method,
     url: path,
@@ -27,4 +27,5 @@ export default {
   login: (username, password) => post('login', { username, password }),
   register: user => post('register', user),
   postNew: stuff => post('users/add/stuff', stuff),
+  deleteStuff: (stuffId, user) => post('stuff/delete', { stuffId, user }),
 };
