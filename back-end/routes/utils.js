@@ -1,6 +1,7 @@
 import conn from './connection';
 
-const queries = require('./queries');
+const stuff = require('./queries/stuff')
+const users = require('./queries/users');
 
 function cleanQueryList(queries) {
 	const defaultValues = {'name': undefined, 'count': 20, 'page': 1, 'sort': 'name',
@@ -18,17 +19,30 @@ function cleanQueryList(queries) {
 }
 
 function isValidUser(details) {
-	const response = conn.query(queries.loginUser(details));
-	return response.then(data => data && data.length > 0);
+	try {
+		const response = conn.query(users.loginUser(details));
+		console.log('HERE');
+		response.then(data => {
+			console.log('Test: ', data);
+			return (data && data.length > 0);
+		});
+	} catch(err) {
+		console.log('CATCH');
+		return false;
+	}
 }
 
 function isAdmin(details) {
-	const response = conn.query(queries.loginUser(details));
-	return response.then(data => data && data.length > 0 && data.isAdmin);
+	try {
+		const response = conn.query(users.loginUser(details));
+		return response.then(data => data && data.length > 0 && data.isAdmin);
+	} catch (err) {
+		return false;
+	}
 }
 
 module.exports = {
-	cleanQueryList: cleanQueryList,
-	isValidUser: isValidUser,
-	isAdmin: isAdmin,
+	cleanQueryList,
+	isValidUser,
+	isAdmin,
 };
