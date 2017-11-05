@@ -21,6 +21,7 @@
     "react-scripts": "1.0.11",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
+    "redux-persist": "^5.2.2",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
