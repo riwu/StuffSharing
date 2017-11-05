@@ -24,12 +24,12 @@ const Navigation = props => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav pullLeft>
-        <NavItem onClick={() => props.push('')}>Home</NavItem>
+        <NavItem onClick={() => props.push('faq')}>FAQ</NavItem>
       </Nav>
       {props.username
        ?
          <Nav pullRight>
-           <NavItem onClick={props.togglePostModal}>Post new stuff</NavItem>
+           <NavItem onClick={props.togglePostModal}>Post new item</NavItem>
 
            <NavDropdown title={props.username} id="user">
              <MenuItem onClick={props.logout}>Log out</MenuItem>

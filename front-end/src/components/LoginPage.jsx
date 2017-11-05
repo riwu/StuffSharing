@@ -28,6 +28,7 @@ const LoginPage = props => (
         <ControlLabel>Username</ControlLabel>
         {' '}
         <FormControl
+          autoComplete="username"
           value={props.username}
           onChange={e => props.setUsername(e.target.value)}
         />
