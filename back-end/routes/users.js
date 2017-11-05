@@ -25,6 +25,9 @@ router.param('username', (req, res, next, username) => {
 
 router.post('/add/stuff', (req, res, next) => {
 	// Add new stuff
+	if (utils.isValidUser({username: req.body.user.username, password: req.body.user.password}) == false) {
+		return res.send(404);
+	}
 	var stuffInfo = {'name': req.body.name, 'desc': req.body.desc, 'condition': req.body.condition, 'category': category,
 					  	'location': req.body.location, 'owner': req.body.user.username, 'price': req.body.price,
 					  	'available_from': req.body.available_from, 'max_loan_period': req.body.max_loan_period};
@@ -34,6 +37,9 @@ router.post('/add/stuff', (req, res, next) => {
 
 router.post('/stuff/delete', (req, res, next) => {
 	// Delete this stuff
+	if (utils.isValidUser({username: req.body.user.username, password: req.body.user.password}) == false) {
+		return res.send(404);
+	}
 	console.log("Ddelete Stuff");
 	const response = conn.query(stuff.deleteStuff(req.body.stuffId));
 	return response.then(data => res.send(data));
@@ -41,7 +47,9 @@ router.post('/stuff/delete', (req, res, next) => {
 
 router.post('/stuff/:stuffId/update', (req, res, next) => {
 	// Update this stuff
-	console.log("Update Stuff");
+	if (utils.isValidUser({username: req.body.user.username, password: req.body.user.password}) == false) {
+		return res.send(404);
+	}
 	var stuffInfo = {'name': req.body.name, 'desc': req.body.desc, 'condition': req.body.condition, 'category': category,
 					  	'location': req.body.location, 'owner': req.body.owner, 'price': req.body.price,
 					  	'available_from': req.body.available_from, 'max_loan_period': req.body.max_loan_period};
@@ -50,6 +58,7 @@ router.post('/stuff/:stuffId/update', (req, res, next) => {
 })
 
 router.get('/:username', (req, res, next) => {
+	// console.log(req);
 	console.log(req.username);
 	var list = getUserInfo(req.username, req.body.months);
 	return Promise.all(list).then(values => {
