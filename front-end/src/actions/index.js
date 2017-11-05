@@ -12,6 +12,7 @@ export const getUsers = (dispatch) => {
 
 export const getStuffs = search => (dispatch) => {
   api.getStuffs(search).then((stuffs) => {
+    console.log('stuffs', stuffs);
     dispatch({
       type: 'RECEIVE_STUFFS',
       stuffs,

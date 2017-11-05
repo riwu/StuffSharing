@@ -35,11 +35,13 @@ export default {
       availableDate: moment(search.availableDate, 'D MMM YY').format('YYYY-MM-DD'),
       category: search.category === 'All' ? undefined : categoryMap[search.category],
       priceLow: search.price[0],
-      priceHigh: search.price[1],
+      priceHigh: search.price[1] === 100 ? Number.MAX_VALUE : search.price[1],
       conditionLow: search.condition[0],
       conditionHigh: search.condition[1],
       location: search.location.join(),
     };
+
+    console.log('query', query);
 
     return get(`stuff?${Object.entries(query)
       .filter(([key, value]) => value !== undefined && (typeof value !== 'string' || value.trim() !== ''))
