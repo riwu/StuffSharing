@@ -28,6 +28,15 @@ router.post('/:stuffId/bid', function(req, res, next) {
 	return response.then(data => res.send(data));
 });
 
+router.post('/delete', function(req, res, next) {
+	if (utils.isValidUser(req.body.user) == false) {
+		return res.status(404).end();
+	}
+	console.log('Delete Stuff');
+	const response = conn.query(queries.deleteStuff(req.body.stuffId));
+	return response.then(data => res.send(data));
+});
+
 router.get('/', (req, res, next) => {
 	// List of all available things
 	if (req.query) {
