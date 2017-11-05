@@ -29,6 +29,15 @@ router.post('/stuff/delete', (req, res, next) => {
 	return response.then(data => res.send(data));
 });
 
+router.post('/stuff/:stuffId/update', (req, res, next) => {
+	// Update this stuff
+	var stuffInfo = {'name': req.body.name, 'desc': req.body.desc, 'condition': req.body.condition, 'category': category,
+					  	'location': req.body.location, 'owner': req.body.owner, 'price': req.body.price,
+					  	'available_from': req.body.available_from, 'max_loan_period': req.body.max_loan_period};
+	const response = conn.query(queries.updateStuff(stuffId, stuffInfo));
+	return response.then(data => res.send(data));
+})
+
 router.get('/:username', (req, res, next) => {
 	return Promise.all(getUserInfo(username, req.body.months)).then(values => {
 		console.log('All User Info loaded');
