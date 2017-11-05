@@ -57,7 +57,7 @@ function getFilteredStuff(filterList) {
     list.push(`s.max_loan_period >= ${filterList.maxLoan}`);
   }
   if (filterList.owner) {
-    list.push(`s.owner = "${filterList.owner}"`);
+    list.push(`s.owner=(SELECT id FROM user WHERE username="${filterList.owner}")`);
   }
   query += list.join(' AND ');
   var order = 'DESC';
