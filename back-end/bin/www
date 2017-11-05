@@ -3,8 +3,9 @@
 /**
  * Module dependencies.
  */
-
-const app = require('../app');
+const path = (process.env.NODE_ENV === 'production') ? 'build' : 'routes';
+console.log('path', path, process.env.NODE_ENV);
+const app = require(`../${path}/app`);
 const debug = require('debug')('back-end:server');
 const http = require('http');
 

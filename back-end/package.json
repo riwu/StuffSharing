@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "babel-watch ./bin/www",
-    "build": "babel routes -d build --copy-files"
+    "build": "babel routes -d build --copy-files",
+    "deploy": "pm2 start ./bin/www --log-date-format='YYYY-MM-DD HH:mm:ss' --watch"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
