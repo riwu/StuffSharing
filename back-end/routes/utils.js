@@ -20,8 +20,9 @@ function cleanQueryList(queries) {
 
 function isValidUser(details) {
 	try {
-		const response = conn.query(users.loginUser(details));
-		console.log('HERE');
+		console.log("%%" +  JSON.stringify(details));
+		console.log(users.checkUser(details));
+		const response = conn.query(users.checkUser(details));
 		response.then(data => {
 			console.log('Test: ', data);
 			return (data && data.length > 0);
@@ -34,7 +35,7 @@ function isValidUser(details) {
 
 function isAdmin(details) {
 	try {
-		const response = conn.query(users.loginUser(details));
+		const response = conn.query(users.checkUser(details));
 		return response.then(data => data && data.length > 0 && data.isAdmin);
 	} catch (err) {
 		return false;

@@ -36,6 +36,10 @@ function checkUsername(user) {
   return conn.query('SELECT * FROM user u WHERE u.username = ? OR u.email = ?', [user.username, user.email]);
 }
 
+function checkUser(details) {
+  return `SELECT * FROM user WHERE username="${details.username}" AND password="${details.password}"`;
+}
+
 function registerUser(details) {
   return conn.query('INSERT INTO user SET ?', details);
 }
@@ -60,5 +64,6 @@ module.exports = {
 
 	loginUser,
 	checkUsername,
+  checkUser,
 	registerUser,
 };

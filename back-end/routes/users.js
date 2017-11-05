@@ -26,7 +26,7 @@ router.param('username', (req, res, next, username) => {
 
 router.post('/add/stuff', (req, res, next) => {
 	// Add new stuff
-  if (utils.isValidUser({ username: req.body.user.username, password: req.body.user.password }) == false) {
+  if (utils.isValidUser(req.body.user) == false) {
     console.log('invalid user');
     return res.status(401).end();
   }
@@ -40,7 +40,8 @@ router.post('/add/stuff', (req, res, next) => {
     price: req.body.price,
     available_from: req.body.available_from,
     max_loan_period: req.body.max_loan_period };
-  const response = conn.query(stuff.addStuff(stuffInfo));
+    console.log(stuffInfo);
+  const response = stuff.addStuff(stuffInfo);
   return response.then((data) => {
     console.log('sending back', data);
     res.send(data);

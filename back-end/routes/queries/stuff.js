@@ -1,3 +1,5 @@
+import conn from '../connection';
+
 function allStuffData() {
 	return `SELECT * FROM stuff AS s, user AS u WHERE s.owner=u.id`;
 }
@@ -7,8 +9,10 @@ function getStuffData(stuffId) {
 }
 
 function addStuff(stuffDetails) {
-  const keyValues = getCommaSeparatedKeysValues(stuffDetails);
-  return `INSERT INTO stuff (${keyValues[0]}) VALUES (${keyValues[1]})`;
+  const names = '(name,desc,category,condition,location,owner,price,available_from,max_loan_period)';
+  const values = `("${stuffDetails.name}","${stuffDetails.desc}","${stuffDetails.category}",${stuffDetails.condition},"${stuffDetails.location}",` +
+   ` (${getUserId(stuffDetails.owner)}),${stuffDetails.price},"${stuffDetails.available_from}",${stuffDetails.max_loan_period})`;
+   return conn.query("INSERT INTO stuff ? VALUES ?", [names, values]);
 }
 
 function deleteStuff(stuffId) {
@@ -74,7 +78,7 @@ function getFilteredStuff(filterList) {
 function paramsToString(params) {
   let query = '';
   for (var key in params) {
-    if(params[key]) {
+    if(params[key] && key!='owner' && !key.startsWith("user")) {
       query += ` ${key}=${params[key]},`;
     }
   }
@@ -89,6 +93,10 @@ function getCommaSeparatedKeysValues(params) {
     values.push(params[key]);
   }
   return [keys.join(), values.join()];
+}
+
+function getUserId(username) {
+  return `SELECT id FROM user WHERE username="${username}"`;
 }
 
 module.exports = {
