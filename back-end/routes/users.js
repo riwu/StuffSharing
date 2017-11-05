@@ -50,8 +50,8 @@ router.post('/add/stuff', (req, res, next) => {
 
 router.post('/stuff/delete', (req, res, next) => {
 	// Delete this stuff
-  if (utils.isValidUser({ username: req.body.user.username, password: req.body.user.password }) == false) {
-    return res.send(404);
+  if (utils.isValidUser(req.body.user) == false) {
+    return res.status(404).end();
   }
   console.log('Delete Stuff');
   const response = conn.query(stuff.deleteStuff(req.body.stuffId));
@@ -60,8 +60,8 @@ router.post('/stuff/delete', (req, res, next) => {
 
 router.post('/stuff/:stuffId/update', (req, res, next) => {
 	// Update this stuff
-  if (utils.isValidUser({ username: req.body.user.username, password: req.body.user.password }) == false) {
-    return res.send(404);
+  if (utils.isValidUser(req.body.user) == false) {
+    return res.status(404).end();
   }
   const stuffInfo = { name: req.body.name,
     desc: req.body.desc,
