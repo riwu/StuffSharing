@@ -19,6 +19,11 @@ function updateStuff(stuffId, stuffDetails) {
 	return `UPDATE stuff SET${paramsToString(params)} WHERE id=${stuffId}`;
 }
 
+function updateStuffLoan(stuffId, loanDate) {
+  return `UPDATE stuff SET available_from=ADDDATE(${loanDate}, max_loan_period)` +
+          ` WHERE id=${stuffId}`;
+}
+
 function getFilteredStuff(filterList) {
   var query = 'SELECT * FROM user AS u, stuff AS s WHERE ';
   const list = ['s.owner=u.id'];
@@ -92,6 +97,7 @@ module.exports = {
 	addStuff,
 	deleteStuff,
 	updateStuff,
+  updateStuffLoan,
 	getFilteredStuff,
 	getPages: 'SELECT COUNT(*) FROM stuff',
 };

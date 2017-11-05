@@ -67,7 +67,6 @@ router.get('/', (req, res, next) => {
 
 function getUserInfo(username, months) {
 	months = (months)? months : 6;
-	console.log("TEST ETS", months);
 	var qs = [ 	
 					analytics.stuffBorrowed(username), 
 					analytics.stuffLent(username),
@@ -81,7 +80,6 @@ function getUserInfo(username, months) {
 					queries.getUserStuff(username)
 				];
 	var promiseList = [];
-	// console.log(qs);
 	for(var query in qs) {
 		promiseList.push(conn.query(qs[query]));
 	}
