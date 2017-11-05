@@ -6,6 +6,13 @@ const queries = require('./queries');
 
 const router = express.Router();
 
+router.all('*', (req, res, next) => {
+	if (utils.isValidUser({username: req.body.username, password: req.body.password}) == false) {
+		return res.send(404);
+	}
+	next();
+});
+
 router.post('/add/stuff', (req, res, next) => {
 	// Add new stuff
 	var stuffInfo = {'name': req.body.name, 'desc': req.body.desc, 'condition': req.body.condition, 'category': category,
@@ -22,19 +29,18 @@ router.post('/stuff/delete', (req, res, next) => {
 	return response.then(data => res.send(data));
 });
 
-
-/* GET users listing. */
-router.get('/', (req, res, next) => {
-  const response = conn.query(queries.allSafeUserData);
-  return response.then(data => res.send(data));
-});
-
 router.get('/:username', (req, res, next) => {
 	return Promise.all(getUserInfo(username, req.body.months)).then(values => {
 		console.log('All User Info loaded');
 		console.log(JSON.stringify(values));
 		res.send(arrangeValues(values));
 	});
+});
+
+/* GET users listing. */
+router.get('/', (req, res, next) => {
+  const response = conn.query(queries.allSafeUserData);
+  return response.then(data => res.send(data));
 });
 
 function getUserInfo(username, months) {

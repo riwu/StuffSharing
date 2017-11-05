@@ -25,7 +25,7 @@ function updateStuffDetails(stuffId, params) {
   return `UPDATE stuff SET${paramsToString(params)} WHERE id=${stuffId}`;
 }
 
-function deleteStuffData(stuffId) {
+function deleteStuff(stuffId) {
   return `DELETE FROM stuff WHERE id=${stuffId}`;
 }
 
@@ -146,7 +146,7 @@ module.exports = {
   updateStuffDetails,
 
   deleteUser,
-  deleteStuffData,
+  deleteStuff,
 
   getAllMyBids,
   getBidsFor,
