@@ -157,7 +157,7 @@ const PostNew = ({ setFilter, ...props }) => (
             category: props.category,
             location: props.location.label,
             price: props.price,
-            available_from: moment(props.available_from, 'D MMM YY').format('YYYY-MM-DD'),
+            available_from: moment(props.availableFrom, 'D MMM YY').format('YYYY-MM-DD'),
             max_loan_period: props.loanDays,
             user: props.user,
           }).then(() => props.onHide())
