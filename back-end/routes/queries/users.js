@@ -12,12 +12,11 @@ function allUserData() {
 
 function getUserData(username) {
   console.log('userdata');
-  return `SELECT * FROM user WHERE username="${username}"`;
+  return `SELECT first_name, last_name, email FROM user WHERE username="${username}"`;
 }
 
 function getUserStuff(username) {
-  console.log('user stuf');
-  return `SELECT * FROM stuff AS s, user AS u WHERE s.owner=u.id AND u.username="${username}"`;
+  return `SELECT * FROM stuff WHERE owner=(SELECT id FROM user WHERE username="${username}")`;
 }
 
 function updateUser(username, params) {
