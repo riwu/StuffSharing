@@ -1,0 +1,22 @@
+.PostNew .formGroup {
+  margin-bottom: 25px;
+}
+
+.PostNew .inlineForm {
+  display: flex;
+}
+
+.PostNew .slider {
+  margin-left: 30px;
+  margin-right: 80px;
+  margin-bottom: 35px;
+}
+
+.PostNew .countrySelect {
+  margin-left: 20px;
+  width: 250px;
+}
+
+.PostNew .countryLabel {
+  margin-top: 6px;
+}

@@ -1,6 +1,18 @@
 import React from 'react';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import { withStateHandlers } from 'recompose';
 import PostNew from './PostNew';
+
+const addState = withStateHandlers(
+  {
+    showPostModal: false,
+  },
+  {
+    togglePostModal: ({ showPostModal }) => () => ({
+      showPostModal: !showPostModal,
+    }),
+  },
+);
 
 const Navigation = props => (
   <Navbar inverse collapseOnSelect>
@@ -17,7 +29,7 @@ const Navigation = props => (
       {props.username
        ?
          <Nav pullRight>
-           <NavItem onClick={() => props.push('login')}>Post new stuff</NavItem>
+           <NavItem onClick={props.togglePostModal}>Post new stuff</NavItem>
 
            <NavDropdown title={props.username} id="user">
              <MenuItem onClick={props.logout}>Log out</MenuItem>
@@ -31,8 +43,8 @@ const Navigation = props => (
       }
 
     </Navbar.Collapse>
-    <PostNew />
+    <PostNew show={props.showPostModal} onHide={props.togglePostModal} />
   </Navbar>
 );
 
-export default Navigation;
+export default addState(Navigation);
