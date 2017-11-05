@@ -48,7 +48,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`bid_log` (
   `bid_amt` FLOAT(11) NULL DEFAULT 0,
   `user_id` INT(11) NOT NULL,
   `stuff_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_id`, `stuff_id`),
+  `date_and_time` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`user_id`, `stuff_id`, `date_and_time`),
   INDEX `fk_bid_log_user1_idx` (`user_id` ASC),
   INDEX `fk_bid_log_stuff1_idx` (`stuff_id` ASC),
   CONSTRAINT `fk_bid_log_user1`
