@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from './SearchContainer';
-import Stuffs from './Stuffs';
+import Stuffs from './StuffsContainer';
 
 const HomePage = () => (
   <div>

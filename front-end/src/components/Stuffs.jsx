@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Pagination from 'react-paginate';
 import Stuff from './Stuff';
 import './Stuffs.css';
-import { setFilter, getStuffs } from '../actions';
 
 const Stuffs = props => (
   <div className="Stuffs">
@@ -40,9 +38,4 @@ const Stuffs = props => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  stuffs: state.stuffs,
-  search: state.search,
-});
-
-export default connect(mapStateToProps, { setFilter, getStuffs })(Stuffs);
+export default Stuffs;

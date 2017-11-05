@@ -1,5 +1,4 @@
 const initialState = {
-  login: {},
   info: {},
   stuffs: [],
 };
@@ -9,15 +8,7 @@ const user = (state = initialState, action) => {
     case 'SET_LOG_IN':
       return {
         ...state,
-        login: {
-          username: action.username,
-          password: action.password,
-        },
-      };
-    case 'RECEIVE_LOG_IN_USER_INFO':
-      return {
-        ...state,
-        info: action.info,
+        info: action.user,
       };
     case 'RECEIVE_LOG_IN_USER_STUFFS':
       return {

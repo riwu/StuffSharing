@@ -24,13 +24,13 @@ const Navigation = props => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav pullLeft>
-        <NavItem onClick={() => props.push('faq')}>FAQ</NavItem>
+        <NavItem onClick={() => props.push('/faq')}>FAQ</NavItem>
       </Nav>
       {props.username
        ?
          <Nav pullRight>
            <NavItem onClick={props.togglePostModal}>Post new item</NavItem>
-           <NavItem onClick={() => props.push(`users/${props.username}`)}>Inventory</NavItem>
+           <NavItem onClick={() => props.push(`/users/${props.username}`)}>Inventory</NavItem>
 
            <NavDropdown title={props.username} id="user">
              <MenuItem onClick={props.logout}>Log out</MenuItem>
@@ -39,7 +39,7 @@ const Navigation = props => (
 
        :
          <Nav pullRight>
-           <NavItem onClick={() => props.push('login')}>Login/Register</NavItem>
+           <NavItem onClick={() => props.push('/login')}>Login/Register</NavItem>
          </Nav>
       }
 

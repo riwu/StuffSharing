@@ -4,7 +4,7 @@ import Navigation from './Navigation';
 import { logout } from '../actions';
 
 const mapStateToProps = state => ({
-  username: state.user.login.username,
+  username: state.user.info.username,
 });
 
 export default connect(mapStateToProps, {

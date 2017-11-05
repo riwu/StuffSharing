@@ -40,16 +40,9 @@ export const login = (username, password) => (dispatch) => {
     console.log('successfully logged in', user);
     dispatch({
       type: 'SET_LOG_IN',
-      username: user.username,
-      password,
+      user,
     });
     dispatch(push('/'));
-    api.getUser(username).then((info) => {
-      dispatch({
-        type: 'RECEIVE_LOG_IN_USER_INFO',
-        info,
-      });
-    }).catch(() => console.log('failed to get user'));
     api.getStuffs({ owner: username }).then((stuffs) => {
       dispatch({
         type: 'RECEIVE_LOG_IN_USER_STUFFS',

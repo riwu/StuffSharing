@@ -1,0 +1,9 @@
+.User {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.User .info {
+  margin-bottom: 30px;
+}
