@@ -11,7 +11,7 @@ router.post('/login', (req, res, next) => {
   return response.then((data) => {
     console.log(`Login Data: ${data}`);
     if (data && data.length > 0) {
-      res.end();
+      res.send(data[0]);
     } else {
       res.status(401).end();
     }

@@ -20,7 +20,10 @@ const Stuff = ({ stuff, username }) => {
         <div>Available from: {moment(stuff.available_from).format('D MMM YY')}</div>
         <div>Max loan period: {stuff.max_loan_period} days</div>
       </div>
-      {username !== stuff.username &&
+      {username === stuff.username ?
+        <div className="button">
+          <Button bsStyle="primary">Delete</Button>
+        </div> :
         <div className="button">
           <Button bsStyle="primary">Bid</Button>
         </div>

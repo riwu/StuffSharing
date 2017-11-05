@@ -9,7 +9,9 @@ const [post, patch, put] = ['post', 'patch', 'put'].map(method =>
     method,
     url: path,
     data: payload,
-  }).catch((err) => {
+  })
+  .then(response => response.data)
+  .catch((err) => {
     console.log('encountered error for', path, ':', 'method:', method, (err.response || {}).data, payload);
     throw new Error((err.response || {}).data);
   }));
