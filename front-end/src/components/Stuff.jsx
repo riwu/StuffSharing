@@ -6,20 +6,26 @@ import { withStateHandlers } from 'recompose';
 import moment from 'moment';
 import './Stuff.css';
 import { deleteStuff } from '../actions';
+import Bid from './Bid';
 
 const addState = withStateHandlers(
   {
     deleted: false,
+    showBid: false,
   },
   {
     delete: () => () => ({
       deleted: true,
+    }),
+    toggleBid: ({ showBid }) => () => ({
+      showBid: !showBid,
     }),
   },
 );
 
 const Stuff = ({ stuff, user, ...props }) => {
   const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
+  console.log('stuff', stuff);
   return (
     <div className="Stuff">
       <div>
@@ -44,11 +50,11 @@ const Stuff = ({ stuff, user, ...props }) => {
           </Button>
         </div> :
         <div className="button">
-          <Button bsStyle="primary">Bid</Button>
+          <Button bsStyle="primary" onClick={props.toggleBid}>Bid</Button>
         </div>
       }
+      <Bid show={props.showBid} onHide={props.toggleBid} name={stuff.name} />
     </div>
-
   );
 };
 
