@@ -52,7 +52,7 @@ function getFilteredStuff(filterList) {
     list.push(`s.max_loan_period >= ${filterList.maxLoan}`);
   }
   if (filterList.owner) {
-    list.push(`s.owner LIKE "%${filterList.owner}%"`);
+    list.push(`s.owner = "${filterList.owner}"`);
   }
   query += list.join(' AND ');
   var order = 'DESC';
@@ -79,7 +79,7 @@ function paramsToString(params) {
 function getCommaSeparatedKeysValues(params) {
   let keys = [],
     values = [];
-  for (const key in params) {
+  for (var key in params) {
     keys.push(key);
     values.push(params[key]);
   }

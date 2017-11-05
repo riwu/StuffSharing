@@ -3,6 +3,7 @@ import { Form, FormControl, ControlLabel, FormGroup, Button, Alert, OverlayTrigg
 import { connect } from 'react-redux';
 import { withStateHandlers } from 'recompose';
 import { register } from '../actions';
+import './Register.css';
 
 const addState = withStateHandlers(
   {
@@ -23,6 +24,7 @@ const LoginPage = (props) => {
   const disabled = props.username.trim() === '' || props.password.trim() === '' || props.email.trim() === '';
   const Register = (
     <Button
+      style={{ width: '200px' }}
       bsStyle="primary"
       onClick={() => {
         if (disabled) return;
@@ -39,11 +41,11 @@ const LoginPage = (props) => {
     </Button>
   );
   return (
-    <div>
-      <h2>No account? Register now!</h2>
-      <Form inline>
+    <div className="Register">
+      <h2 className="formGroup">No account? Register now!</h2>
+      <Form inline className="formGroup">
         <FormGroup>
-          <ControlLabel>Username</ControlLabel>
+          <ControlLabel className="usernameAndPass">Username</ControlLabel>
           {' '}
           <FormControl
             value={props.username}
@@ -52,9 +54,9 @@ const LoginPage = (props) => {
         </FormGroup>
       </Form>
 
-      <Form inline>
+      <Form inline className="formGroup">
         <FormGroup>
-          <ControlLabel>Password</ControlLabel>
+          <ControlLabel className="usernameAndPass">Password</ControlLabel>
           {' '}
           <FormControl
             type="password"
@@ -64,10 +66,9 @@ const LoginPage = (props) => {
         </FormGroup>
       </Form>
 
-      <Form inline>
+      <Form inline className="formGroup">
         <FormGroup>
-          <ControlLabel>Email</ControlLabel>
-          {' '}
+          <ControlLabel className="emailLabel">Email</ControlLabel>
           <FormControl
             value={props.email}
             onChange={e => props.setValue('email', e.target.value)}
@@ -75,7 +76,7 @@ const LoginPage = (props) => {
         </FormGroup>
       </Form>
 
-      <Form inline>
+      <Form inline className="formGroup">
         <FormGroup>
           <ControlLabel>First Name</ControlLabel>
           {' '}
@@ -84,7 +85,9 @@ const LoginPage = (props) => {
             onChange={e => props.setValue('firstName', e.target.value)}
           />
         </FormGroup>
+      </Form>
 
+      <Form inline className="formGroup">
         <FormGroup>
           <ControlLabel>Last Name</ControlLabel>
           {' '}

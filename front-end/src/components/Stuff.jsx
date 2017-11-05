@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import moment from 'moment';
 import './Stuff.css';
 
-const Stuff = ({ stuff }) => {
+const Stuff = ({ stuff, username }) => {
   const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
   return (
     <div className="Stuff">
@@ -19,12 +20,18 @@ const Stuff = ({ stuff }) => {
         <div>Available from: {moment(stuff.available_from).format('D MMM YY')}</div>
         <div>Max loan period: {stuff.max_loan_period} days</div>
       </div>
-      <div className="button">
-        <Button bsStyle="primary">Bid</Button>
-      </div>
+      {username !== stuff.username &&
+        <div className="button">
+          <Button bsStyle="primary">Bid</Button>
+        </div>
+      }
     </div>
 
   );
 };
 
-export default Stuff;
+const mapStateToProps = state => ({
+  username: state.user.username,
+});
+
+export default connect(mapStateToProps)(Stuff);

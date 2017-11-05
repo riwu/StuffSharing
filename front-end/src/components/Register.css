@@ -1,0 +1,18 @@
+.Register {
+  margin-top: 90px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.Register .formGroup {
+  margin-bottom: 20px;
+}
+
+.Register .emailLabel {
+  margin-right: 39px;
+}
+
+.Register .usernameAndPass {
+  margin-right: 7px;
+}
