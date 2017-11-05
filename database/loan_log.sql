@@ -18,3 +18,12 @@ INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`)
 INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (19, 9, "2018-01-14", "2018-02-22", 5);
 INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (45, 23, "2018-10-21", "2018-10-23", 34.2);
 INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (24, 15, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (11, 15, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (12, 15, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (56, 15, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (58, 1, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (89, 1, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (52, 1, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (54, 17, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (62, 17, "2018-07-15", "2018-12-09", 10.5);
+INSERT INTO `loan_log`(`stuff`, `borrower`, `loan_date`, `return_date`, `price`) VALUES (67, 17, "2018-07-15", "2018-12-09", 10.5);
