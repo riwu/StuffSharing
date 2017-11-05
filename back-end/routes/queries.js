@@ -16,6 +16,11 @@ function getStuffData(stuffId) {
   return `SELECT * FROM stuff AS s, user AS u WHERE u.id=s.owner AND s.id=${stuffId}`;
 }
 
+function addStuff(stuffDetails) {
+  const keyValues = getCommaSeparatedKeysValues(stuffDetails);
+  return `INSERT INTO stuff (${keyValues[0]}) VALUES (${keyValues[1]})`;
+}
+
 function updateStuffDetails(stuffId, params) {
   return `UPDATE stuff SET${paramsToString(params)} WHERE id=${stuffId}`;
 }
@@ -131,6 +136,8 @@ module.exports = {
   allStuffData: 'SELECT * FROM stuff AS s, user AS u WHERE s.owner=u.id',
   allBidData: 'SELECT * FROM bid_log ORDER BY bid_amt DESC',
   allLoanData: 'SELECT * FROM loan_log ORDER BY loan_date',
+
+  addStuff,
 
   getUserData,
   getStuffData,
