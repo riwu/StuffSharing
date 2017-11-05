@@ -13,7 +13,7 @@ router.post('/login', (req, res, next) => {
     if (data && data.length > 0) {
       res.end();
     } else {
-      res.status(500);
+      res.status(401).end();
     }
 	 });
 });
@@ -27,10 +27,10 @@ router.post('/register', (req, res, next) => {
   const response = queries.checkUsername(register);
   return response.then((data) => {
     if (data && data.length > 0) {
-      res.status(500);
+      res.status(409).end();
     } else {
       const response2 = queries.registerUser(register);
-      response2.then(res.end());
+      response2.then(() => res.end());
     }
   });
 });
