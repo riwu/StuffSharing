@@ -22,7 +22,13 @@ function isValidUser(details) {
 	return response.then(data => data && data.length > 0);
 }
 
+function isAdmin(details) {
+	const response = conn.query(queries.loginUser(details));
+	return response.then(data => data && data.length > 0 && data.isAdmin);
+}
+
 module.exports = {
 	cleanQueryList: cleanQueryList,
 	isValidUser: isValidUser,
+	isAdmin: isAdmin,
 };
