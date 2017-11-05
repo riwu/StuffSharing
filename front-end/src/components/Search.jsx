@@ -15,15 +15,13 @@ import './Search.css';
 
 const Search = ({ search, setFilter, onSubmit }) => (
   <div className="Search">
-    <Form inline className="search">
-      <FormControl
-        className="formGroup"
-        type="text"
-        placeholder="Search"
-        value={search.name}
-        onChange={e => setFilter('name', e.target.value)}
-      />
-    </Form>
+    <FormControl
+      className="formGroup"
+      type="text"
+      placeholder="Search for item"
+      value={search.name}
+      onChange={e => setFilter('name', e.target.value)}
+    />
 
     <Form className="formGroup">
       <ControlLabel>Category</ControlLabel>
@@ -54,7 +52,7 @@ const Search = ({ search, setFilter, onSubmit }) => (
       />
     </Form>
 
-    <Form inline>
+    <Form inline className="formGroup">
       <ControlLabel>Minimum loan period:</ControlLabel>
       {' '}
       <FormControl
@@ -69,7 +67,7 @@ const Search = ({ search, setFilter, onSubmit }) => (
       <ControlLabel>days</ControlLabel>
     </Form>
 
-    <div className="filter">
+    <div className="sliderContainer">
       <ControlLabel>Price range</ControlLabel>
       <Range
         className="slider"
@@ -77,8 +75,8 @@ const Search = ({ search, setFilter, onSubmit }) => (
         marks={{
           0: 'FREE',
           100: 'MAX',
-          ...[...Array(9).keys()].reduce((obj, value) => {
-            const key = (value + 1) * 10;
+          ...[...Array(4).keys()].reduce((obj, value) => {
+            const key = (value + 1) * 20;
             obj[key] = '$' + key; //eslint-disable-line
             return obj;
           }, {}),
@@ -88,7 +86,7 @@ const Search = ({ search, setFilter, onSubmit }) => (
       />
     </div>
 
-    <Form className="filter">
+    <Form className="sliderContainer">
       <ControlLabel>Condition</ControlLabel>
       <Range
         className="slider"
@@ -131,31 +129,36 @@ const Search = ({ search, setFilter, onSubmit }) => (
       </div>
     </Form>
 
-    <Form inline>
-      <ControlLabel>Sort by</ControlLabel>
-      {' '}
-      <DropdownButton
-        id="Sort by"
-        title={search.sort}
-      >
-        {['Price', 'Condition', 'Max Loan', 'Available date'].map(category => (
-          <MenuItem
-            key={category}
-            onClick={() => setFilter('sort', category)}
-            active={search.sort === category}
-          >{category}</MenuItem>
-        ))}
-      </DropdownButton>
-      {' '}
-        Asc
-        <Switch
-          checked={search.asc}
-          onChange={value => setFilter('asc', value)}
-        />
-        Desc
-      </Form>
+    <Form inline className="formGroup">
+      <div className="sort">
+        <div>
+          <ControlLabel>Sort by</ControlLabel>
+          {' '}
+          <DropdownButton
+            id="Sort by"
+            title={search.sort}
+          >
+            {['Price', 'Condition', 'Max Loan', 'Available date'].map(category => (
+              <MenuItem
+                key={category}
+                onClick={() => setFilter('sort', category)}
+                active={search.sort === category}
+              >{category}</MenuItem>
+            ))}
+          </DropdownButton>
+        </div>
+        <div>
+          Asc{' '}
+          <Switch
+            checked={search.asc}
+            onChange={value => setFilter('asc', value)}
+          />
+          {' '}Desc
+        </div>
+      </div>
+    </Form>
 
-    <Form inline>
+    <Form inline className="formGroup">
       <ControlLabel>Show</ControlLabel>
       {' '}
       <FormControl
@@ -171,12 +174,15 @@ const Search = ({ search, setFilter, onSubmit }) => (
     </Form>
 
     <Button
+      className="submit"
       bsStyle="primary"
       onClick={() => {
         setFilter('page', 0);
         onSubmit({ ...search, page: 1 });
       }}
-    >Submit</Button>
+    >
+      Search now!
+    </Button>
   </div>
 );
 

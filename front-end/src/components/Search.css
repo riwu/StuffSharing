@@ -1,15 +1,14 @@
-.Search .filter {
-  margin-bottom: 30px;
+.Search {
+  position: fixed;
 }
 
-.Search .search {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.Search .sliderContainer {
+  margin-bottom: 40px;
 }
 
 .Search .formGroup {
   margin-right: 20px;
+  margin-bottom: 20px;
   z-index: 5;
 }
 
@@ -20,6 +19,7 @@
 .Search .countryContainer {
   display: flex;
   align-items: center;
+  margin-bottom: 25px;
 }
 
 .Search .controlLabel {
@@ -28,4 +28,15 @@
 
 .Search .slider {
   width: 300px;
+}
+
+.Search .submit {
+  display: flex;
+  margin: auto;
+}
+
+.Search .sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

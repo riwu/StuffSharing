@@ -1,0 +1,15 @@
+.Stuff {
+  display: flex;
+  border: 1px solid lightblue;
+  padding: 15px;
+  justify-content: space-between;
+  margin: 6px;
+  width: 300px;
+}
+
+.Stuff .button {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
