@@ -20,8 +20,7 @@ function updateStuff(stuffId, stuffDetails) {
 }
 
 function updateStuffLoan(stuffId, loanDate) {
-  return `UPDATE stuff SET available_from=` + 
-          `(${loanDate}+(SELECT max_loan_period FROM stuff WHERE id=${stuffId})+1)` +
+  return `UPDATE stuff SET available_from=ADDDATE(${loanDate}, max_loan_period)` +
           ` WHERE id=${stuffId}`;
 }
 
