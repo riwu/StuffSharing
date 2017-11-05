@@ -30,6 +30,7 @@ const Navigation = props => (
        ?
          <Nav pullRight>
            <NavItem onClick={props.togglePostModal}>Post new item</NavItem>
+           <NavItem onClick={() => props.push(`users/${props.username}`)}>Inventory</NavItem>
 
            <NavDropdown title={props.username} id="user">
              <MenuItem onClick={props.logout}>Log out</MenuItem>

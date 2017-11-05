@@ -47,9 +47,7 @@ export default {
       .filter(([key, value]) => value !== undefined && (typeof value !== 'string' || value.trim() !== ''))
       .reduce((str, [key, value]) => `${str + key}=${encodeURIComponent(value)}&`, '')}`);
   },
-  getUsers: () => get('users'),
-  getLoans: () => get('bids'),
-  getBids: () => get('loans'),
+  getUser: username => get(`users/${username}`),
   login: (username, password) => post('login', { username, password }),
   register: user => post('register', user),
   postNew: stuff => post('users/add/stuff', stuff),

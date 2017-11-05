@@ -172,7 +172,7 @@ const PostNew = ({ setFilter, ...props }) => (
 );
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user.login,
 });
 
 export default connect(mapStateToProps, {})(addState(PostNew));

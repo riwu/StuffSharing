@@ -1,12 +1,29 @@
-const user = (state = {}, action) => {
+const initialState = {
+  login: {},
+};
+
+const user = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOG_IN':
+    case 'SET_LOG_IN':
       return {
-        username: action.username,
-        password: action.password,
+        ...state,
+        login: {
+          username: action.username,
+          password: action.password,
+        },
+      };
+    case 'RECEIVE_LOG_IN_USER_INFO':
+      return {
+        ...state,
+        info: action.info,
+      };
+    case 'RECEIVE_LOG_IN_USER_STUFFS':
+      return {
+        ...state,
+        stuffs: action.stuffs,
       };
     case 'LOG_OUT':
-      return {};
+      return initialState;
     default:
       return state;
   }

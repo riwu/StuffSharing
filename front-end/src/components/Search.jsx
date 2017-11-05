@@ -12,7 +12,6 @@ import CountrySelect from './react-country-select';
 
 import './Search.css';
 
-
 const Search = ({ search, setFilter, onSubmit }) => {
   const onSearch = () => {
     setFilter('page', 0);

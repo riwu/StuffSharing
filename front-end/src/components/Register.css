@@ -7,12 +7,19 @@
 
 .Register .formGroup {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .Register .emailLabel {
-  margin-right: 39px;
+  margin-right: 43px;
 }
 
 .Register .usernameAndPass {
+  margin-right: 15px;
+}
+
+.Register .formLabel {
   margin-right: 7px;
 }

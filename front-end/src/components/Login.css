@@ -1,0 +1,14 @@
+.Login .formGroup {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.Login .formLabel {
+  margin-right: 7px;
+}
+
+.Login .button {
+  display: flex;
+  justify-content: center;
+}

@@ -1,11 +1,5 @@
 .LoginPage {
   align-items: center;
-  align-content: center;
-  align-self: center;
   display: flex;
   flex-direction: column;
-}
-
-.LoginPage .formGroup {
-  margin-bottom: 20px;
 }

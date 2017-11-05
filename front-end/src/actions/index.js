@@ -1,15 +1,6 @@
 import { push } from 'react-router-redux';
 import api from './api';
 
-export const getUsers = (dispatch) => {
-  api.getUsers().then((users) => {
-    dispatch({
-      type: 'RECEIVE_USERS',
-      users,
-    });
-  });
-};
-
 export const getStuffs = search => (dispatch) => {
   api.getStuffs(search).then((stuffs) => {
     console.log('stuffs', stuffs);
@@ -47,11 +38,23 @@ export const setFilter = (name, value) => ({
 export const login = (username, password) => (dispatch) => {
   api.login(username, password).then(() => {
     dispatch({
-      type: 'LOG_IN',
+      type: 'SET_LOG_IN',
       username,
       password,
     });
     dispatch(push('/'));
+    api.getUser(username).then((info) => {
+      dispatch({
+        type: 'RECEIVE_LOG_IN_USER_INFO',
+        info,
+      });
+    });
+    api.getStuffs({ owner: username }).then((stuffs) => {
+      dispatch({
+        type: 'RECEIVE_LOG_IN_USER_STUFFS',
+        stuffs,
+      });
+    });
   }).catch(() => {
     dispatch({
       type: 'LOG_IN_FAILED',

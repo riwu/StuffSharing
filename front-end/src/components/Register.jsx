@@ -24,7 +24,7 @@ const LoginPage = (props) => {
   const disabled = props.username.trim() === '' || props.password.trim() === '' || props.email.trim() === '';
   const Register = (
     <Button
-      style={{ width: '200px' }}
+      style={{ width: '150px' }}
       bsStyle="primary"
       onClick={() => {
         if (disabled) return;
@@ -43,60 +43,46 @@ const LoginPage = (props) => {
   return (
     <div className="Register">
       <h2 className="formGroup">No account? Register now!</h2>
-      <Form inline className="formGroup">
-        <FormGroup>
-          <ControlLabel className="usernameAndPass">Username</ControlLabel>
-          {' '}
-          <FormControl
-            value={props.username}
-            onChange={e => props.setValue('username', e.target.value)}
-          />
-        </FormGroup>
-      </Form>
+      <FormGroup className="formGroup">
+        <ControlLabel className="usernameAndPass">Username</ControlLabel>
+        <FormControl
+          value={props.username}
+          onChange={e => props.setValue('username', e.target.value)}
+        />
+      </FormGroup>
 
-      <Form inline className="formGroup">
-        <FormGroup>
-          <ControlLabel className="usernameAndPass">Password</ControlLabel>
-          {' '}
-          <FormControl
-            type="password"
-            value={props.password}
-            onChange={e => props.setValue('password', e.target.value)}
-          />
-        </FormGroup>
-      </Form>
+      <FormGroup className="formGroup">
+        <ControlLabel className="usernameAndPass">Password</ControlLabel>
+        <FormControl
+          type="password"
+          value={props.password}
+          onChange={e => props.setValue('password', e.target.value)}
+        />
+      </FormGroup>
 
-      <Form inline className="formGroup">
-        <FormGroup>
-          <ControlLabel className="emailLabel">Email</ControlLabel>
-          <FormControl
-            value={props.email}
-            onChange={e => props.setValue('email', e.target.value)}
-          />
-        </FormGroup>
-      </Form>
+      <FormGroup className="formGroup">
+        <ControlLabel className="emailLabel">Email</ControlLabel>
+        <FormControl
+          value={props.email}
+          onChange={e => props.setValue('email', e.target.value)}
+        />
+      </FormGroup>
 
-      <Form inline className="formGroup">
-        <FormGroup>
-          <ControlLabel>First Name</ControlLabel>
-          {' '}
-          <FormControl
-            value={props.firstName}
-            onChange={e => props.setValue('firstName', e.target.value)}
-          />
-        </FormGroup>
-      </Form>
+      <FormGroup className="formGroup">
+        <ControlLabel className="formLabel">First Name</ControlLabel>
+        <FormControl
+          value={props.firstName}
+          onChange={e => props.setValue('firstName', e.target.value)}
+        />
+      </FormGroup>
 
-      <Form inline className="formGroup">
-        <FormGroup>
-          <ControlLabel>Last Name</ControlLabel>
-          {' '}
-          <FormControl
-            value={props.lastName}
-            onChange={e => props.setValue('lastName', e.target.value)}
-          />
-        </FormGroup>
-      </Form>
+      <FormGroup className="formGroup">
+        <ControlLabel className="formLabel">Last Name</ControlLabel>
+        <FormControl
+          value={props.lastName}
+          onChange={e => props.setValue('lastName', e.target.value)}
+        />
+      </FormGroup>
       {disabled
        ?
          <OverlayTrigger

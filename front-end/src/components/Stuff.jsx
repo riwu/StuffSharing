@@ -31,7 +31,7 @@ const Stuff = ({ stuff, username }) => {
 };
 
 const mapStateToProps = state => ({
-  username: state.user.username,
+  username: state.user.login.username,
 });
 
 export default connect(mapStateToProps)(Stuff);
