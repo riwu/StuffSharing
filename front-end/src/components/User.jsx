@@ -29,7 +29,10 @@ const addLifeCycle = lifecycle({
       props.setStuffs(props.loggedUser.stuffs);
     } else {
       console.log('getting user', username);
-      api.getUser(username).then(user => props.setUser(user));
+      api.getUser(username).then((user) => {
+        console.log('gotten user', user);
+        props.setUser(user);
+      });
       api.getStuffs({ owner: username }).then(stuffs => props.setStuffs(stuffs));
     }
   },

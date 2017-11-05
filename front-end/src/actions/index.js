@@ -36,11 +36,11 @@ export const setFilter = (name, value) => ({
 });
 
 export const login = (username, password) => (dispatch) => {
-  api.login(username, password).then(() => {
-    console.log('successfully logged in');
+  api.login(username, password).then((user) => {
+    console.log('successfully logged in', user);
     dispatch({
       type: 'SET_LOG_IN',
-      username,
+      username: user.username,
       password,
     });
     dispatch(push('/'));

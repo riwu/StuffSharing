@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormControl, ControlLabel, FormGroup, Button, Alert, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { FormControl, ControlLabel, FormGroup, Button, Alert, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withStateHandlers } from 'recompose';
 import { register } from '../actions';

@@ -2,10 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { withStateHandlers } from 'recompose';
 import moment from 'moment';
 import './Stuff.css';
+import api from '../actions/api';
 
-const Stuff = ({ stuff, username }) => {
+const addState = withStateHandlers(
+  {
+    deleted: false,
+  },
+  {
+    delete: () => () => ({
+      deleted: true,
+    }),
+  },
+);
+
+const Stuff = ({ stuff, user, ...props }) => {
   const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
   return (
     <div className="Stuff">
@@ -20,7 +33,20 @@ const Stuff = ({ stuff, username }) => {
         <div>Available from: {moment(stuff.available_from).format('D MMM YY')}</div>
         <div>Max loan period: {stuff.max_loan_period} days</div>
       </div>
-      {username !== stuff.username &&
+      {user.username === stuff.username ?
+        <div className="button">
+          <Button
+            onClick={() => {
+              api.deleteStuff(stuff.id, user)
+                .then(() => props.delete())
+                .catch(e => alert('Failed to delete', e.message));
+            }}
+            bsStyle="primary"
+            disabled={props.deleted}
+          >
+            {props.deleted ? 'Deleted' : 'Delete'}
+          </Button>
+        </div> :
         <div className="button">
           <Button bsStyle="primary">Bid</Button>
         </div>
@@ -31,7 +57,7 @@ const Stuff = ({ stuff, username }) => {
 };
 
 const mapStateToProps = state => ({
-  username: state.user.login.username,
+  user: state.user.login,
 });
 
-export default connect(mapStateToProps)(Stuff);
+export default connect(mapStateToProps)(addState(Stuff));
