@@ -21,7 +21,7 @@ function addStuff(stuffDetails) {
   return `INSERT INTO stuff (${keyValues[0]}) VALUES (${keyValues[1]})`;
 }
 
-function updateStuffDetails(stuffId, params) {
+function updateStuff(stuffId, params) {
   return `UPDATE stuff SET${paramsToString(params)} WHERE id=${stuffId}`;
 }
 
@@ -101,8 +101,10 @@ function getFilteredStuff(filterList) {
 
 function paramsToString(params) {
   let query = '';
-  for (const key in params) {
-    query += ` ${key}=${params[key]},`;
+  for (var key in params) {
+    if(params[key]) {
+      query += ` ${key}=${params[key]},`;
+    }
   }
   return query.slice(0, -1);
 }
@@ -143,7 +145,7 @@ module.exports = {
   getStuffData,
 
   updateUserDetails,
-  updateStuffDetails,
+  updateStuff,
 
   deleteUser,
   deleteStuff,
