@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { withStateHandlers } from 'recompose';
 import moment from 'moment';
 import './Stuff.css';
-import api from '../actions/api';
+import { deleteStuff } from '../actions';
 
 const addState = withStateHandlers(
   {
@@ -36,11 +36,7 @@ const Stuff = ({ stuff, user, ...props }) => {
       {user.username === stuff.username ?
         <div className="button">
           <Button
-            onClick={() => {
-              api.deleteStuff(stuff.id, user)
-                .then(() => props.delete())
-                .catch(e => alert('Failed to delete', e.message));
-            }}
+            onClick={() => props.deleteStuff(stuff.id, user)}
             bsStyle="primary"
             disabled={props.deleted}
           >
@@ -60,4 +56,4 @@ const mapStateToProps = state => ({
   user: state.user.info,
 });
 
-export default connect(mapStateToProps)(addState(Stuff));
+export default connect(mapStateToProps, { deleteStuff })(addState(Stuff));

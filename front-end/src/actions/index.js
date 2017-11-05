@@ -35,6 +35,17 @@ export const setFilter = (name, value) => ({
   value,
 });
 
+export const deleteStuff = (stuffId, user) => (dispatch) => {
+  api.deleteStuff(stuffId, user)
+    .then(() => {
+      dispatch({
+        type: 'DELETED_STUFF',
+        id: stuffId,
+      });
+    })
+    .catch(e => alert('Failed to delete', e.message));
+};
+
 export const login = (username, password) => (dispatch) => {
   api.login(username, password).then((user) => {
     console.log('successfully logged in', user);

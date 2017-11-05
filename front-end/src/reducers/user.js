@@ -1,6 +1,6 @@
 const initialState = {
   info: {},
-  stuffs: [],
+  stuffs: { data: [], pageCount: 0 },
 };
 
 const user = (state = initialState, action) => {
@@ -14,6 +14,14 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         stuffs: action.stuffs,
+      };
+    case 'DELETED_STUFF':
+      return {
+        ...state,
+        stuffs: {
+          ...state.stuffs,
+          data: state.stuffs.data.filter(stuff => stuff.id !== action.id),
+        },
       };
     case 'LOG_OUT':
       return initialState;
