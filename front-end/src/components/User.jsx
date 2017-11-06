@@ -9,6 +9,8 @@ const addState = withStateHandlers(
   {
     user: {},
     stuffs: { data: [], pageCount: 0 },
+    bids: [],
+    page: 0,
   },
   {
     setUser: () => user => ({
@@ -32,14 +34,14 @@ const addLifeCycle = lifecycle({
       console.log('getting user', username);
       api.getUser(username).then((user) => {
         console.log('gotten user', user);
-        props.setUser(user);
+        props.setUser({ ...user.userData[0], username });
+        props.setStuffs({ data: user.userStuff, pages: 1 });
       });
-      api.getStuffs({ owner: username }).then(stuffs => props.setStuffs(stuffs));
     }
   },
 });
 
-const User = ({ user, stuffs }) => {
+const User = ({ user, stuffs, ...props }) => {
   console.log(user);
   return (
     <div className="User">
@@ -49,7 +51,14 @@ const User = ({ user, stuffs }) => {
         <div>First Name: {user.first_name}</div>
         <div>Last Name: {user.last_name}</div>
       </div>
-      <Stuffs stuffs={stuffs} />
+      {stuffs.data.length > 0 &&
+        <Stuffs
+          stuffs={stuffs}
+          search={{ page: props.page }}
+          setFilter={() => {}}
+          getStuffs={() => {}}
+        />
+      }
     </div>
   );
 };
