@@ -68,11 +68,10 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `mydb`.`loan_log` (
   `stuff` INT(11) NOT NULL,
   `borrower` INT(11) NOT NULL,
-  `loan_date` DATE NOT NULL,
-  `date_and_time` TIMESTAMP(10),
+  `loan_date_time` TIMESTAMP(10),
   `return_date` DATE NULL DEFAULT NULL,
   `price` FLOAT(11) NULL DEFAULT 0,
-  PRIMARY KEY (`stuff`, `borrower`, `date_and_time`),
+  PRIMARY KEY (`stuff`, `borrower`, `loan_date_time`),
   INDEX `borrower_idx` (`borrower` ASC),
   CONSTRAINT `stuff`
     FOREIGN KEY (`stuff`)
