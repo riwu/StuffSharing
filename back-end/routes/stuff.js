@@ -17,13 +17,22 @@ router.param('stuffId', (req, res, next, stuffId) => {
 });
 
 router.post('/:stuffId/bid/delete', (req, res, next) => {
-	const bidInfo = {stuffId: req.stuffId,  user: req.body.user, timestamp: req.body.timestamp};
+	if (utils.isValidUser(req.body.user) == false) {
+		console.log('invalid user');
+		return res.status(401).end();
+	}
+	const bidInfo = {stuffId: req.stuffId,  user: req.body.user.username, timestamp: req.body.timestamp};
+	const response = conn.query(bid.deleteBidLog(stuffId));
 });
 
 router.post('/:stuffId/bid', (req, res, next) => {
 	// Bid for this stuff
 	console.log(req.stuffId);
 	console.log(req.body);
+	if (utils.isValidUser(req.body.user) == false) {
+		console.log('invalid user');
+		return res.status(401).end();
+	}
 	const bidInfo = { user: req.body.user.username, bidAmt: req.body.bidAmt, stuffId: req.stuffId };
 	const response = conn.query(bid.bidForStuff(bidInfo));
 	return response.then(data => res.send(data));
@@ -56,7 +65,13 @@ router.get('/', (req, res, next) => {
 function filterStuff(queryList, res) {
   queryList = utils.cleanQueryList(queryList);
   const response = conn.query(queries.getFilteredStuff(queryList));
-  return response.then(data => res.send({ data, pages: 1 + parseInt(data.length / queryList.count) }));
+  return response.then(data => {
+  	var resp = queries.foundRows();
+  	return resp.then(rows => {
+  		const numRows = rows[0]['FOUND_ROWS()'];
+  		res.send({data, pages: Math.ceil(numRows/queryList.count)});
+  	});
+  });
 }
 
 module.exports = router;
