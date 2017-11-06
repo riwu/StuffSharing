@@ -70,9 +70,7 @@ function getFilteredStuff(filterList) {
     order = 'ASC';
   }
   query = `${query} ORDER BY s.${filterList.sort} ${order}`;
-  const startIndex = (filterList.page - 1) * filterList.count;
-  const endIndex = filterList.page * filterList.count;
-  query = `${query} LIMIT ${startIndex}, ${endIndex}`;
+  query = `${query} LIMIT ${filterList.count} OFFSET ${(filterList.page-1)*filterList.count}`;
   return query;
 }
 

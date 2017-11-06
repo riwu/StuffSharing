@@ -67,11 +67,8 @@ function filterStuff(queryList, res) {
   const response = conn.query(queries.getFilteredStuff(queryList));
   return response.then(data => {
   	var resp = queries.foundRows();
-  	console.log("CHECK HERE");
   	return resp.then(rows => {
-  		console.log(rows);
   		const numRows = rows[0]['FOUND_ROWS()'];
-  		console.log("numRows", numRows);
   		res.send({data, pages: Math.ceil(numRows/queryList.count)});
   	});
   });
