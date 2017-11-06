@@ -1,11 +1,12 @@
 import conn from '../connection';
 
 function allStuffData() {
-	return `SELECT * FROM stuff AS s, user AS u WHERE s.owner=u.id`;
+	return `SELECT s.*, u.username FROM stuff AS s, user AS u WHERE s.owner=u.id`;
 }
 
 function getStuffData(stuffId) {
-  return `SELECT * FROM stuff AS s, user AS u WHERE u.id=s.owner AND s.id=${stuffId}`;
+  return `SELECT s.*, u.username FROM stuff AS s, user AS u ` +
+            `WHERE s.owner=u.id AND s.id=${stuffId}`;
 }
 
 function addStuff(stuffDetails) {
@@ -29,7 +30,7 @@ function updateStuffLoan(stuffId, loanDate) {
 }
 
 function getFilteredStuff(filterList) {
-  var query = 'SELECT * FROM user AS u, stuff AS s WHERE ';
+  var query = 'SELECT s.*, u.username FROM user AS u, stuff AS s WHERE ';
   const list = ['s.owner=u.id'];
   var order;
   console.log(filterList);

@@ -1,9 +1,7 @@
 import conn from '../connection';
 
 function allSafeUserData() {
-  var q =`SELECT username, email, first_name, last_name FROM user`;
-  console.log(q);
-	return q;
+	return `SELECT username, email, first_name, last_name FROM user`;
 }
 
 function allUserData() {
@@ -11,7 +9,6 @@ function allUserData() {
 }
 
 function getUserData(username) {
-  console.log('userdata');
   return `SELECT first_name, last_name, email FROM user WHERE username="${username}"`;
 }
 
