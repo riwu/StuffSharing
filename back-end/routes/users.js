@@ -25,6 +25,7 @@ router.param('username', (req, res, next, username) => {
 
 router.post('/add/stuff', (req, res, next) => {
 	// Add new stuff
+  console.log('req', req.body);
   if (utils.isValidUser(req.body.user) == false) {
     console.log('invalid user');
     return res.status(401).end();
@@ -35,11 +36,11 @@ router.post('/add/stuff', (req, res, next) => {
     condition: req.body.condition,
     category: req.body.category,
     location: req.body.location,
-    owner: req.body.user.username,
+    owner: req.body.user.id,
     price: req.body.price,
     available_from: req.body.available_from,
     max_loan_period: req.body.max_loan_period };
-    console.log(stuffInfo);
+  console.log('stuff info', stuffInfo);
   const response = stuff.addStuff(stuffInfo);
   return response.then((data) => {
     console.log('sending back', data);

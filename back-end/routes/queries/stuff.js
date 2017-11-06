@@ -1,11 +1,11 @@
 import conn from '../connection';
 
 function allStuffData() {
-	return `SELECT s.*, u.username FROM stuff AS s, user AS u WHERE s.owner=u.id`;
+  return `SELECT s.*, u.username FROM stuff AS s, user AS u WHERE s.owner=u.id`;
 }
 
 function getStuffData(stuffId) {
-  return `SELECT s.*, u.username FROM stuff AS s, user AS u ` +
+  return 'SELECT s.*, u.username FROM stuff AS s, user AS u ' +
             `WHERE s.owner=u.id AND s.id=${stuffId}`;
 }
 
@@ -13,15 +13,15 @@ function addStuff(stuffDetails) {
   const names = '(name,desc,category,condition,location,owner,price,available_from,max_loan_period)';
   const values = `("${stuffDetails.name}","${stuffDetails.desc}","${stuffDetails.category}",${stuffDetails.condition},"${stuffDetails.location}",` +
    ` (${getUserId(stuffDetails.owner)}),${stuffDetails.price},"${stuffDetails.available_from}",${stuffDetails.max_loan_period})`;
-   return conn.query("INSERT INTO stuff ? VALUES ?", [names, values]);
+  return conn.query('INSERT INTO stuff SET ?', stuffDetails);
 }
 
 function deleteStuff(stuffId) {
-	return `DELETE FROM stuff WHERE id=${stuffId}`;
+  return `DELETE FROM stuff WHERE id=${stuffId}`;
 }
 
 function updateStuff(stuffId, stuffDetails) {
-	return `UPDATE stuff SET${paramsToString(params)} WHERE id=${stuffId}`;
+  return `UPDATE stuff SET${paramsToString(params)} WHERE id=${stuffId}`;
 }
 
 function updateStuffLoan(stuffId, loanDate) {
@@ -30,7 +30,7 @@ function updateStuffLoan(stuffId, loanDate) {
 }
 
 function getFilteredStuff(filterList) {
-  var query = 'SELECT s.*, u.username FROM user AS u, stuff AS s WHERE ';
+  let query = 'SELECT s.*, u.username FROM user AS u, stuff AS s WHERE ';
   const list = ['s.owner=u.id'];
   var order;
   console.log(filterList);
@@ -53,7 +53,7 @@ function getFilteredStuff(filterList) {
     list.push(`s.condition <= ${filterList.conditionHigh}`);
   }
   if (filterList.location) {
-    list.push(`s.location IN (?)`, filterList.location);
+    list.push('s.location IN (?)', filterList.location);
   }
   if (filterList.availableDate) {
     list.push(`s.available_from <= "${filterList.availableDate}"`);
@@ -78,8 +78,8 @@ function getFilteredStuff(filterList) {
 
 function paramsToString(params) {
   let query = '';
-  for (var key in params) {
-    if(params[key] && key!='owner' && !key.startsWith("user")) {
+  for (const key in params) {
+    if (params[key] && key != 'owner' && !key.startsWith('user')) {
       query += ` ${key}=${params[key]},`;
     }
   }
@@ -89,7 +89,7 @@ function paramsToString(params) {
 function getCommaSeparatedKeysValues(params) {
   let keys = [],
     values = [];
-  for (var key in params) {
+  for (const key in params) {
     keys.push(key);
     values.push(params[key]);
   }
@@ -101,12 +101,12 @@ function getUserId(username) {
 }
 
 module.exports = {
-	allStuffData,
-	getStuffData,
-	addStuff,
-	deleteStuff,
-	updateStuff,
+  allStuffData,
+  getStuffData,
+  addStuff,
+  deleteStuff,
+  updateStuff,
   updateStuffLoan,
-	getFilteredStuff,
-	getPages: 'SELECT COUNT(*) FROM stuff',
+  getFilteredStuff,
+  getPages: 'SELECT COUNT(*) FROM stuff',
 };
