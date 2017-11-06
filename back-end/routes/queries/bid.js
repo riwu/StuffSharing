@@ -3,7 +3,7 @@ function getAllBidData() {
 }
 
 function getAllMyBids(username) {
-  return `${'SELECT * from bid_log AS b, stuff AS s, user AS u ' +
+  return `${'SELECT b.*, s.*, u.username, u.email FROM bid_log AS b, stuff AS s, user AS u ' +
 				'WHERE b.stuff_id=s.id AND s.owner AND u.id == s.owner AND u.username='}${username}`;
 }
 
