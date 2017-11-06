@@ -8,6 +8,7 @@ import moment from 'moment';
 import './PostNew.css';
 import CountrySelect from './react-country-select';
 import api from '../actions/api';
+import { addStuff } from '../actions';
 
 const addState = withStateHandlers(
   {
@@ -150,7 +151,7 @@ const PostNew = ({ setFilter, ...props }) => (
         disabled={props.name.trim() === '' || props.description.trim() === '' || !props.location}
         bsStyle="primary"
         onClick={() => {
-          api.postNew({
+          const stuff = {
             name: props.name,
             desc: props.description,
             condition: props.condition,
@@ -160,7 +161,12 @@ const PostNew = ({ setFilter, ...props }) => (
             available_from: moment(props.availableFrom, 'D MMM YY').format('YYYY-MM-DD'),
             max_loan_period: props.loanDays,
             user: props.user,
-          }).then(() => props.onHide())
+          };
+          api.postNew(stuff).then((newStuff) => {
+            console.log('posted', newStuff);
+            props.onHide();
+            props.addStuff(newStuff[0]);
+          })
           .catch(e => props.setPostFailed(e.message));
         }}
       >
@@ -175,4 +181,4 @@ const mapStateToProps = state => ({
   user: state.user.info,
 });
 
-export default connect(mapStateToProps, {})(addState(PostNew));
+export default connect(mapStateToProps, { addStuff })(addState(PostNew));

@@ -19,7 +19,7 @@ const middleware = [thunk, routerMiddleware(history)];
 const config = {
   key: 'root',
   version: 1,
-  blacklist: ['actionFailed'],
+  blacklist: ['actionFailed', 'route'],
   storage,
 };
 const persistedReducer = persistReducer(config, reducer);

@@ -23,6 +23,17 @@ const user = (state = initialState, action) => {
           data: state.stuffs.data.filter(stuff => stuff.id !== action.id),
         },
       };
+    case 'ADDED_STUFF':
+      return {
+        ...state,
+        stuffs: {
+          ...state.stuffs,
+          data: [
+            ...state.stuffs.data,
+            action.stuff,
+          ],
+        },
+      };
     case 'LOG_OUT':
       return initialState;
     default:

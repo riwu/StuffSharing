@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import search from './search';
 import user from './user';
 import actionFailed from './actionFailed';
@@ -9,6 +10,7 @@ const app = combineReducers({
   user,
   actionFailed,
   stuffs,
+  route: routerReducer,
 });
 
 export default app;

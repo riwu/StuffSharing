@@ -46,6 +46,13 @@ export const deleteStuff = (stuffId, user) => (dispatch) => {
     .catch(e => alert('Failed to delete', e.message));
 };
 
+export const addStuff = stuff => (dispatch) => {
+  dispatch({
+    type: 'ADDED_STUFF',
+    stuff,
+  });
+};
+
 export const login = (username, password) => (dispatch) => {
   api.login(username, password).then((user) => {
     console.log('successfully logged in', user);

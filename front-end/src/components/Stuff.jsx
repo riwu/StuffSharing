@@ -23,9 +23,9 @@ const addState = withStateHandlers(
   },
 );
 
-const Stuff = ({ stuff, user, ...props }) => {
+const Stuff = ({ stuff, user, ...props, route }) => {
   const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
-  console.log('stuff', stuff);
+  console.log('user', user, route);
   return (
     <div className="Stuff">
       <div>
@@ -60,6 +60,7 @@ const Stuff = ({ stuff, user, ...props }) => {
 
 const mapStateToProps = state => ({
   user: state.user.info,
+  route: state.route,
 });
 
 export default connect(mapStateToProps, { deleteStuff })(addState(Stuff));
