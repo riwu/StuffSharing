@@ -30,7 +30,7 @@ function updateStuffLoan(stuffId, loanDate) {
 }
 
 function getFilteredStuff(filterList) {
-  var query = 'SELECT s.*, u.username FROM user AS u, stuff AS s WHERE ';
+  var query = 'SELECT SQL_CALC_FOUND_ROWS s.*, u.username FROM user AS u, stuff AS s WHERE ';
   const list = ['s.owner=u.id'];
   var order;
   console.log(filterList);
@@ -76,6 +76,10 @@ function getFilteredStuff(filterList) {
   return query;
 }
 
+function foundRows() {
+  return conn.query('SELECT FOUND_ROWS()');
+}
+
 function paramsToString(params) {
   let query = '';
   for (var key in params) {
@@ -108,5 +112,6 @@ module.exports = {
 	updateStuff,
   updateStuffLoan,
 	getFilteredStuff,
+  foundRows,
 	getPages: 'SELECT COUNT(*) FROM stuff',
 };
