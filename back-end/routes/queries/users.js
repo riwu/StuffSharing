@@ -47,8 +47,8 @@ function stuffBorrowed(username) {
 function stuffLent(username) {
   var stuffId = `SELECT l.stuff` +
           ` FROM loan_log AS l, user AS u, stuff AS s` +
-          ` WHERE s.id=l.stuff AND s.owner=u.id AND u.username=` + "\"" + username + "\"";
-  return `SELECT s.* stuff AS s WHERE s.id = ANY(${stuffId})`;
+          ` WHERE s.id=l.stuff AND s.owner=u.id AND u.username="${username}"`;
+  return `SELECT * FROM stuff WHERE id=ANY(${stuffId})`;
 }
 
 function totalEarned(username) {
@@ -57,7 +57,7 @@ function totalEarned(username) {
 }
 
 function monthlyEarned(username) {
-  return 'SELECT * from user';
+  return 'SELECT username from user';
 }
 
 function totalSpent(username) {
@@ -66,7 +66,7 @@ function totalSpent(username) {
 }
 
 function monthlySpent(username) {
-  return 'SELECT * from user';
+  return 'SELECT username from user';
 }
 
 function mostPopularStuff(username) {
