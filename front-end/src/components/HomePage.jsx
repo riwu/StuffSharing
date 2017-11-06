@@ -5,7 +5,9 @@ import Stuffs from './StuffsContainer';
 const HomePage = () => (
   <div>
     <Search />
-    <Stuffs />
+    <div style={{ marginLeft: '420px' }}>
+      <Stuffs />
+    </div>
   </div>
 );
 
