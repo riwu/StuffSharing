@@ -38,7 +38,7 @@ function getFilteredStuff(filterList) {
     list.push(`(s.name LIKE "%${filterList.name}%" OR s.desc LIKE "%${filterList.name}%")`);
   }
   if (filterList.category) {
-    list.push(`s.location LIKE "%${filterList.category}%"`);
+    list.push(`s.category LIKE "%${filterList.category}%"`);
   }
   if (filterList.priceLow) {
     list.push(`s.price >= ${filterList.priceLow}`);

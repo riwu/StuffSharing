@@ -48,7 +48,7 @@ function stuffLent(username) {
   var stuffId = `SELECT l.stuff` +
           ` FROM loan_log AS l, user AS u, stuff AS s` +
           ` WHERE s.id=l.stuff AND s.owner=u.id AND u.username=` + "\"" + username + "\"";
-  return `SELECT * FROM stuff WHERE id = ANY(${stuffId})`;
+  return `SELECT s.* stuff AS s WHERE s.id = ANY(${stuffId})`;
 }
 
 function totalEarned(username) {
