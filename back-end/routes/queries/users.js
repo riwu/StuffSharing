@@ -86,12 +86,11 @@ function favouriteCategory(username) {
   console.log('Fav stuff');
   return `SELECT s.category` + 
       ` FROM stuff AS s, bid_log AS b, user AS u` +
-      ` WHERE s.id=b.stuff_id AND b.user_id=u.id AND u.username=` + "\"" + username + "\"" + 
+      ` WHERE s.id=b.stuff_id AND b.user_id=u.id AND u.username="${username}"` +
       ` GROUP BY s.category` + 
       ` ORDER BY COUNT(*) DESC` +
       ` LIMIT 1`;
 }
-
 
 function registerUser(details) {
   return conn.query('INSERT INTO user SET ?', details);

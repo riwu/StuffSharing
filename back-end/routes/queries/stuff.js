@@ -73,7 +73,6 @@ function getFilteredStuff(filterList) {
   const startIndex = (filterList.page - 1) * filterList.count;
   const endIndex = filterList.page * filterList.count;
   query = `${query} LIMIT ${startIndex}, ${endIndex}`;
-  console.log(query)
   return query;
 }
 

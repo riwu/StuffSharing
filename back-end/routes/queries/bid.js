@@ -12,20 +12,26 @@ function getBidsFor(username, stuffId) {
 }
 
 function bidForStuff(bidDetails){
-  return `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
-        `${bidDetails.bidAmt},(SELECT u.id FROM user u WHERE u.username=${bidDetails.user}),` + 
-        `${bidDetails.stuffId})`;
+  console.log(bidDetails);
+  var q = `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
+            `${bidDetails.bidAmt},(${getUserId(bidDetails.user)}),` + 
+            `${bidDetails.stuffId})`;
+  return q;
 }
 
 function updateBidLog(bidDetails){
   return `UPDATE bid_log b SET b.bid_amt=${bidDetails.bidAmt}` + 
               ` WHERE b.stuff_id=${bidDetails.stuffId}` + 
-              ` AND b.user_id=(SELECT u.id FROM user u WHERE u.username=${bidDetails.user})`;
+              ` AND b.user_id=(${getUserId(bidDetails.user)})`;
 }
 
 function deleteBidLog(bidDetails) {
   return `DELETE FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND date_and_time=${bidDetails.timestamp}` +
-          ` AND user_id=(SELECT id FROM user WHERE username=${bidDetails.user})`;
+          ` AND user_id=(${getUserId(bidDetails.user)})`;
+}
+
+function getUserId(username) {
+  return `SELECT id FROM user WHERE username="${username}"`;
 }
 
 function paramsToString(params) {

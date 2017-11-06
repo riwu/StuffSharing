@@ -7,18 +7,13 @@ const utils = require('./utils');
 
 const router = express.Router();
 
-router.param('stuffid', (req, res, next, stuffid) => {
-  req.stuffid = null;
-  if (stuffid.length > 0) {
-    req.stuffid = stuffid;
+router.param('stuffId', (req, res, next, stuffId) => {
+  req.stuffId = null;
+  if (stuffId.length > 0) {
+    req.stuffId = stuffId;
   }
+  console.log("StuffId: ", stuffId, req.stuffId);
   next();
-});
-
-router.get('/:stuffid', (req, res, next) => {
-	// Detail view for stuff with stuff id
-  const response = conn.query(queries.getStuffData(req.stuffid));
-  return response.then(data => res.send(data));
 });
 
 router.post('/:stuffId/bid/delete', (req, res, next) => {
@@ -27,8 +22,16 @@ router.post('/:stuffId/bid/delete', (req, res, next) => {
 
 router.post('/:stuffId/bid', (req, res, next) => {
 	// Bid for this stuff
-  const bidInfo = { user: req.body.user, bidAmt: req.body.bidAmt, stuffId: req.stuffId };
-  const response = conn.query(bid.bidForStuff(bidInfo));
+	console.log(req.stuffId);
+	console.log(req.body);
+	const bidInfo = { user: req.body.user.username, bidAmt: req.body.bidAmt, stuffId: req.stuffId };
+	const response = conn.query(bid.bidForStuff(bidInfo));
+	return response.then(data => res.send(data));
+});
+
+router.get('/:stuffId', (req, res, next) => {
+	// Detail view for stuff with stuff id
+  const response = conn.query(queries.getStuffData(req.stuffId));
   return response.then(data => res.send(data));
 });
 
