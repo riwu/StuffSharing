@@ -1,7 +1,6 @@
 import conn from './connection';
 
 const express = require('express');
-const analytics = require('./userAnalytics');
 const queries = require('./queries/users.js');
 const stuff = require('./queries/stuff.js');
 const utils = require('./utils');
@@ -94,14 +93,14 @@ router.get('/', (req, res, next) => {
 function getUserInfo(username, months) {
   months = (months) || 6;
   const qs = [
-    analytics.stuffBorrowed(username),
-    analytics.stuffLent(username),
-    analytics.totalEarned(username),
-    analytics.monthlyEarned(username),
-    analytics.totalSpent(username),
-    analytics.monthlySpent(username),
-    analytics.mostPopularStuff(username),
-    analytics.favouriteCategory(username),
+    queries.stuffBorrowed(username),
+    queries.stuffLent(username),
+    queries.totalEarned(username),
+    queries.monthlyEarned(username),
+    queries.totalSpent(username),
+    queries.monthlySpent(username),
+    queries.mostPopularStuff(username),
+    queries.favouriteCategory(username),
     queries.getUserData(username),
     queries.getUserStuff(username),
   ];

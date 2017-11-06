@@ -21,6 +21,10 @@ router.get('/:stuffid', (req, res, next) => {
   return response.then(data => res.send(data));
 });
 
+router.post('/:stuffId/bid/delete', (req, res, next) => {
+	const bidInfo = {stuffId: req.stuffId,  user: req.body.user, timestamp: req.body.timestamp};
+});
+
 router.post('/:stuffId/bid', (req, res, next) => {
 	// Bid for this stuff
   const bidInfo = { user: req.body.user, bidAmt: req.body.bidAmt, stuffId: req.stuffId };

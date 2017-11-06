@@ -35,7 +35,7 @@ function getFilteredStuff(filterList) {
   var order;
   console.log(filterList);
   if (filterList.name) {
-    list.push(`s.name LIKE "%${filterList.name}%"`);
+    list.push(`(s.name LIKE "%${filterList.name}%" OR s.desc LIKE "%${filterList.name}%")`);
   }
   if (filterList.category) {
     list.push(`s.location LIKE "%${filterList.category}%"`);
@@ -72,7 +72,8 @@ function getFilteredStuff(filterList) {
   query = `${query} ORDER BY s.${filterList.sort} ${order}`;
   const startIndex = (filterList.page - 1) * filterList.count;
   const endIndex = filterList.page * filterList.count;
-  var query = `${query} LIMIT ${startIndex}, ${endIndex}`;
+  query = `${query} LIMIT ${startIndex}, ${endIndex}`;
+  console.log(query)
   return query;
 }
 
