@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = (process.env.NODE_ENV === 'development')
-  ? 'https://localhost:3001/'
-  : 'https://13.228.235.195:3001/';
+  ? 'http://localhost:3001/'
+  : 'https://www.wangriwu.com:3001/';
 
 const get = path => axios.get(path).then(response => response.data);
 

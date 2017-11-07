@@ -7,8 +7,7 @@ const path = (process.env.NODE_ENV === 'production') ? 'build' : 'routes';
 console.log('path', path, process.env.NODE_ENV);
 const app = require(`../${path}/app`);
 const debug = require('debug')('back-end:server');
-const https = require('https');
-const fs = require('fs');
+const http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -22,10 +21,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-const server = https.createServer({
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem'),
-}, app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
