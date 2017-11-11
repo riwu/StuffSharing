@@ -1,9 +1,20 @@
 import { push } from 'react-router-redux';
 import api from './api';
 
+export const setNotNewVisit = () => ({
+  type: 'SET_NOT_NEW_VISIT',
+});
+
+export const setFilter = (name, value) => ({
+  type: 'SET_FILTER',
+  name,
+  value,
+});
+
 export const getStuffs = search => (dispatch) => {
   api.getStuffs(search).then((stuffs) => {
     console.log('stuffs', stuffs);
+    dispatch(setFilter('page', 0));
     dispatch({
       type: 'RECEIVE_STUFFS',
       stuffs,
@@ -28,12 +39,6 @@ export const getBids = (dispatch) => {
     });
   });
 };
-
-export const setFilter = (name, value) => ({
-  type: 'SET_FILTER',
-  name,
-  value,
-});
 
 export const deleteStuff = stuffId => (dispatch) => {
   console.log('deleting', stuffId);

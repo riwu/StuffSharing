@@ -4,6 +4,7 @@ import search from './search';
 import user from './user';
 import actionFailed from './actionFailed';
 import stuffs from './stuffs';
+import newVisit from './newVisit';
 
 const app = combineReducers({
   search,
@@ -11,6 +12,7 @@ const app = combineReducers({
   actionFailed,
   stuffs,
   route: routerReducer,
+  newVisit,
 });
 
 export default app;

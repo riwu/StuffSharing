@@ -12,7 +12,7 @@ import CountrySelect from './react-country-select';
 
 import './Search.css';
 
-const Search = ({ search, setFilter, onSubmit }) => (
+const Search = ({ search, setFilter, getStuffs }) => (
   <div className="Search">
     <FormControl
       className="formGroup"
@@ -22,7 +22,7 @@ const Search = ({ search, setFilter, onSubmit }) => (
       onChange={e => setFilter('name', e.target.value)}
       onKeyPress={(e) => {
         if (e.key === 'Enter') {
-          onSubmit(search);
+          getStuffs(search);
         }
       }}
     />
@@ -180,7 +180,7 @@ const Search = ({ search, setFilter, onSubmit }) => (
     <Button
       className="submit"
       bsStyle="primary"
-      onClick={() => onSubmit(search)}
+      onClick={() => getStuffs(search)}
     >
         Search now!
       </Button>
