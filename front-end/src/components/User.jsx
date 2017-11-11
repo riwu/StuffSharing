@@ -19,20 +19,28 @@ const addState = withStateHandlers(
   },
 );
 
+const isAtOwnProfile = props => props.loggedUser.info.username === props.match.params.username;
+
 const addLifeCycle = lifecycle({
   componentWillMount() {
     const props = this.props;
-    const username = props.match.params.username;
-    if (props.loggedUser.info.username === username) {
+    if (isAtOwnProfile(props)) {
       console.log('logged', props.loggedUser);
       props.setUser(props.loggedUser);
     } else {
-      console.log('getting user', username);
-      api.getUser(username).then((user) => {
+      console.log('getting user', props.match.params.username);
+      api.getUser(props.match.params.username).then((user) => {
         console.log('gotten user', user);
         props.setUser(user);
       });
     }
+  },
+  componentWillReceiveProps(nextProps) {
+    if (!isAtOwnProfile(nextProps) || nextProps.loggedUser === this.props.loggedUser) {
+      return;
+    }
+    console.log('updated props', nextProps.loggedUser);
+    this.props.setUser(nextProps.loggedUser);
   },
 });
 

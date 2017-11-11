@@ -26,6 +26,7 @@ const addState = withStateHandlers(
 
 const Stuff = ({ stuff, ...props }) => {
   const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
+  console.log('stuff', stuff);
   return (
     <div className="Stuff">
       <div>

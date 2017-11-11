@@ -160,12 +160,11 @@ const PostNew = ({ setFilter, ...props }) => (
             price: props.price,
             available_from: moment(props.availableFrom, 'D MMM YY').format('YYYY-MM-DD'),
             max_loan_period: props.loanDays,
-            user: props.user,
           };
-          api.postNew(stuff).then((id) => {
-            console.log('posted', id);
+          api.postNew(stuff).then((data) => {
+            console.log('posted', data);
             props.onHide();
-            props.addStuff({ ...stuff, id });
+            props.addStuff({ ...stuff, id: data.id, username: data.username });
           })
           .catch(e => props.setPostFailed(e.message));
         }}
@@ -177,8 +176,4 @@ const PostNew = ({ setFilter, ...props }) => (
   </Modal>
 );
 
-const mapStateToProps = state => ({
-  user: state.user.info,
-});
-
-export default connect(mapStateToProps, { addStuff })(addState(PostNew));
+export default connect(null, { addStuff })(addState(PostNew));

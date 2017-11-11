@@ -9,11 +9,11 @@ const get = path => axios.get(path).then(response => response.data);
 
 const [post, del] = ['post', 'delete'].map(method =>
   (path, payload) => {
-    const { username, password } = store.getState().user.info;
+    const { username, password, id } = store.getState().user.info;
     return axios({
       method,
       url: path,
-      data: { ...payload, user: { username, password } },
+      data: { ...payload, user: { username, password, id } },
     })
     .then(response => response.data)
     .catch((err) => {
@@ -33,7 +33,7 @@ export default {
   login: (username, password) => post('login', { username, password }),
   register: user => post('register', user),
 
-  postNew: stuff => post('users/add/stuff', { stuff }),
+  postNew: stuff => post('users/add/stuff', stuff),
   deleteStuff: stuffId => del(`stuff/${stuffId}/delete`),
   bid: ({ bidAmt, stuffId }) => post(`stuff/${stuffId}/bid`, { bidAmt }),
 };

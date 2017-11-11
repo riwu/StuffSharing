@@ -38,7 +38,7 @@ router.post('/add/stuff', (req, res, next) => {
     const response = stuff.addStuff(stuffInfo);
     return response.then((data) => {
       console.log('sending back', data);
-      res.send(data.insertId);
+      res.send({ id: data.insertId, username: req.body.user.username });
     });
   });
 });
