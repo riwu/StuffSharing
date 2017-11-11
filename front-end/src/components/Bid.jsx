@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Modal, Button, Form, FormControl, ControlLabel } from 'react-bootstrap';
 import './PostNew.css';
 import api from '../actions/api';
@@ -16,10 +17,10 @@ const addState = withStateHandlers(
   },
 );
 
-const Bid = ({ setBid, ...props }) => (
+const Bid = props => (
   <Modal show={props.show} onHide={props.onHide} className="PostNew">
     <Modal.Header closeButton>
-      <Modal.Title>Bid for {props.name}</Modal.Title>
+      <Modal.Title>Bid for {props.stuff.name}</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <Form inline className="formGroup">
@@ -31,7 +32,7 @@ const Bid = ({ setBid, ...props }) => (
           max={9999}
           step={10}
           value={props.bidAmount}
-          onChange={e => setBid(e.target.value)}
+          onChange={e => props.setBid(e.target.value)}
         />
       </Form>
     </Modal.Body>
@@ -40,10 +41,9 @@ const Bid = ({ setBid, ...props }) => (
         disabled={props.bidAmount.trim() === ''}
         bsStyle="primary"
         onClick={() => {
-          console.log('bidding');
           api.bid({
             bidAmt: props.bidAmount,
-            user: props.user,
+            stuffId: props.stuff.id,
           }).then(() => props.onHide())
             .catch(e => alert('Bid failed', e.message));
         }}
@@ -53,10 +53,6 @@ const Bid = ({ setBid, ...props }) => (
       <Button onClick={props.onHide}>Close</Button>
     </Modal.Footer>
   </Modal>
-  );
+);
 
-const mapStateToProps = state => ({
-  user: state.user.info,
-});
-
-export default connect(mapStateToProps)(addState(Bid));
+export default addState(Bid);

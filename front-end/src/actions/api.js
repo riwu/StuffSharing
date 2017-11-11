@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { store } from '../App';
 
 axios.defaults.baseURL = (process.env.NODE_ENV === 'development')
   ? 'http://localhost:3001/'
@@ -7,16 +8,19 @@ axios.defaults.baseURL = (process.env.NODE_ENV === 'development')
 const get = path => axios.get(path).then(response => response.data);
 
 const [post] = ['post'].map(method =>
-  (path, payload) => axios({
-    method,
-    url: path,
-    data: payload,
-  })
-  .then(response => response.data)
-  .catch((err) => {
-    console.log('encountered error for', path, ':', 'method:', method, (err.response || {}).data, payload);
-    throw new Error((err.response || {}).data);
-  }));
+  (path, payload) => {
+    const user = store.getState().user.info;
+    return axios({
+      method,
+      url: path,
+      data: { ...payload, user },
+    })
+    .then(response => response.data)
+    .catch((err) => {
+      console.log('encountered error for', path, ':', 'method:', method, (err.response || {}).data, payload);
+      throw new Error((err.response || {}).data);
+    });
+  });
 
 
 export default {
@@ -29,6 +33,6 @@ export default {
   login: (username, password) => post('login', { username, password }),
   register: user => post('register', user),
   postNew: stuff => post('users/add/stuff', stuff),
-  deleteStuff: (stuffId, user) => post('users/stuff/delete', { stuffId, user }),
-  bid: ({ bidAmt, stuffId, user }) => post(`stuff/${stuffId}/bid`, { bidAmt, user }),
+  deleteStuff: stuffId => post('users/stuff/delete', stuffId),
+  bid: ({ bidAmt, stuffId }) => post(`stuff/${stuffId}/bid`, bidAmt),
 };

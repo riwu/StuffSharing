@@ -35,8 +35,8 @@ export const setFilter = (name, value) => ({
   value,
 });
 
-export const deleteStuff = (stuffId, user) => (dispatch) => {
-  api.deleteStuff(stuffId, user)
+export const deleteStuff = stuffId => (dispatch) => {
+  api.deleteStuff(stuffId)
     .then(() => {
       dispatch({
         type: 'DELETED_STUFF',
