@@ -21,26 +21,33 @@ const addState = withStateHandlers(
 
 const isAtOwnProfile = props => props.loggedUser.info.username === props.match.params.username;
 
+const updateUser = (props) => {
+  if (isAtOwnProfile(props)) {
+    console.log('logged', props.loggedUser);
+    props.setUser(props.loggedUser);
+  } else {
+    console.log('getting user', props.match.params.username);
+    api.getUser(props.match.params.username).then((user) => {
+      console.log('gotten user', user);
+      props.setUser(user);
+    });
+  }
+};
+
 const addLifeCycle = lifecycle({
   componentWillMount() {
-    const props = this.props;
-    if (isAtOwnProfile(props)) {
-      console.log('logged', props.loggedUser);
-      props.setUser(props.loggedUser);
-    } else {
-      console.log('getting user', props.match.params.username);
-      api.getUser(props.match.params.username).then((user) => {
-        console.log('gotten user', user);
-        props.setUser(user);
-      });
-    }
+    updateUser(this.props);
   },
   componentWillReceiveProps(nextProps) {
-    if (!isAtOwnProfile(nextProps) || nextProps.loggedUser === this.props.loggedUser) {
+    if (nextProps.match !== this.props.match) {
+      updateUser(nextProps);
       return;
     }
-    console.log('updated props', nextProps.loggedUser);
-    this.props.setUser(nextProps.loggedUser);
+
+    if (isAtOwnProfile(nextProps) && nextProps.loggedUser !== this.props.loggedUser) {
+      console.log('updated props', nextProps.loggedUser);
+      this.props.setUser(nextProps.loggedUser);
+    }
   },
 });
 

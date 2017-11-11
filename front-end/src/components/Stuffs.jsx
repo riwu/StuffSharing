@@ -11,7 +11,7 @@ const Stuffs = props => (
         <tr>
           {['Name', 'Description', 'Category', 'Price', 'Location', 'Condition',
             'Available from', 'Max loan period', 'Owner'].map(label => (
-              <th>{label}</th>
+              <th key={label}>{label}</th>
           ))}
         </tr>
       </thead>
@@ -22,8 +22,8 @@ const Stuffs = props => (
             {[stuff.name, stuff.desc, stuff.category, `$${stuff.price}`, stuff.location,
               stuff.condition, moment(stuff.available_from).format('D MMM YY'),
               `${stuff.max_loan_period} days`,
-              <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>].map(value => (
-                <td>{value}</td>
+              <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>].map((value, index) => (
+                <td key={index}>{value}</td>
               ))}
             <td>
               <props.extra stuff={stuff} />

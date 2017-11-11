@@ -24,29 +24,22 @@ const addState = withStateHandlers(
 
 const StuffChildren = ({ stuff, ...props }) => (
   <div>
-    {props.username === stuff.username ?
-      <div>
-        <Button
-          onClick={() => props.deleteStuff(stuff.id)}
-          bsStyle="primary"
-        >
-          {props.deleted ? 'Deleted' : 'Delete'}
-        </Button>
-      </div> :
-      <div>
-        <Button
-          bsStyle="primary"
-          onClick={() => {
-            console.log('bidding');
-            if (props.username === undefined) {
-              props.push('/login');
-              return;
-            }
-            props.toggleBid();
-          }}
-        >Bid</Button>
-      </div>
-    }
+    <Button
+      onClick={() => {
+        if (props.username === stuff.username) {
+          props.deleteStuff(stuff.id);
+        } else {
+          if (props.username === undefined) {
+            props.push('/login');
+            return;
+          }
+          props.toggleBid();
+        }
+      }}
+      bsStyle="primary"
+    >
+      {props.username === stuff.username ? 'Delete' : 'Bid'}
+    </Button>
     <Bid show={props.showBid} onHide={props.toggleBid} stuff={stuff} />
   </div>
 );
