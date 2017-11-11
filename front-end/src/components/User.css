@@ -5,5 +5,18 @@
 }
 
 .User .info {
-  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.User .userProperty {
+  margin-right: 60px;
+}
+
+.User .userLabel {
+  font-weight: bold;
+}
+
+.User .title {
+  text-align: center;
 }

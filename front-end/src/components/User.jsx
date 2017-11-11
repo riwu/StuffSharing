@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { lifecycle, withStateHandlers } from 'recompose';
 import api from '../actions/api';
 import './User.css';
-import Stuffs from './StuffsListed';
+import Stuffs from './Stuffs';
+import StuffsListed from './StuffsListed';
+import StuffsBorrowed from './StuffsBorrowed';
 
 const addState = withStateHandlers(
   {
@@ -51,19 +53,30 @@ const addLifeCycle = lifecycle({
   },
 });
 
-const User = ({ user }) => (
+const User = ({ user, loggedUser }) => (
   <div className="User">
     <div className="info">
-      <div>Username: {user.info.username}</div>
-      <div>Email: {user.info.email}</div>
-      <div>First Name: {user.info.first_name}</div>
-      <div>Last Name: {user.info.last_name}</div>
+      {[['Username', user.info.username], ['Email', user.info.email],
+        ['First Name', user.info.first_name],
+        ['Last Name', user.info.last_name]].map(([label, value]) => (
+          <h4 key={label} className="userProperty"><span className="userLabel">{label}: </span>{value}</h4>
+        ))
+      }
     </div>
     {user.stuffs.data.length > 0 &&
-    <Stuffs stuffs={user.stuffs} />
+      <div>
+        <h1 className="title">Listed items</h1>
+        <StuffsListed stuffs={user.stuffs} />
+      </div>
+    }
+    {loggedUser === user && user.stuffBorrowed.length > 0 &&
+      <div>
+        <h1 className="title">Borrowed items</h1>
+        <Stuffs stuffs={{ data: user.stuffBorrowed }} />
+      </div>
     }
   </div>
-  );
+);
 
 const mapStateToProps = state => ({
   loggedUser: state.user,

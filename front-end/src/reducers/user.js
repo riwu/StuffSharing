@@ -1,6 +1,7 @@
 const initialState = {
   info: {},
   stuffs: { data: [], pageCount: 0 },
+  stuffBorrowed: [],
 };
 
 const user = (state = initialState, action) => {

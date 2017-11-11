@@ -53,8 +53,8 @@ const StuffChildrenConnected = connect(mapStateToProps, {
   push,
 })(addState(StuffChildren));
 
-const StuffsListed = props => (
-  <Stuffs stuffs={props.stuffs} extra={StuffChildrenConnected} showOwner={props.showOwner} />
-  );
+const StuffsBorrowed = props => (
+  <Stuffs stuffs={props.stuffs} extra={StuffChildrenConnected} />
+);
 
-export default StuffsListed;
+export default StuffsBorrowed;

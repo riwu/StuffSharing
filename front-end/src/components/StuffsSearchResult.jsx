@@ -27,7 +27,7 @@ const StuffsSearchResult = (props) => {
     );
   }
   return (
-    <Stuffs {...props} />
+    <Stuffs {...props} showOwner />
   );
 };
 

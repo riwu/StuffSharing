@@ -1,7 +1,5 @@
 import React from 'react';
 import { withStateHandlers } from 'recompose';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { Modal, Button, Form, FormControl, ControlLabel } from 'react-bootstrap';
 import './PostNew.css';
 import api from '../actions/api';
