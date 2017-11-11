@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { lifecycle, withStateHandlers } from 'recompose';
 import api from '../actions/api';
 import './User.css';
-import Stuffs from './Stuffs';
 import StuffsListed from './StuffsListed';
 import StuffsBorrowed from './StuffsBorrowed';
 
@@ -72,7 +71,7 @@ const User = ({ user, loggedUser }) => (
     {loggedUser === user && user.stuffBorrowed.length > 0 &&
       <div>
         <h1 className="title">Borrowed items</h1>
-        <Stuffs stuffs={{ data: user.stuffBorrowed }} />
+        <StuffsBorrowed stuffs={{ data: user.stuffBorrowed }} />
       </div>
     }
   </div>

@@ -11,7 +11,8 @@ const Stuffs = props => (
       <thead>
         <tr>
           {['Name', 'Description', 'Category', 'Price', 'Location', 'Condition',
-            'Available from', 'Max loan period', props.showOwner ? 'Owner' : null].map(label => (
+            'Available from', 'Max loan period', props.showOwner ? 'Owner' : null]
+            .concat(props.extraHeaders || ['']).map(label => (
               <th key={label}>{label}</th>
             ))}
         </tr>
