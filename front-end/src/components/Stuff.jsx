@@ -25,7 +25,6 @@ const addState = withStateHandlers(
 
 const Stuff = ({ stuff, user, ...props, route }) => {
   const ownerLink = <Link to={`/users/${stuff.username}`}>{stuff.username}</Link>;
-  console.log('user', user, route);
   return (
     <div className="Stuff">
       <div>
@@ -35,7 +34,7 @@ const Stuff = ({ stuff, user, ...props, route }) => {
         <div>Price: ${stuff.price}</div>
         <div>Location: {stuff.location}</div>
         <div>Condition: {stuff.condition}</div>
-        <div>Owner: {ownerLink}</div>
+        {!(route.location.pathname || '').includes(stuff.username) && <div>Owner: {ownerLink}</div>}
         <div>Available from: {moment(stuff.available_from).format('D MMM YY')}</div>
         <div>Max loan period: {stuff.max_loan_period} days</div>
       </div>

@@ -7,17 +7,14 @@ import Stuffs from './Stuffs';
 
 const addState = withStateHandlers(
   {
-    user: {},
-    stuffs: { data: [], pageCount: 0 },
-    bids: [],
-    page: 0,
+    user: {
+      info: {},
+      stuffs: { data: [], pageCount: 0 },
+    },
   },
   {
     setUser: () => user => ({
       user,
-    }),
-    setStuffs: () => stuffs => ({
-      stuffs,
     }),
   },
 );
@@ -28,40 +25,33 @@ const addLifeCycle = lifecycle({
     const username = props.match.params.username;
     if (props.loggedUser.info.username === username) {
       console.log('logged', props.loggedUser);
-      props.setUser(props.loggedUser.info);
-      props.setStuffs(props.loggedUser.stuffs);
+      props.setUser(props.loggedUser);
     } else {
       console.log('getting user', username);
       api.getUser(username).then((user) => {
         console.log('gotten user', user);
-        props.setUser({ ...user.userData[0], username });
-        props.setStuffs({ data: user.userStuff, pages: 1 });
+        props.setUser(user);
       });
     }
   },
 });
 
-const User = ({ user, stuffs, ...props }) => {
-  console.log(user);
-  return (
-    <div className="User">
-      <div className="info">
-        <div>Username: {user.username}</div>
-        <div>Email: {user.email}</div>
-        <div>First Name: {user.first_name}</div>
-        <div>Last Name: {user.last_name}</div>
-      </div>
-      {stuffs.data.length > 0 &&
-        <Stuffs
-          stuffs={stuffs}
-          search={{ page: props.page }}
-          setFilter={() => {}}
-          getStuffs={() => {}}
-        />
-      }
+const User = ({ user }) => (
+  <div className="User">
+    <div className="info">
+      <div>Username: {user.info.username}</div>
+      <div>Email: {user.info.email}</div>
+      <div>First Name: {user.info.first_name}</div>
+      <div>Last Name: {user.info.last_name}</div>
     </div>
+    {user.stuffs.data.length > 0 &&
+      <Stuffs
+        stuffs={user.stuffs}
+        search={{ page: 1 }}
+      />
+      }
+  </div>
   );
-};
 
 const mapStateToProps = state => ({
   loggedUser: state.user,

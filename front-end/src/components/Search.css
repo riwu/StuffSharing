@@ -1,9 +1,12 @@
 .Search {
   position: fixed;
-  margin-top: 10px;
   border: 1px solid darkblue;
   background: #FDFDFD;
   padding: 20px 40px;
+  top: 86px;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .Search .sliderContainer {

@@ -44,7 +44,7 @@ router.post('/add/stuff', (req, res, next) => {
   const response = stuff.addStuff(stuffInfo);
   return response.then((data) => {
     console.log('sending back', data);
-    res.send(data);
+    res.send(data.insertId);
   });
 });
 
@@ -121,8 +121,8 @@ function arrangeValues(listValues) {
     monthlySpent: 20,
     mostPopular: listValues[6],
     favoriteCategory: listValues[7],
-    userData: listValues[8],
-    userStuff: listValues[9],
+    info: listValues[8][0],
+    stuffs: { data: listValues[9], pageCount: 1 },
   };
 }
 

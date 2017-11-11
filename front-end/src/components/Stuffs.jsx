@@ -3,23 +3,21 @@ import Pagination from 'react-paginate';
 import Stuff from './Stuff';
 import './Stuffs.css';
 
-const Stuffs = (props) => {
-  console.log('stuff', props.stuffs);
-  return (
-    <div className="Stuffs">
-      {props.stuffs.data.length === 0 &&
+const Stuffs = props => (
+  <div className="Stuffs">
+    {props.stuffs.data.length === 0 &&
       <h1 className="noResult">
         No results found!
       </h1>
       }
 
-      <div className="stuffsList">
-        {props.stuffs.data.map(stuff => (
-          <Stuff key={stuff.id} stuff={stuff} />
+    <div className="stuffsList">
+      {props.stuffs.data.map(stuff => (
+        <Stuff key={stuff.id} stuff={stuff} />
           ))}
-      </div>
+    </div>
 
-      {props.stuffs.pages > 1 &&
+    {props.stuffs.pages > 1 &&
       <Pagination
         className="pagination"
         onPageChange={({ selected }) => {
@@ -37,8 +35,7 @@ const Stuffs = (props) => {
         activeClassName={'active'}
       />
       }
-    </div>
+  </div>
   );
-};
 
 export default Stuffs;

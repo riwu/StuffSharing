@@ -162,10 +162,10 @@ const PostNew = ({ setFilter, ...props }) => (
             max_loan_period: props.loanDays,
             user: props.user,
           };
-          api.postNew(stuff).then((newStuff) => {
-            console.log('posted', newStuff);
+          api.postNew(stuff).then((id) => {
+            console.log('posted', id);
             props.onHide();
-            props.addStuff(newStuff[0]);
+            props.addStuff({ ...stuff, id });
           })
           .catch(e => props.setPostFailed(e.message));
         }}
