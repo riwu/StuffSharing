@@ -3,9 +3,9 @@ import moment from 'moment';
 import Stuffs from './Stuffs';
 
 const StuffChildren = ({ stuff }) => (
-  <div>
+  <td>
     {moment(stuff.loan_date).format('D MMM YY')}
-  </div>
+  </td>
 );
 
 const StuffsBorrowed = props => (

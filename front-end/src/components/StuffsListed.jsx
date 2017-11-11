@@ -23,7 +23,7 @@ const addState = withStateHandlers(
 );
 
 const StuffChildren = ({ stuff, ...props }) => (
-  <div>
+  <td>
     <Button
       onClick={() => {
         if (props.username === stuff.username) {
@@ -41,7 +41,7 @@ const StuffChildren = ({ stuff, ...props }) => (
       {props.username === stuff.username ? 'Delete' : 'Bid'}
     </Button>
     <Bid show={props.showBid} onHide={props.toggleBid} stuff={stuff} />
-  </div>
+  </td>
 );
 
 const mapStateToProps = state => ({

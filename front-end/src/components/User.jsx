@@ -5,6 +5,7 @@ import api from '../actions/api';
 import './User.css';
 import StuffsListed from './StuffsListed';
 import StuffsBorrowed from './StuffsBorrowed';
+import StuffsLent from './StuffsLent';
 
 const addState = withStateHandlers(
   {
@@ -68,10 +69,20 @@ const User = ({ user, loggedUser }) => (
         <StuffsListed stuffs={user.stuffs} />
       </div>
     }
-    {loggedUser === user && user.stuffBorrowed.length > 0 &&
+    {loggedUser === user &&
       <div>
-        <h1 className="title">Borrowed items</h1>
-        <StuffsBorrowed stuffs={{ data: user.stuffBorrowed }} />
+        {user.stuffBorrowed.length > 0 &&
+        <div>
+          <h1 className="title">Borrowed items</h1>
+          <StuffsBorrowed stuffs={{ data: user.stuffBorrowed }} />
+        </div>
+        }
+        {user.stuffLent.length > 0 &&
+        <div>
+          <h1 className="title">Lent items</h1>
+          <StuffsLent stuffs={{ data: user.stuffLent }} />
+        </div>
+        }
       </div>
     }
   </div>

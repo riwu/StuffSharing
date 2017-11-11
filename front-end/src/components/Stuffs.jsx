@@ -31,11 +31,15 @@ const Stuffs = props => (
               {path.substring(path.lastIndexOf('/') + 1) !== stuff.username &&
                 <td><Link to={`/users/${stuff.username}`}>{stuff.username}</Link></td>
               }
-              {props.extra &&
-              <td>
+              {props.extra && (
+                Array.isArray(props.extra)
+                ?
+                props.extra.map((ExtraColumn, index) => (
+                  <ExtraColumn key={index} stuff={stuff} />
+                ))
+                :
                 <props.extra stuff={stuff} />
-              </td>
-              }
+              )}
             </tr>
           );
         })}

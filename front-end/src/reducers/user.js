@@ -2,6 +2,7 @@ const initialState = {
   info: {},
   stuffs: { data: [], pageCount: 0 },
   stuffBorrowed: [],
+  stuffLent: [],
 };
 
 const user = (state = initialState, action) => {
@@ -33,6 +34,14 @@ const user = (state = initialState, action) => {
             ...state.stuffs.data,
             action.stuff,
           ],
+        },
+      };
+    case 'STUFF_RETURNED':
+      return {
+        ...state,
+        stuffLent: {
+          ...state.stuffLent,
+          data: state.stuffLent.data.filter(stuff => stuff.id !== action.id),
         },
       };
     case 'LOG_OUT':

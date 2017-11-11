@@ -48,7 +48,7 @@ export const deleteStuff = stuffId => (dispatch) => {
         type: 'DELETED_STUFF',
         id: stuffId,
       });
-    }).catch(e => alert('Failed to delete', e.message));
+    }).catch(e => alert(`Failed to delete ${e.message}`));
 };
 
 export const addStuff = stuff => (dispatch) => {
@@ -56,6 +56,16 @@ export const addStuff = stuff => (dispatch) => {
     type: 'ADDED_STUFF',
     stuff,
   });
+};
+
+export const stuffReturned = stuffId => (dispatch) => {
+  console.log('returning', stuffId);
+  api.stuffReturned(stuffId).then(() => {
+    dispatch({
+      type: 'STUFF_RETURNED',
+      stuffId,
+    });
+  }).catch(e => alert(`Failed to return item ${stuffId} ${e.message}`));
 };
 
 const dispatchLogin = (dispatch, user) => {
