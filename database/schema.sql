@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`bid_log` (
   `user_id` INT(11) NOT NULL,
   `stuff_id` INT(11) NOT NULL,
   `date_and_time` TIMESTAMP(10),
+  `status` VARCHAR(20),
   PRIMARY KEY (`user_id`, `stuff_id`, `date_and_time`),
   INDEX `fk_bid_log_user1_idx` (`user_id` ASC),
   INDEX `fk_bid_log_stuff1_idx` (`stuff_id` ASC),
