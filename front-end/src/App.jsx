@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
@@ -23,7 +23,10 @@ const config = {
   storage,
 };
 const persistedReducer = persistReducer(config, reducer);
-const store = createStore(persistedReducer, applyMiddleware(...middleware));
+
+// eslint-disable-next-line no-underscore-dangle
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(...middleware)));
 const persistor = persistStore(store);
 
 
