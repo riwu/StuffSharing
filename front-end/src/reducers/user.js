@@ -5,15 +5,15 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_LOG_IN':
+    case 'LOG_IN':
       return {
         ...state,
         info: action.user,
       };
-    case 'RECEIVE_LOG_IN_USER_STUFFS':
+    case 'RECEIVE_USER_DATA':
       return {
-        ...state,
-        stuffs: action.stuffs,
+        ...action.data,
+        info: state.info,
       };
     case 'DELETED_STUFF':
       return {

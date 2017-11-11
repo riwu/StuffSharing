@@ -53,11 +53,11 @@ const User = ({ user }) => (
       <div>Last Name: {user.info.last_name}</div>
     </div>
     {user.stuffs.data.length > 0 &&
-      <Stuffs
-        stuffs={user.stuffs}
-        search={{ page: 1 }}
-      />
-      }
+    <Stuffs
+      stuffs={user.stuffs}
+      search={{ page: 1 }}
+    />
+    }
   </div>
   );
 

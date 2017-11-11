@@ -53,20 +53,24 @@ export const addStuff = stuff => (dispatch) => {
   });
 };
 
+const dispatchLogin = (dispatch, user) => {
+  console.log('successfully logged in', user);
+  dispatch({
+    type: 'LOG_IN',
+    user,
+  });
+  dispatch(push('/'));
+  api.getUser(user.username).then((data) => {
+    dispatch({
+      type: 'RECEIVE_USER_DATA',
+      data,
+    });
+  }).catch(() => console.log('failed to get data'));
+};
+
 export const login = (username, password) => (dispatch) => {
   api.login(username, password).then((user) => {
-    console.log('successfully logged in', user);
-    dispatch({
-      type: 'SET_LOG_IN',
-      user,
-    });
-    dispatch(push('/'));
-    api.getStuffs({ owner: username }).then((stuffs) => {
-      dispatch({
-        type: 'RECEIVE_LOG_IN_USER_STUFFS',
-        stuffs,
-      });
-    }).catch(() => console.log('failed to get stuffs'));
+    dispatchLogin(dispatch, user);
   }).catch((e) => {
     console.log('failed', e.message);
     dispatch({
@@ -80,13 +84,8 @@ export const logout = () => ({
 });
 
 export const register = user => (dispatch) => {
-  api.register(user).then(() => {
-    dispatch({
-      type: 'LOG_IN',
-      username: user.username,
-      password: user.password,
-    });
-    dispatch(push('/'));
+  api.register(user).then((data) => {
+    dispatchLogin(dispatch, { ...user, id: data.id });
   }).catch(() => {
     dispatch({
       type: 'REGISTER_FAILED',

@@ -30,7 +30,10 @@ router.post('/register', (req, res, next) => {
       res.status(409).end();
     } else {
       const response2 = queries.registerUser(register);
-      response2.then(() => res.end());
+      response2.then((data) => {
+        console.log('sending data', data);
+        res.send({ id: data.insertId });
+      });
     }
   });
 });
