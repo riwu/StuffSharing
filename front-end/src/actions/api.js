@@ -7,13 +7,13 @@ axios.defaults.baseURL = (process.env.NODE_ENV === 'development')
 
 const get = path => axios.get(path).then(response => response.data);
 
-const [post] = ['post'].map(method =>
+const [post, del] = ['post', 'delete'].map(method =>
   (path, payload) => {
-    const user = store.getState().user.info;
+    const { username, password } = store.getState().user.info;
     return axios({
       method,
       url: path,
-      data: { ...payload, user },
+      data: { ...payload, user: { username, password } },
     })
     .then(response => response.data)
     .catch((err) => {
@@ -32,7 +32,8 @@ export default {
   getUser: username => get(`users/${username}`),
   login: (username, password) => post('login', { username, password }),
   register: user => post('register', user),
-  postNew: stuff => post('users/add/stuff', stuff),
-  deleteStuff: stuffId => post('users/stuff/delete', stuffId),
+
+  postNew: stuff => post('users/add/stuff', { stuff }),
+  deleteStuff: stuffId => del(`stuff/${stuffId}/delete`),
   bid: ({ bidAmt, stuffId }) => post(`stuff/${stuffId}/bid`, { bidAmt }),
 };

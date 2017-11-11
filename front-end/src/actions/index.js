@@ -36,14 +36,14 @@ export const setFilter = (name, value) => ({
 });
 
 export const deleteStuff = stuffId => (dispatch) => {
+  console.log('deleting', stuffId);
   api.deleteStuff(stuffId)
     .then(() => {
       dispatch({
         type: 'DELETED_STUFF',
         id: stuffId,
       });
-    })
-    .catch(e => alert('Failed to delete', e.message));
+    }).catch(e => alert('Failed to delete', e.message));
 };
 
 export const addStuff = stuff => (dispatch) => {
