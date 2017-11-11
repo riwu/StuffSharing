@@ -66,4 +66,5 @@ export default {
   deleteStuff: stuffId => del(`stuff/${stuffId}/delete`),
   bid: ({ bidAmt, stuffId }) => post(`stuff/${stuffId}/bid`, { bidAmt }),
   stuffReturned: stuffId => post(`stuff/${stuffId}/return`),
+  updateUser: user => post('me/update', user),
 };

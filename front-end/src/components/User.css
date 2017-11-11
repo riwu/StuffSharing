@@ -6,15 +6,18 @@
 
 .User .info {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .User .userProperty {
   margin-right: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .User .userLabel {
   font-weight: bold;
+  margin-right: 5px;
 }
 
 .User .title {

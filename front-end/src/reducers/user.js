@@ -12,6 +12,11 @@ const user = (state = initialState, action) => {
         ...state,
         info: action.user,
       };
+    case 'USER_UPDATED':
+      return {
+        ...state,
+        info: action.user,
+      };
     case 'RECEIVE_USER_DATA':
       return {
         ...action.data,

@@ -107,3 +107,12 @@ export const register = user => (dispatch) => {
     });
   });
 };
+
+export const updateUserInfo = user => (dispatch) => {
+  api.updateUser(user).then(() => {
+    dispatch({
+      type: 'USER_UPDATED',
+      user,
+    });
+  }).catch(e => alert(`User update failed ${e.message}`));
+};
