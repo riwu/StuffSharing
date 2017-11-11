@@ -4,6 +4,8 @@ const actionFailed = (state = {}, action) => {
       return {
         loginFailed: true,
       };
+    case 'LOG_IN':
+      return {};
     case 'REGISTER_FAILED':
       return {
         registerFailed: true,

@@ -1,15 +1,10 @@
-.Stuffs .stuffsList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+.Stuffs thead th, .Stuffs tbody td {
+  text-align: center;
+  padding: 10px 20px;
+  max-width: 150px;
+  word-wrap: break-word;
 }
 
-.Stuffs .pagination {
-  display: flex;
-  justify-content: center;
-}
-
-.Stuffs .noResult {
-  color: red;
-  margin-left: 100px;
+.Stuffs tbody tr:nth-child(odd) {
+  background-color: rgb(240, 240, 240);
 }

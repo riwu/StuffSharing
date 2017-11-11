@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { lifecycle, withStateHandlers } from 'recompose';
 import api from '../actions/api';
 import './User.css';
-import Stuffs from './Stuffs';
+import Stuffs from './StuffsListed';
 
 const addState = withStateHandlers(
   {
@@ -53,10 +53,7 @@ const User = ({ user }) => (
       <div>Last Name: {user.info.last_name}</div>
     </div>
     {user.stuffs.data.length > 0 &&
-    <Stuffs
-      stuffs={user.stuffs}
-      search={{ page: 1 }}
-    />
+    <Stuffs stuffs={user.stuffs} />
     }
   </div>
   );

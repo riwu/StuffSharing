@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Stuffs from './Stuffs';
+import Stuffs from './StuffsSearchResult';
 import { setFilter, getStuffs } from '../actions';
 
 const mapStateToProps = state => ({
