@@ -34,5 +34,5 @@ export default {
   register: user => post('register', user),
   postNew: stuff => post('users/add/stuff', stuff),
   deleteStuff: stuffId => post('users/stuff/delete', stuffId),
-  bid: ({ bidAmt, stuffId }) => post(`stuff/${stuffId}/bid`, bidAmt),
+  bid: ({ bidAmt, stuffId }) => post(`stuff/${stuffId}/bid`, { bidAmt }),
 };
