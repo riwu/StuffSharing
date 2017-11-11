@@ -63,6 +63,7 @@ const addLifeCycle = lifecycle({
     updateUser(this.props);
   },
   componentWillReceiveProps(nextProps) {
+    console.log('receiving props');
     if (nextProps.match !== this.props.match) {
       updateUser(nextProps);
       return;
