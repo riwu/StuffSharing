@@ -7,13 +7,6 @@ const utils = require('./utils');
 
 const router = express.Router();
 
-router.all('*', (req, res, next) => {
-	// if (utils.isValidUser({username: req.body.username, password: req.body.password}) == false) {
-	// 	return res.send(404);
-	// }
-  next();
-});
-
 router.param('username', (req, res, next, username) => {
   req.username = null;
   if (username.length > 0) {
@@ -25,55 +18,66 @@ router.param('username', (req, res, next, username) => {
 
 router.post('/add/stuff', (req, res, next) => {
 	// Add new stuff
-  console.log('req', req.body);
-  if (utils.isValidUser(req.body.user) == false) {
-    console.log('invalid user');
-    return res.status(401).end();
-  }
-  const stuffInfo = {
-    name: req.body.name,
-    desc: req.body.desc,
-    condition: req.body.condition,
-    category: req.body.category,
-    location: req.body.location,
-    owner: req.body.user.id,
-    price: req.body.price,
-    available_from: req.body.available_from,
-    max_loan_period: req.body.max_loan_period };
-  console.log('stuff info', stuffInfo);
-  const response = stuff.addStuff(stuffInfo);
-  return response.then((data) => {
-    console.log('sending back', data);
-    res.send(data.insertId);
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+
+    const stuffInfo = {
+      name: req.body.name,
+      desc: req.body.desc,
+      condition: req.body.condition,
+      category: req.body.category,
+      location: req.body.location,
+      owner: req.body.user.id,
+      price: req.body.price,
+      available_from: req.body.available_from,
+      max_loan_period: req.body.max_loan_period };
+    console.log('stuff info', stuffInfo);
+    const response = stuff.addStuff(stuffInfo);
+    return response.then((data) => {
+      console.log('sending back', data);
+      res.send(data.insertId);
+    });
   });
 });
 
 router.post('/stuff/delete', (req, res, next) => {
 	// Delete this stuff
-  if (utils.isValidUser(req.body.user) == false) {
-    return res.status(404).end();
-  }
-  console.log('Delete Stuff');
-  const response = conn.query(stuff.deleteStuff(req.body.stuffId));
-  return response.then(data => res.send(data));
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+
+    console.log('Delete Stuff');
+    const response = conn.query(stuff.deleteStuff(req.body.stuffId));
+    return response.then(data => res.send(data));
+  });
 });
 
 router.post('/stuff/:stuffId/update', (req, res, next) => {
 	// Update this stuff
-  if (utils.isValidUser(req.body.user) == false) {
-    return res.status(404).end();
-  }
-  const stuffInfo = { name: req.body.name,
-    desc: req.body.desc,
-    condition: req.body.condition,
-    category,
-					  	location: req.body.location,
-    owner: req.body.user.username,
-    price: req.body.price,
-					  	available_from: req.body.available_from,
-    max_loan_period: req.body.max_loan_period };
-  const response = conn.query(update.updateStuff(stuffId, stuffInfo));
-  return response.then(data => res.send(data));
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+
+    const stuffInfo = {
+      name: req.body.name,
+      desc: req.body.desc,
+      condition: req.body.condition,
+      category,
+  	  location: req.body.location,
+      owner: req.body.user.username,
+      price: req.body.price,
+  		available_from: req.body.available_from,
+      max_loan_period: req.body.max_loan_period };
+    const response = conn.query(update.updateStuff(stuffId, stuffInfo));
+    return response.then(data => res.send(data));
+  });
 });
 
 router.get('/:username', (req, res, next) => {
