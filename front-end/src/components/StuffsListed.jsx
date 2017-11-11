@@ -54,7 +54,7 @@ const StuffChildrenConnected = connect(mapStateToProps, {
 })(addState(StuffChildren));
 
 const StuffsListed = props => (
-  <Stuffs stuffs={props.stuffs} extra={StuffChildrenConnected} showOwner={props.showOwner} />
+  <Stuffs {...props} extra={StuffChildrenConnected} />
   );
 
 export default StuffsListed;

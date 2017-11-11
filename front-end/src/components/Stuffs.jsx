@@ -66,7 +66,7 @@ const Stuffs = props => (
   );
 
 Stuffs.defaultProps = {
-  search: { page: 1 },
+  search: { page: 0 },
 };
 
 const mapStateToProps = state => ({

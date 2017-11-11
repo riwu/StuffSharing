@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { lifecycle } from 'recompose';
 import Stuffs from './StuffsListed';
-import { getStuffs, setNotNewVisit } from '../actions';
+import { getStuffs, setNotNewVisit, setFilter } from '../actions';
 import './StuffsSearchResult.css';
 
 const addLifeCycle = lifecycle({
@@ -32,6 +32,7 @@ const StuffsSearchResult = (props) => {
 };
 
 const mapStateToProps = state => ({
+  stuffs: state.stuffs,
   search: state.search,
   newVisit: state.newVisit,
 });
@@ -39,4 +40,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getStuffs,
   setNotNewVisit,
+  setFilter,
 })(addLifeCycle(StuffsSearchResult));
