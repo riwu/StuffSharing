@@ -72,7 +72,7 @@ router.post('/:stuffId/denyBid', (req, res, next) => {
       console.log('unauthorized');
       return res.status(403).end();
     }
-    const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId };
+    const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId, owner: req.body.user.username };
     const response = conn.query(bid.denyBid(stuffInfo));
     response.then(data => res.send(data));
   });
@@ -84,12 +84,14 @@ router.post('/:stuffId/acceptBid', (req, res, next) => {
       console.log('unauthorized');
       return res.status(403).end();
     }
-    const stuffInfo = {bidder: req.body.bidder, stuffId: req.stuffId};
-    const resp = bid.getThisBid(stuffInfo);
-    stuffDetails.then(stuffDetails => {
-      const loanDetails = {stuff: stuffDetails.stuff_id, borrower: stuffDetails.user_id,
-                              price: stuffDetails.bid_amt};
+    const stuffInfo = {bidder: req.body.bidder, stuffId: req.stuffId, owner: req.body.user.username };
+    const resp = conn.query(bid.getThisBid(stuffInfo));
+    resp.then(stuffDetails => {
+      const loanDetails = {stuff: stuffDetails[0].stuff_id, borrower: stuffDetails[0].user_id,
+                              price: stuffDetails[0].bid_amt};
+      console.log("$#$#$#", stuffDetails, loanDetails);
       var promiseList = [bid.acceptBid(stuffInfo), bid.addLoanLog(loanDetails)];
+      console.log("$$$");
       Promise.all(promiseList).then(values => res.send(values));
     });
   });
