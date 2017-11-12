@@ -56,7 +56,8 @@ export default {
     const filteredQuery = Object.entries(query).filter(([key, value]) =>
       value !== undefined && (typeof value !== 'string' || value.trim() !== ''));
 
-    return get(`stuff?${filteredQuery.reduce((str, [key, value]) => `${str + key}=${encodeURIComponent(value)}&`, '')}`);
+    return get(`stuff?${filteredQuery.reduce((str, [key, value]) =>
+      `${str + key}=${encodeURIComponent(value)}&`, '').slice(0, -1)}`);
   },
   getUser: username => get(`users/${username}`),
   login: (username, password) => post('login', { username, password }),
