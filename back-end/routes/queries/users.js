@@ -19,7 +19,15 @@ function getUserStuff(username) {
 }
 
 function updateUser(username, params) {
-  return `UPDATE user SET${paramsToString(params)} WHERE username="${username}"`;
+var paramList = [];
+  if (params.email)
+    paramList.push(`email="${params.email}"`);
+  if(params.last_name)
+    paramList.push(`last_name="${params.last_name}"`);
+  if(params.first_name)
+    paramList.push(`first_name="${params.first_name}"`);
+  const setValues = paramList.join(', ');
+  return `UPDATE user SET ${setValues} WHERE username="${username}"`;
 }
 
 function deleteUser(username) {
@@ -42,7 +50,6 @@ function stuffBorrowed(username) {
   const stuffId = `${'SELECT l.stuff FROM loan_log AS l, user AS u' +
       ' WHERE l.borrower=u.id AND u.username=' + '"'}${username}"`;
   const q = `SELECT * FROM stuff WHERE id = ANY(${stuffId})`;
-  console.log(q);
   return q;
 }
 

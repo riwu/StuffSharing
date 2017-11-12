@@ -11,6 +11,12 @@ function getBidsFor(username, stuffId) {
   return `${getAllMyBids(username)} s.id=${stuffId}`;
 }
 
+function getCurrentBidsFor(username, stuffId) {
+   return `SELECT b.*, s.*, u.username, u.email FROM bid_log AS b, stuff AS s, user AS u ` +
+        `WHERE b.stuff_id=s.id AND u.id=s.owner AND u.username='${username}' AND ` +
+        `s.id=${stuffId} AND b.status="in progress"`;
+}
+
 function bidForStuff(bidDetails){
   console.log(bidDetails);
   var q = `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
@@ -58,6 +64,7 @@ module.exports = {
 	getAllBidData,
 	getAllMyBids,
 	getBidsFor,
+  getCurrentBidsFor,
 	bidForStuff,
 
   updateBidLog,
