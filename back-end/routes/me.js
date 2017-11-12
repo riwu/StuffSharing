@@ -21,10 +21,9 @@ router.get('/:username/:stuffId', (req, res, next) => {
 });
 
 router.post('/bidSelect', (req, res, next) => {
-  const bidWin = { bidder: req.body.username,
-    stuffId: req.body.stuffId,
-    bidAmt: req.body.bidAmt,
-    loanDate: req.body.loanDate };
+  const bidWin = { borrower: req.body.username,
+    stuff: req.body.stuffId,
+    price: req.body.bidAmt};
   const response = conn.query(loan.addLoanLog(bidWin));
   return response.then((data) => {
     const response2 = stuff.updateStuffLoan(bidWin.stuffId, bidWin.loanDate);
