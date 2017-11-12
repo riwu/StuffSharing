@@ -56,7 +56,8 @@ export default {
     const filteredQuery = Object.entries(query).filter(([key, value]) =>
       value !== undefined && (typeof value !== 'string' || value.trim() !== ''));
 
-    return get(`stuff?${filteredQuery.reduce((str, [key, value]) => `${str + key}=${encodeURIComponent(value)}&`, '')}`);
+    return get(`stuff?${filteredQuery.reduce((str, [key, value]) =>
+      `${str + key}=${encodeURIComponent(value)}&`, '').slice(0, -1)}`);
   },
   getUser: username => get(`users/${username}`),
   login: (username, password) => post('login', { username, password }),
@@ -64,7 +65,11 @@ export default {
 
   postNew: stuff => post('users/add/stuff', stuff),
   deleteStuff: stuffId => del(`stuff/${stuffId}/delete`),
-  bid: ({ bidAmt, stuffId }) => post(`stuff/${stuffId}/bid`, { bidAmt }),
   stuffReturned: stuffId => post(`stuff/${stuffId}/return`),
   updateUser: user => post('me/update', user),
+
+  bid: (stuffId, bidAmt) => post(`stuff/${stuffId}/bid`, { bidAmt }),
+  cancelBid: stuffId => post(`stuff/${stuffId}/cancelBid`),
+  denyBid: (stuffId, bidder) => post(`stuff/${stuffId}/denyBid`, { bidder }),
+  acceptBid: (stuffId, bidder) => post(`stuff/${stuffId}/acceptBid`, { bidder }),
 };
