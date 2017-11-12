@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`bid_log` (
   `bid_amt` FLOAT(11) NULL DEFAULT 0,
   `user_id` INT(11) NOT NULL,
   `stuff_id` INT(11) NOT NULL,
-  `date_and_time` TIMESTAMP(),
+  `date_and_time` TIMESTAMP,
   `status` VARCHAR(20) DEFAULT 'in progress',
   PRIMARY KEY (`user_id`, `stuff_id`, `date_and_time`),
   INDEX `fk_bid_log_user1_idx` (`user_id` ASC),
@@ -69,7 +69,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `mydb`.`loan_log` (
   `stuff` INT(11) NOT NULL,
   `borrower` INT(11) NOT NULL,
-  `loan_date_time` TIMESTAMP(),
+  `loan_date_time` TIMESTAMP,
   `return_date` DATE NULL DEFAULT NULL,
   `price` FLOAT(11) NULL DEFAULT 0,
   PRIMARY KEY (`stuff`, `borrower`, `loan_date_time`),
