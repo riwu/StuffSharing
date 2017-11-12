@@ -49,7 +49,8 @@ function checkUser(details) {
 function stuffBorrowed(username) {
   const stuffId = `${'SELECT l.stuff FROM loan_log AS l, user AS u' +
       ' WHERE l.borrower=u.id AND u.username=' + '"'}${username}"`;
-  const q = `SELECT * FROM stuff WHERE id = ANY(${stuffId})`;
+  const q = `SELECT s.*, u.username, u.email FROM stuff s, user  u ` + 
+            `WHERE s.id=ANY(${stuffId}) AND u.id=s.owner`;
   return q;
 }
 
@@ -57,7 +58,8 @@ function stuffLent(username) {
   const stuffId = 'SELECT l.stuff' +
           ' FROM loan_log AS l, user AS u, stuff AS s' +
           ` WHERE s.id=l.stuff AND s.owner=u.id AND u.username="${username}"`;
-  return `SELECT * FROM stuff WHERE id=ANY(${stuffId})`;
+  return `SELECT s.*, u.username FROM stuff s, loan_log l, user u ` + 
+          `WHERE s.id=ANY(${stuffId}) AND s.id=l.stuff and l.borrower=u.id`;
 }
 
 function totalEarned(username) {

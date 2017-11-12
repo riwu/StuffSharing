@@ -10,8 +10,14 @@ const utils = require('./utils');
 const router = express.Router();
 
 router.get('/:username/:stuffId', (req, res, next) => {
-  const response = conn.query(bid.getCurrentBidsFor(username, stuffId));
-  return response.then(data => res.send(data));
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+    const response = conn.query(bid.getCurrentBidsFor(username, stuffId));
+    return response.then(data => res.send(data));
+  });
 });
 
 router.post('/bidSelect', (req, res, next) => {
@@ -27,7 +33,6 @@ router.post('/bidSelect', (req, res, next) => {
 });
 
 router.post('/update', (req, res, next) => {
-  console.log("check");
   utils.isValidUser(req.body.user).then((isValid) => {
     if (!isValid) {
       console.log('unauthorized');
@@ -39,10 +44,16 @@ router.post('/update', (req, res, next) => {
   });
 });
 
-router.get('/', (req, res, next) => {
+router.get('/:username', (req, res, next) => {
   // Get all the bids on my products
-  const response = conn.query(bid.getAllMyBids(username));
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }    
+  const response = conn.query(bid.getAllMyBids(req.body.user.username));
   return response.then(data => res.send(data));
+  });
 });
 
 module.exports = router;

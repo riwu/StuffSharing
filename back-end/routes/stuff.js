@@ -2,6 +2,7 @@ import conn from './connection';
 
 const express = require('express');
 const bid = require('./queries/bid');
+const loan = require('./queries/loan');
 const queries = require('./queries/stuff');
 const utils = require('./utils');
 
@@ -37,6 +38,18 @@ router.post('/:stuffId/bid', (req, res, next) => {
     }
     const bidInfo = { user: req.body.user.username, bidAmt: req.body.bidAmt, stuffId: req.stuffId };
     const response = conn.query(bid.bidForStuff(bidInfo));
+    response.then(data => res.send(data));
+  });
+});
+
+router.post('/:stuffId/return', (req, res, next) => {
+ utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+    const stuffInfo = { user: req.body.user.username, stuffId: req.stuffId };
+    const response = conn.query(bid.returnStuff(stuffInfo));
     response.then(data => res.send(data));
   });
 });

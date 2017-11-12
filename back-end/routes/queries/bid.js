@@ -19,10 +19,9 @@ function getCurrentBidsFor(username, stuffId) {
 
 function bidForStuff(bidDetails){
   console.log(bidDetails);
-  var q = `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
+  return `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
             `${bidDetails.bidAmt},(${getUserId(bidDetails.user)}),` + 
             `${bidDetails.stuffId})`;
-  return q;
 }
 
 function updateBidLog(bidDetails){
