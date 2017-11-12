@@ -59,8 +59,13 @@ function acceptBid(bidDetails) {
 function denyBid(bidDetails) {
   const q = `UPDATE bid_log SET status="failure" WHERE stuff_id=${bidDetails.stuffId} ` +
           `AND user_id=(${getUserId(bidDetails.bidder)}) AND status="in progress"`;
-  console.log("^^", q);
   return q;
+}
+
+function returnStuff(params) {
+  const date=getTodayDate();
+  return `UPDATE loan_log SET return_date="${date}" WHERE stuff=${params.stuffId} AND ` +
+            `return_date IS NULL`;
 }
 
 function getUserId(username) {
@@ -87,6 +92,18 @@ function getCommaSeparatedKeysValues(params) {
   return [keys.join(), values.join()];
 }
 
+function getTodayDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();             
+
+  dd = (dd<10)? '0'+dd : dd;
+  mm = (mm<10)? '0'+mm : mm;
+  return yyyy + '-' + mm + '-' + dd;
+}
+
+
 module.exports = {
 	getAllBidData,
 	getAllMyBids,
@@ -101,5 +118,6 @@ module.exports = {
   acceptBid,
   denyBid,
   addLoanLog,
+  returnStuff,
 };
 
