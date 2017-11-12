@@ -13,7 +13,7 @@ const BidDate = ({ stuff }) => (
 
 const Status = ({ stuff }) => (
   <td>
-    {moment(stuff.status.charAt(0).toUpperCase() + stuff.status.slice(1)).format('D MMM YY')}
+    {stuff.status.charAt(0).toUpperCase() + stuff.status.slice(1)}
   </td>
 );
 

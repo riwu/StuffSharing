@@ -14,45 +14,39 @@ const BidDate = ({ stuff }) => (
 
 const Status = ({ stuff }) => (
   <td>
-    {moment(stuff.status.charAt(0).toUpperCase() + stuff.status.slice(1)).format('D MMM YY')}
+    {stuff.status.charAt(0).toUpperCase() + stuff.status.slice(1)}
   </td>
 );
 
 const Bidder = ({ stuff }) => (
-  <td><Link to={`/users/${stuff.username}`}>{stuff.username}</Link></td>
+  <td><Link to={`/users/${stuff.bidder_username}`}>{stuff.bidder_username}</Link></td>
 );
 
-const Accept = ({ stuff, ...props }) => (
-  <td>
+const Actions = ({ stuff, ...props }) => (
+  <td style={{ display: 'flex' }}>
     <Button
-      onClick={() => props.acceptBid(stuff.id, stuff.username)}
+      style={{ marginRight: '5px' }}
+      onClick={() => props.acceptBid(stuff.id, stuff.bidder_username)}
       bsStyle="primary"
     >
-      Accept
-    </Button>
+        Accept
+      </Button>
+    <Button
+      onClick={() => props.denyBid(stuff.id, stuff.bidder_username)}
+      bsStyle="danger"
+    >
+        Deny
+      </Button>
   </td>
 );
 
-const Deny = ({ stuff, ...props }) => (
-  <td>
-    <Button
-      onClick={() => props.denyBid(stuff.id, stuff.username)}
-      bsStyle="primary"
-    >
-      Deny
-    </Button>
-  </td>
-);
-
-const AcceptConnected = connect(null, { acceptBid })(Accept);
-const DenyConnected = connect(null, { denyBid })(Deny);
+const ActionsConnected = connect(null, { acceptBid, denyBid })(Actions);
 
 const StuffsWithBids = props => (
   <Stuffs
     stuffs={props.stuffs}
-    extra={[BidDate, Status, Bidder, AcceptConnected, DenyConnected]}
+    extra={[BidDate, Status, Bidder, ActionsConnected]}
     extraHeaders={['Bid date', 'Status', 'Bidder']}
-    showOwner
   />
 );
 

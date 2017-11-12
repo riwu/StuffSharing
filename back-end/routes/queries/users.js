@@ -72,7 +72,7 @@ function bidsMade(username) {
 function bidsEarned(username) {
   const stuff = 'SELECT b.stuff_id FROM bid_log b, stuff s ' +
                   `WHERE b.stuff_id=s.id AND s.owner=(SELECT id FROM user WHERE username="${username}")`;
-  return 'SELECT s.*, b.*, u.username, u.email AS bidder_email ' +
+  return 'SELECT s.*, b.*, u.username as bidder_username, u.email AS bidder_email ' +
           'FROM stuff s, bid_log b, user u ' +
           `WHERE s.id=b.stuff_id AND b.user_id=u.id AND b.status="in progress" AND s.id=ANY(${stuff})`;
 }
