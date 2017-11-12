@@ -53,8 +53,7 @@ function stuffBorrowed(username) {
 }
 
 function stuffLent(username) {
-  const stuffId = 'SELECT l.stuff' +
-          ' FROM loan_log AS l, user AS u, stuff AS s' +
+  const stuffId = `SELECT l.stuff FROM loan_log AS l, user AS u, stuff AS s` +
           ` WHERE s.id=l.stuff AND s.owner=u.id AND u.username="${username}"`;
   return 'SELECT s.*, u.username AS owner_username, u.email AS owner_email, l.loan_date ' +
           'FROM stuff s, loan_log l, user u ' +
@@ -70,11 +69,10 @@ function bidsMade(username) {
 }
 
 function bidsEarned(username) {
-  const stuff = 'SELECT b.stuff_id FROM bid_log b, stuff s ' +
-                  `WHERE b.stuff_id=s.id AND s.owner=(SELECT id FROM user WHERE username="${username}")`;
+  const owner = `SELECT id FROM user WHERE username="${username}"`;
   return 'SELECT s.*, b.*, u.username as bidder_username, u.email AS bidder_email ' +
           'FROM stuff s, bid_log b, user u ' +
-          `WHERE s.id=b.stuff_id AND b.user_id=u.id AND b.status="in progress" AND s.id=ANY(${stuff})`;
+          `WHERE s.id=b.stuff_id AND b.user_id=u.id AND b.status="in progress" AND s.owner=(${owner})`;
 }
 
 function totalEarned(username) {

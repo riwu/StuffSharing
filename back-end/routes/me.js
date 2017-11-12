@@ -20,17 +20,6 @@ router.get('/:username/:stuffId', (req, res, next) => {
   });
 });
 
-router.post('/bidSelect', (req, res, next) => {
-  const bidWin = { borrower: req.body.username,
-    stuff: req.body.stuffId,
-    price: req.body.bidAmt};
-  const response = conn.query(loan.addLoanLog(bidWin));
-  return response.then((data) => {
-    const response2 = stuff.updateStuffLoan(bidWin.stuffId, bidWin.loanDate);
-    return response2.then(data2 => res.send(data2));
-  });
-});
-
 router.post('/update', (req, res, next) => {
   utils.isValidUser(req.body.user).then((isValid) => {
     if (!isValid) {

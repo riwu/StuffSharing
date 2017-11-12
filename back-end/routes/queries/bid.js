@@ -1,3 +1,5 @@
+import conn from '../connection';
+
 function getAllBidData() {
 	return `SELECT * FROM bid_log ORDER BY bid_amt DESC`;
 }
@@ -17,6 +19,10 @@ function getCurrentBidsFor(username, stuffId) {
         `s.id=${stuffId} AND b.status="in progress"`;
 }
 
+function getThisBid(bidDetails) {
+  return `SELECT * FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND user_id=${getUserId(bidDetails.bidder)}`;
+}
+
 function bidForStuff(bidDetails){
   console.log(bidDetails);
   return `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
@@ -33,6 +39,27 @@ function updateBidLog(bidDetails){
 function deleteBidLog(bidDetails) {
   return `DELETE FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND date_and_time=${bidDetails.timestamp}` +
           ` AND user_id=(${getUserId(bidDetails.user)})`;
+}
+
+function cancelBid(bidDetails) {
+  return `DELETE FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND user_id=${getUserId(bidDetails.bidder)} ` +
+              `AND status="in progress"`;
+}
+
+function addLoanLog(params) {
+  const keyValues = getCommaSeparatedKeysValues(params);
+  const query = `INSERT INTO loan_log (${keyValues[0]}) VALUES (${keyValues[1]})`;
+  return conn.query(query);
+}
+
+function acceptBid(bidDetails) {
+  return conn.query(`UPDATE bid_log SET status="success" WHERE stuff_id=${bidDetails.stuffId} `
+          `AND user_id=${getUserId(bidDetails.bidder)} AND status="in progress"`);
+}
+
+function denyBid(bidDetails) {
+  return `UPDATE bid_log SET status="failure" WHERE stuff_id=${bidDetails.stuffId} `
+          `AND user_id=${getUserId(bidDetails.bidder)} AND status="in progress"`;
 }
 
 function getUserId(username) {
@@ -63,10 +90,14 @@ module.exports = {
 	getAllBidData,
 	getAllMyBids,
 	getBidsFor,
+  getThisBid,
   getCurrentBidsFor,
 	bidForStuff,
 
   updateBidLog,
   deleteBidLog,
+  cancelBid,
+  acceptBid,
+  denyBid,
 };
 

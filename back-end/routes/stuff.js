@@ -54,6 +54,47 @@ router.post('/:stuffId/return', (req, res, next) => {
   });
 });
 
+router.post('/:stuffId/cancelBid', (req, res, next) => {
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+    const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId };
+    const response = conn.query(bid.cancelBid(stuffInfo));
+    response.then(data => res.send(data));
+  });
+});
+
+router.post('/:stuffId/denyBid', (req, res, next) => {
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+    const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId };
+    const response = conn.query(bid.denyBid(stuffInfo));
+    response.then(data => res.send(data));
+  });
+});
+
+router.post('/:stuffId/acceptBid', (req, res, next) => {
+  utils.isValidUser(req.body.user).then((isValid) => {
+    if (!isValid) {
+      console.log('unauthorized');
+      return res.status(403).end();
+    }
+    const stuffInfo = {bidder: req.body.bidder, stuffId: req.stuffId};
+    const resp = bid.getThisBid(stuffInfo);
+    stuffDetails.then(stuffDetails => {
+      const loanDetails = {stuff: stuffDetails.stuff_id, borrower: stuffDetails.user_id,
+                              price: stuffDetails.bid_amt};
+      var promiseList = [bid.acceptBid(stuffInfo), bid.addLoanLog(loanDetails)];
+      Promise.all(promiseList).then(values => res.send(values));
+    });
+  });
+});
+
 router.get('/:stuffId', (req, res, next) => {
 	// Detail view for stuff with stuff id
   const response = conn.query(queries.getStuffData(req.stuffId));
