@@ -9,10 +9,13 @@ const utils = require('./utils');
 const router = express.Router();
 
 router.all('*', (req, res, next) => {
-	if (utils.isAdmin({username: req.body.username, password: req.body.password}) == false) {
-		return res.send(404);
-	}
-	next();
+	utils.isAdmin(req.body.user).then(isAdmin => {
+		if (!isAdmin) {
+			console.log('unauthorized admin');
+      		return res.status(403).end();
+		}
+		next();
+	});
 });
 
 router.post('/add/stuff', (req, res, next) => {
