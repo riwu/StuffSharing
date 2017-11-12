@@ -19,13 +19,10 @@ function getUserStuff(username) {
 }
 
 function updateUser(username, params) {
-var paramList = [];
-  if (params.email)
-    paramList.push(`email="${params.email}"`);
-  if(params.last_name)
-    paramList.push(`last_name="${params.last_name}"`);
-  if(params.first_name)
-    paramList.push(`first_name="${params.first_name}"`);
+  const paramList = [];
+  if (params.email) { paramList.push(`email="${params.email}"`); }
+  if (params.last_name) { paramList.push(`last_name="${params.last_name}"`); }
+  if (params.first_name) { paramList.push(`first_name="${params.first_name}"`); }
   const setValues = paramList.join(', ');
   return `UPDATE user SET ${setValues} WHERE username="${username}"`;
 }
@@ -49,8 +46,8 @@ function checkUser(details) {
 function stuffBorrowed(username) {
   const stuffId = `${'SELECT l.stuff FROM loan_log AS l, user AS u' +
       ' WHERE l.borrower=u.id AND u.username=' + '"'}${username}"`;
-  const q = `SELECT s.*, u.username AS owner_username, u.email AS owner_email, l.loan_date ` +
-            `FROM stuff s, user  u, loan_log l ` + 
+  const q = 'SELECT s.*, u.username, u.email AS owner_email, l.loan_date ' +
+            'FROM stuff s, user  u, loan_log l ' +
             `WHERE u.id=s.owner AND s.id=l.stuff AND s.id=ANY(${stuffId})`;
   return q;
 }
@@ -59,24 +56,24 @@ function stuffLent(username) {
   const stuffId = 'SELECT l.stuff' +
           ' FROM loan_log AS l, user AS u, stuff AS s' +
           ` WHERE s.id=l.stuff AND s.owner=u.id AND u.username="${username}"`;
-  return `SELECT s.*, u.username AS owner_username, u.email AS owner_email, l.loan_date ` + 
-          `FROM stuff s, loan_log l, user u ` + 
+  return 'SELECT s.*, u.username AS owner_username, u.email AS owner_email, l.loan_date ' +
+          'FROM stuff s, loan_log l, user u ' +
           `WHERE s.id=l.stuff and l.borrower=u.id AND s.id=ANY(${stuffId})`;
 }
 
 function bidsMade(username) {
-  const stuff = `SELECT stuff_id FROM bid_log ` +
+  const stuff = 'SELECT stuff_id FROM bid_log ' +
               `WHERE user_id=(SELECT id FROM user WHERE username="${username}")`;
-  return `SELECT s.*, b.*, u.username AS owner_username, u.email AS owner_email ` +
-          `FROM stuff s, bid_log b, user u ` +
+  return 'SELECT s.*, b.*, u.username AS owner_username, u.email AS owner_email ' +
+          'FROM stuff s, bid_log b, user u ' +
           `WHERE s.id=b.stuff_id AND b.status="in progress" AND s.owner=u.id AND s.id=ANY(${stuff})`;
 }
 
 function bidsEarned(username) {
-  const stuff = `SELECT b.stuff_id FROM bid_log b, stuff s ` +
+  const stuff = 'SELECT b.stuff_id FROM bid_log b, stuff s ' +
                   `WHERE b.stuff_id=s.id AND s.owner=(SELECT id FROM user WHERE username="${username}")`;
-  return `SELECT s.*, b.*, u.username AS bidder_username, u.email AS bidder_email ` +
-          `FROM stuff s, bid_log b, user u ` +
+  return 'SELECT s.*, b.*, u.username AS bidder_username, u.email AS bidder_email ' +
+          'FROM stuff s, bid_log b, user u ' +
           `WHERE s.id=b.stuff_id AND b.user_id=u.id AND b.status="in progress" AND s.id=ANY(${stuff})`;
 }
 

@@ -10,7 +10,7 @@ const LoanDate = ({ stuff }) => (
 );
 
 const Borrower = ({ stuff }) => (
-  <td>{stuff.borrower}</td>
+  <td>{stuff.owner_username}</td>
 );
 
 const StuffChildren = ({ stuff, ...props }) => (
