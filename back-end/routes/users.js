@@ -117,16 +117,23 @@ function getUserInfo(username, months) {
 }
 
 function arrangeValues(listValues) {
-  return { stuffBorrowed: listValues[0],
-    stuffLent: listValues[1],
+  return {
+    stuffBorrowed: { data: listValues[0], pageCount: 0 },
+    stuffLent: { data: listValues[1], pageCount: 0 },
+
     totalEarning: listValues[2],
-    bidsEarned: listValues[3],
+
+    bidsEarned: { data: listValues[3], pageCount: 0 },
+
     totalSpent: listValues[4],
-    bidsMade: listValues[5],
+
+    bidsMade: { data: listValues[5], pageCount: 0 },
+
     mostPopular: listValues[6],
     favoriteCategory: listValues[7],
     info: listValues[8][0],
-    stuffs: { data: listValues[9], pageCount: 1 },
+
+    stuffs: { data: listValues[9], pageCount: 0 },
   };
 }
 
