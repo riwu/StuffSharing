@@ -64,6 +64,22 @@ function stuffLent(username) {
           `WHERE s.id=l.stuff and l.borrower=u.id AND s.id=ANY(${stuffId})`;
 }
 
+function bidsMade(username) {
+  const stuff = `SELECT stuff_id FROM bid_log ` +
+              `WHERE user_id=(SELECT id FROM user WHERE username="${username}")`;
+  return `SELECT s.*, b.*, u.username AS owner_username, u.email AS owner_email ` +
+          `FROM stuff s, bid_log b, user u ` +
+          `WHERE s.id=b.stuff_id AND b.status="in progress" AND s.owner=u.id AND s.id=ANY(${stuff})`;
+}
+
+function bidsEarned(username) {
+  const stuff = `SELECT b.stuff_id FROM bid_log b, stuff s ` +
+                  `WHERE b.stuff_id=s.id AND s.owner=(SELECT id FROM user WHERE username="${username}")`;
+  return `SELECT s.*, b.*, u.username AS bidder_username, u.email AS bidder_email ` +
+          `FROM stuff s, bid_log b, user u ` +
+          `WHERE s.id=b.stuff_id AND b.user_id=u.id AND b.status="in progress" AND s.id=ANY(${stuff})`;
+}
+
 function totalEarned(username) {
   return `${'SELECT SUM(l.price) FROM loan_log AS l, user AS u, stuff AS s' +
       ' WHERE s.id=l.stuff AND s.owner=u.id AND u.username=' + '"'}${username}"`;
@@ -134,6 +150,8 @@ module.exports = {
 
   stuffBorrowed,
   stuffLent,
+  bidsMade,
+  bidsEarned,
   totalEarned,
   monthlyEarned,
   totalSpent,
