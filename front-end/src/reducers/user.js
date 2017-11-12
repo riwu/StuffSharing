@@ -1,17 +1,14 @@
 const initialState = {
   info: {},
   stuffs: { data: [], pageCount: 0 },
-  stuffBorrowed: [],
-  stuffLent: [],
+  stuffBorrowed: { data: [], pageCount: 0 },
+  stuffLent: { data: [], pageCount: 0 },
+  bidsMade: { data: [], pageCount: 0 },
+  bidsEarned: { data: [], pageCount: 0 },
 };
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOG_IN':
-      return {
-        ...state,
-        info: action.user,
-      };
     case 'USER_UPDATED':
       return {
         ...state,
@@ -49,6 +46,7 @@ const user = (state = initialState, action) => {
           data: state.stuffLent.data.filter(stuff => stuff.id !== action.id),
         },
       };
+
     case 'LOG_OUT':
       return initialState;
     default:

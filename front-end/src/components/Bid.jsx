@@ -1,8 +1,9 @@
 import React from 'react';
 import { withStateHandlers } from 'recompose';
+import { connect } from 'react-redux';
 import { Modal, Button, Form, FormControl, ControlLabel } from 'react-bootstrap';
 import './PostNew.css';
-import api from '../actions/api';
+import { bid } from '../actions';
 
 const addState = withStateHandlers(
   {
@@ -39,11 +40,8 @@ const Bid = props => (
         disabled={props.bidAmount.trim() === ''}
         bsStyle="primary"
         onClick={() => {
-          api.bid({
-            bidAmt: props.bidAmount,
-            stuffId: props.stuff.id,
-          }).then(() => props.onHide())
-            .catch(e => alert('Bid failed', e.message));
+          props.bid(props.stuff.id, props.bidAmount);
+          props.onHide();
         }}
       >
           Bid
@@ -53,4 +51,4 @@ const Bid = props => (
   </Modal>
 );
 
-export default addState(Bid);
+export default connect(null, { bid })(addState(Bid));

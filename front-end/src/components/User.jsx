@@ -7,6 +7,8 @@ import './User.css';
 import StuffsListed from './StuffsListed';
 import StuffsBorrowed from './StuffsBorrowed';
 import StuffsLent from './StuffsLent';
+import StuffsBidded from './StuffsBidded';
+import StuffsWithBids from './StuffsWithBids';
 import { updateUserInfo } from '../actions';
 
 const addState = withStateHandlers(
@@ -126,16 +128,28 @@ const User = ({ user, loggedUser, ...props }) => {
       }
       {loggedUser === user &&
         <div>
-          {user.stuffBorrowed.length > 0 &&
+          {user.stuffBorrowed.data.length > 0 &&
           <div>
             <h1 className="title">Borrowed items</h1>
-            <StuffsBorrowed stuffs={{ data: user.stuffBorrowed }} />
+            <StuffsBorrowed stuffs={user.stuffBorrowed} />
           </div>
           }
-          {user.stuffLent.length > 0 &&
+          {user.stuffLent.data.length > 0 &&
           <div>
             <h1 className="title">Lent items</h1>
-            <StuffsLent stuffs={{ data: user.stuffLent }} />
+            <StuffsLent stuffs={user.stuffLent} />
+          </div>
+          }
+          {user.bidsMade.data.length > 0 &&
+          <div>
+            <h1 className="title">Bids made</h1>
+            <StuffsBidded stuffs={user.bidsMade} />
+          </div>
+          }
+          {user.bidsEarned.data.length > 0 &&
+          <div>
+            <h1 className="title">Bids received</h1>
+            <StuffsWithBids stuffs={user.bidsEarned} />
           </div>
           }
         </div>
