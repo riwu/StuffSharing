@@ -89,9 +89,7 @@ router.post('/:stuffId/acceptBid', (req, res, next) => {
     resp.then(stuffDetails => {
       const loanDetails = {stuff: stuffDetails[0].stuff_id, borrower: stuffDetails[0].user_id,
                               price: stuffDetails[0].bid_amt};
-      console.log("$#$#$#", stuffDetails, loanDetails);
       var promiseList = [bid.acceptBid(stuffInfo), bid.addLoanLog(loanDetails)];
-      console.log("$$$");
       Promise.all(promiseList).then(values => res.send(values));
     });
   });

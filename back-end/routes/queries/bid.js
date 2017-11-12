@@ -42,7 +42,7 @@ function deleteBidLog(bidDetails) {
 }
 
 function cancelBid(bidDetails) {
-  return `DELETE FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND user_id=${getUserId(bidDetails.bidder)} ` +
+  return `DELETE FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND user_id=(${getUserId(bidDetails.bidder)}) ` +
               `AND status="in progress"`;
 }
 
