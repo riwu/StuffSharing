@@ -25,7 +25,7 @@ const config = {
 const persistedReducer = persistReducer(config, reducer);
 
 // eslint-disable-next-line no-underscore-dangle
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = (process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 export const store = createStore(persistedReducer,
   composeEnhancers(applyMiddleware(...middleware)));
 const persistor = persistStore(store);
