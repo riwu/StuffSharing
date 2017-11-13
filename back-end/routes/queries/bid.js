@@ -23,11 +23,15 @@ function getThisBid(bidDetails) {
   return `SELECT * FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND user_id=(${getUserId(bidDetails.bidder)})`;
 }
 
-function bidForStuff(bidDetails){
-  console.log(bidDetails);
-  return `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
-            `${bidDetails.bidAmt},(${getUserId(bidDetails.user)}),` + 
-            `${bidDetails.stuffId})`;
+function bidForStuff(bidDetails, previousBid){
+  console.log('#$ bidForStuff ', bidDetails, previousBid);
+  if(!previousBid)
+    return `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
+              `${bidDetails.bidAmt},(${getUserId(bidDetails.user)}),` + 
+              `${bidDetails.stuffId})`;
+
+  return `UPDATE bid_log SET bid_amt=${bidDetails.bidAmt} WHERE ` +
+            `stuff_id=${bidDetails.stuffId} AND user_id=(${getUserId(bidDetails.user)}) AND status="in progress"`;
 }
 
 function updateBidLog(bidDetails){
