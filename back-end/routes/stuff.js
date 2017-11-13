@@ -1,5 +1,4 @@
 import conn from './connection';
-import {getUserInfo} from './users';
 
 const express = require('express');
 const bid = require('./queries/bid');
@@ -148,6 +147,54 @@ function filterStuff(queryList, res) {
   		res.send({ data, pages: Math.ceil(numRows / queryList.count) });
   	});
   });
+}
+
+function getUserAllDataHelper(username) {
+  const list = getUserInfo(username);
+  return Promise.all(list).then(values => {
+    return arrangeValues(values);
+  });
+}
+
+function getUserInfo(username) {
+  const qs = [
+    queries.stuffBorrowed(username),
+    queries.stuffLent(username),
+    queries.totalEarned(username),
+    queries.bidsEarned(username),
+    queries.totalSpent(username),
+    queries.bidsMade(username),
+    queries.mostPopularStuff(username),
+    queries.favouriteCategory(username),
+    queries.getUserData(username),
+    queries.getUserStuff(username),
+  ];
+  const promiseList = [];
+  for (const query in qs) {
+    promiseList.push(conn.query(qs[query]));
+  }
+  return promiseList;
+}
+
+function arrangeValues(listValues) {
+  return {
+    stuffBorrowed: { data: listValues[0], pageCount: 0 },
+    stuffLent: { data: listValues[1], pageCount: 0 },
+
+    totalEarning: listValues[2],
+
+    bidsEarned: { data: listValues[3], pageCount: 0 },
+
+    totalSpent: listValues[4],
+
+    bidsMade: { data: listValues[5], pageCount: 0 },
+
+    mostPopular: listValues[6],
+    favoriteCategory: listValues[7],
+    info: listValues[8][0],
+
+    stuffs: { data: listValues[9], pageCount: 0 },
+  };
 }
 
 module.exports = router;

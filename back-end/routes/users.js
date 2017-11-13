@@ -90,7 +90,7 @@ router.get('/', (req, res, next) => {
   return response.then(data => res.send(data));
 });
 
-export function getUserAllDataHelper(username) {
+function getUserAllDataHelper(username) {
   const list = getUserInfo(username);
   return Promise.all(list).then(values => {
     return arrangeValues(values);
