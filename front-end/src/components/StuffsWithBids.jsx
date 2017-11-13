@@ -22,6 +22,12 @@ const Bidder = ({ stuff }) => (
   <td><Link to={`/users/${stuff.bidder_username}`}>{stuff.bidder_username}</Link></td>
 );
 
+const BidAmount = ({ stuff }) => (
+  <td>
+    ${stuff.bid_amt.toFixed(2)}
+  </td>
+);
+
 const Actions = ({ stuff, ...props }) => (
   <td style={{ display: 'flex' }}>
     <Button
@@ -45,8 +51,8 @@ const ActionsConnected = connect(null, { acceptBid, denyBid })(Actions);
 const StuffsWithBids = props => (
   <Stuffs
     stuffs={props.stuffs}
-    extra={[BidDate, Status, Bidder, ActionsConnected]}
-    extraHeaders={['Bid date', 'Status', 'Bidder']}
+    extra={[BidDate, Status, Bidder, BidAmount, ActionsConnected]}
+    extraHeaders={['Bid date', 'Status', 'Bidder', 'Bid amount']}
   />
 );
 

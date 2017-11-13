@@ -17,6 +17,12 @@ const Status = ({ stuff }) => (
   </td>
 );
 
+const BidAmount = ({ stuff }) => (
+  <td>
+    ${stuff.bid_amt}
+  </td>
+);
+
 const CancelBid = ({ stuff, ...props }) => (
   <td>
     <Button
@@ -33,8 +39,8 @@ const CancelBidConnected = connect(null, { cancelBid })(CancelBid);
 const StuffsBidded = props => (
   <Stuffs
     stuffs={props.stuffs}
-    extra={[BidDate, Status, CancelBidConnected]}
-    extraHeaders={['Bid date', 'Status']}
+    extra={[BidDate, Status, BidAmount, CancelBidConnected]}
+    extraHeaders={['Bid date', 'Status', 'Bid amount']}
     showOwner
   />
 );
