@@ -1,5 +1,7 @@
 import conn from './connection';
-import {getUserInfo} from './users';
+import { getUserAllDataHelper } from './users';
+
+console.log(getUserAllDataHelper);
 
 const express = require('express');
 const bid = require('./queries/bid');
@@ -38,9 +40,9 @@ router.post('/:stuffId/bid', (req, res, next) => {
       return res.status(403).end();
     }
     const bidInfo = { user: req.body.user.username, bidAmt: req.body.bidAmt, stuffId: req.stuffId };
-    
+
     const resp = conn.query(bid.getCurrentBidsFor(bidInfo.user, bidInfo.stuffId));
-    resp.then(data => {
+    resp.then((data) => {
       const response = conn.query(bid.bidForStuff(bidInfo, data));
       response.then(data2 => res.send(data2));
     });
@@ -48,15 +50,15 @@ router.post('/:stuffId/bid', (req, res, next) => {
 });
 
 router.post('/:stuffId/return', (req, res, next) => {
- utils.isValidUser(req.body.user).then((isValid) => {
+  utils.isValidUser(req.body.user).then((isValid) => {
     if (!isValid) {
       console.log('unauthorized');
       return res.status(403).end();
     }
     const stuffInfo = { user: req.body.user.username, stuffId: req.stuffId };
     const response = conn.query(bid.returnStuff(stuffInfo));
-    response.then(data => {
-      getUserInfo(req.body.user.username).then(allData => res.send(allData));
+    response.then((data) => {
+      getUserAllDataHelper(req.body.user.username).then(allData => res.send(allData));
     });
   });
 });
@@ -69,8 +71,8 @@ router.post('/:stuffId/cancelBid', (req, res, next) => {
     }
     const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId };
     const response = conn.query(bid.cancelBid(stuffInfo));
-    response.then(data => {
-      getUserInfo(req.body.user.username).then(allData => res.send(allData));
+    response.then((data) => {
+      getUserAllDataHelper(req.body.user.username).then(allData => res.send(allData));
     });
   });
 });
@@ -83,8 +85,8 @@ router.post('/:stuffId/denyBid', (req, res, next) => {
     }
     const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId, owner: req.body.user.username };
     const response = conn.query(bid.denyBid(stuffInfo));
-    response.then(data => {
-      getUserInfo(req.body.user.username).then(allData => res.send(allData));
+    response.then((data) => {
+      getUserAllDataHelper(req.body.user.username).then(allData => res.send(allData));
     });
   });
 });
@@ -95,14 +97,15 @@ router.post('/:stuffId/acceptBid', (req, res, next) => {
       console.log('unauthorized');
       return res.status(403).end();
     }
-    const stuffInfo = {bidder: req.body.bidder, stuffId: req.stuffId, owner: req.body.user.username };
+    const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId, owner: req.body.user.username };
     const resp = conn.query(bid.getThisBid(stuffInfo));
-    resp.then(stuffDetails => {
-      const loanDetails = {stuff: stuffDetails[0].stuff_id, borrower: stuffDetails[0].user_id,
-                              price: stuffDetails[0].bid_amt};
-      var promiseList = [bid.acceptBid(stuffInfo), bid.addLoanLog(loanDetails)];
-      Promise.all(promiseList).then(values => {
-        getUserInfo(req.body.user.username).then(allData => res.send(allData));
+    resp.then((stuffDetails) => {
+      const loanDetails = { stuff: stuffDetails[0].stuff_id,
+        borrower: stuffDetails[0].user_id,
+        price: stuffDetails[0].bid_amt };
+      const promiseList = [bid.acceptBid(stuffInfo), bid.addLoanLog(loanDetails)];
+      Promise.all(promiseList).then((values) => {
+        getUserAllDataHelper(req.body.user.username).then(allData => res.send(allData));
       });
     });
   });
