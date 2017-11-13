@@ -42,7 +42,9 @@ router.post('/:stuffId/bid', (req, res, next) => {
     const resp = conn.query(bid.getCurrentBidsFor(bidInfo.user, bidInfo.stuffId));
     resp.then((data) => {
       const response = conn.query(bid.bidForStuff(bidInfo, data));
-      response.then(data2 => res.send(data2));
+      response.then(data2 => {
+        getUserAllDataHelper(req.body.user.username).then(allData => res.send(allData));
+      });
     });
   });
 });
