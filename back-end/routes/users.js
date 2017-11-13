@@ -80,21 +80,25 @@ router.post('/stuff/:stuffId/update', (req, res, next) => {
   });
 });
 
-router.get('/:username', (req, res, next) => {
-  getUserAllDataHelper(req.username).then(data => res.send(data));
-});
+function arrangeValues(listValues) {
+  return {
+    stuffBorrowed: { data: listValues[0], pageCount: 0 },
+    stuffLent: { data: listValues[1], pageCount: 0 },
 
-/* GET users listing. */
-router.get('/', (req, res, next) => {
-  const response = conn.query(queries.allSafeUserData());
-  return response.then(data => res.send(data));
-});
+    totalEarning: listValues[2],
 
-function getUserAllDataHelper(username) {
-  const list = getUserInfo(username);
-  return Promise.all(list).then(values => {
-    return arrangeValues(values);
-  });
+    bidsEarned: { data: listValues[3], pageCount: 0 },
+
+    totalSpent: listValues[4],
+
+    bidsMade: { data: listValues[5], pageCount: 0 },
+
+    mostPopular: listValues[6],
+    favoriteCategory: listValues[7],
+    info: listValues[8][0],
+
+    stuffs: { data: listValues[9], pageCount: 0 },
+  };
 }
 
 function getUserInfo(username) {
@@ -117,25 +121,19 @@ function getUserInfo(username) {
   return promiseList;
 }
 
-function arrangeValues(listValues) {
-  return {
-    stuffBorrowed: { data: listValues[0], pageCount: 0 },
-    stuffLent: { data: listValues[1], pageCount: 0 },
+export const getUserAllDataHelper = (username) => {
+  const list = getUserInfo(username);
+  return Promise.all(list).then(values => arrangeValues(values));
+};
 
-    totalEarning: listValues[2],
+router.get('/:username', (req, res, next) => {
+  getUserAllDataHelper(req.username).then(data => res.send(data));
+});
 
-    bidsEarned: { data: listValues[3], pageCount: 0 },
-
-    totalSpent: listValues[4],
-
-    bidsMade: { data: listValues[5], pageCount: 0 },
-
-    mostPopular: listValues[6],
-    favoriteCategory: listValues[7],
-    info: listValues[8][0],
-
-    stuffs: { data: listValues[9], pageCount: 0 },
-  };
-}
+/* GET users listing. */
+router.get('/', (req, res, next) => {
+  const response = conn.query(queries.allSafeUserData());
+  return response.then(data => res.send(data));
+});
 
 module.exports = router;
