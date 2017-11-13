@@ -22,7 +22,7 @@ const Stuffs = props => (
         {props.stuffs.data.map((stuff) => {
           const path = (props.route.location || {}).pathname || '';
           return (
-            <tr key={stuff.id}>
+            <tr key={JSON.stringify(stuff)}>
               {[stuff.name, stuff.desc, stuff.category, `$${stuff.price}`, stuff.location,
                 stuff.condition, moment(stuff.available_from).format('D MMM YY'),
                 `${stuff.max_loan_period} days`].map((value, index) => (
