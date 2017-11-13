@@ -1,7 +1,7 @@
 import conn from '../connection';
 
 function getAllBidData() {
-	return `SELECT * FROM bid_log ORDER BY bid_amt DESC`;
+  return `SELECT * FROM bid_log ORDER BY bid_amt DESC`;
 }
 
 function getAllMyBids(username) {
@@ -14,7 +14,7 @@ function getBidsFor(username, stuffId) {
 }
 
 function getCurrentBidsFor(username, stuffId) {
-   return `SELECT b.*, s.*, u.username, u.email FROM bid_log AS b, stuff AS s, user AS u ` +
+  return 'SELECT b.*, s.*, u.username, u.email FROM bid_log AS b, stuff AS s, user AS u ' +
         `WHERE b.stuff_id=s.id AND u.id=s.owner AND u.username='${username}' AND ` +
         `s.id=${stuffId} AND b.status="in progress"`;
 }
@@ -23,20 +23,21 @@ function getThisBid(bidDetails) {
   return `SELECT * FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND user_id=(${getUserId(bidDetails.bidder)})`;
 }
 
-function bidForStuff(bidDetails, previousBid){
+function bidForStuff(bidDetails, previousBid) {
   console.log('#$ bidForStuff ', bidDetails, previousBid);
-  if(!previousBid)
-    return `INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (` +
-              `${bidDetails.bidAmt},(${getUserId(bidDetails.user)}),` + 
+  if (previousBid.length === 0) {
+    return 'INSERT INTO bid_log (bid_amt, user_id, stuff_id) VALUES (' +
+              `${bidDetails.bidAmt},(${getUserId(bidDetails.user)}),` +
               `${bidDetails.stuffId})`;
+  }
 
   return `UPDATE bid_log SET bid_amt=${bidDetails.bidAmt} WHERE ` +
             `stuff_id=${bidDetails.stuffId} AND user_id=(${getUserId(bidDetails.user)}) AND status="in progress"`;
 }
 
-function updateBidLog(bidDetails){
-  return `UPDATE bid_log b SET b.bid_amt=${bidDetails.bidAmt}` + 
-              ` WHERE b.stuff_id=${bidDetails.stuffId}` + 
+function updateBidLog(bidDetails) {
+  return `UPDATE bid_log b SET b.bid_amt=${bidDetails.bidAmt}` +
+              ` WHERE b.stuff_id=${bidDetails.stuffId}` +
               ` AND b.user_id=(${getUserId(bidDetails.user)})`;
 }
 
@@ -47,7 +48,7 @@ function deleteBidLog(bidDetails) {
 
 function cancelBid(bidDetails) {
   return `DELETE FROM bid_log WHERE stuff_id=${bidDetails.stuffId} AND user_id=(${getUserId(bidDetails.bidder)}) ` +
-              `AND status="in progress"`;
+              'AND status="in progress"';
 }
 
 function addLoanLog(params) {
@@ -67,9 +68,9 @@ function denyBid(bidDetails) {
 }
 
 function returnStuff(params) {
-  const date=getTodayDate();
+  const date = getTodayDate();
   return `UPDATE loan_log SET return_date="${date}" WHERE stuff=${params.stuffId} AND ` +
-            `return_date IS NULL`;
+            'return_date IS NULL';
 }
 
 function getUserId(username) {
@@ -78,8 +79,8 @@ function getUserId(username) {
 
 function paramsToString(params) {
   let query = '';
-  for (var key in params) {
-    if(params[key]) {
+  for (const key in params) {
+    if (params[key]) {
       query += ` ${key}=${params[key]},`;
     }
   }
@@ -97,24 +98,24 @@ function getCommaSeparatedKeysValues(params) {
 }
 
 function getTodayDate() {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth()+1; //January is 0!
-  var yyyy = today.getFullYear();             
+  const today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1; // January is 0!
+  const yyyy = today.getFullYear();
 
-  dd = (dd<10)? '0'+dd : dd;
-  mm = (mm<10)? '0'+mm : mm;
-  return yyyy + '-' + mm + '-' + dd;
+  dd = (dd < 10) ? `0${dd}` : dd;
+  mm = (mm < 10) ? `0${mm}` : mm;
+  return `${yyyy}-${mm}-${dd}`;
 }
 
 
 module.exports = {
-	getAllBidData,
-	getAllMyBids,
-	getBidsFor,
+  getAllBidData,
+  getAllMyBids,
+  getBidsFor,
   getThisBid,
   getCurrentBidsFor,
-	bidForStuff,
+  bidForStuff,
 
   updateBidLog,
   deleteBidLog,
@@ -124,4 +125,3 @@ module.exports = {
   addLoanLog,
   returnStuff,
 };
-
