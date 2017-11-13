@@ -67,7 +67,7 @@ router.post('/:stuffId/cancelBid', (req, res, next) => {
       console.log('unauthorized');
       return res.status(403).end();
     }
-    const stuffInfo = { bidder: req.body.bidder, stuffId: req.stuffId };
+    const stuffInfo = { bidder: req.body.user.username, stuffId: req.stuffId };
     const response = conn.query(bid.cancelBid(stuffInfo));
     response.then((data) => {
       getUserAllDataHelper(req.body.user.username).then(allData => res.send(allData));
