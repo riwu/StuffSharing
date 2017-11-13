@@ -4,6 +4,7 @@ const express = require('express');
 const bid = require('./queries/bid');
 const loan = require('./queries/loan');
 const queries = require('./queries/stuff');
+const users = require('./queries/users.js');
 const utils = require('./utils');
 
 const router = express.Router();
@@ -159,16 +160,16 @@ function getUserAllDataHelper(username) {
 
 function getUserInfo(username) {
   const qs = [
-    queries.stuffBorrowed(username),
-    queries.stuffLent(username),
-    queries.totalEarned(username),
-    queries.bidsEarned(username),
-    queries.totalSpent(username),
-    queries.bidsMade(username),
-    queries.mostPopularStuff(username),
-    queries.favouriteCategory(username),
-    queries.getUserData(username),
-    queries.getUserStuff(username),
+    users.stuffBorrowed(username),
+    users.stuffLent(username),
+    users.totalEarned(username),
+    users.bidsEarned(username),
+    users.totalSpent(username),
+    users.bidsMade(username),
+    users.mostPopularStuff(username),
+    users.favouriteCategory(username),
+    users.getUserData(username),
+    users.getUserStuff(username),
   ];
   const promiseList = [];
   for (const query in qs) {
