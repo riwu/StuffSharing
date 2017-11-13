@@ -48,7 +48,7 @@ function stuffBorrowed(username) {
       ' WHERE l.borrower=u.id AND u.username=' + '"'}${username}"`;
   const q = 'SELECT s.*, u.username, u.email AS owner_email, l.loan_date ' +
             'FROM stuff s, user  u, loan_log l ' +
-            `WHERE u.id=s.owner AND s.id=l.stuff AND s.id=ANY(${stuffId})`;
+            `WHERE u.id=s.owner AND s.id=l.stuff AND l.return_date IS NULL AND s.id=ANY(${stuffId})`;
   return q;
 }
 
@@ -57,7 +57,7 @@ function stuffLent(username) {
           ` WHERE s.id=l.stuff AND s.owner=u.id AND u.username="${username}"`;
   return 'SELECT s.*, u.username AS owner_username, u.email AS owner_email, l.loan_date ' +
           'FROM stuff s, loan_log l, user u ' +
-          `WHERE s.id=l.stuff and l.borrower=u.id AND s.id=ANY(${stuffId})`;
+          `WHERE s.id=l.stuff and l.borrower=u.id AND l.return_date IS NULL AND s.id=ANY(${stuffId})`;
 }
 
 function bidsMade(username) {
