@@ -38,7 +38,7 @@ const user = (state = initialState, action) => {
           ],
         },
       };
-    case 'STUFF_RETURNED':
+    case 'STUFF_RETURNED': {
       return {
         ...state,
         stuffLent: {
@@ -46,6 +46,7 @@ const user = (state = initialState, action) => {
           data: state.stuffLent.data.filter(stuff => stuff.id !== action.id),
         },
       };
+    }
 
     case 'LOG_OUT':
       return initialState;

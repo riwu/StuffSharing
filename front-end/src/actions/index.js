@@ -94,7 +94,7 @@ export const stuffReturned = stuffId => (dispatch) => {
   api.stuffReturned(stuffId).then(() => {
     dispatch({
       type: 'STUFF_RETURNED',
-      stuffId,
+      id: stuffId,
     });
   }).catch(e => alert(`Failed to return item ${stuffId} ${e.message}`));
 };
