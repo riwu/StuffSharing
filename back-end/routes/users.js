@@ -81,12 +81,7 @@ router.post('/stuff/:stuffId/update', (req, res, next) => {
 });
 
 router.get('/:username', (req, res, next) => {
-  console.log(req.username);
-  const list = getUserInfo(req.username, req.body.months);
-  return Promise.all(list).then((values) => {
-    console.log('All User Info loaded');
-    res.send(arrangeValues(values));
-  });
+  getUserAllDataHelper(req.username).then(data => res.send(data));
 });
 
 /* GET users listing. */
@@ -95,8 +90,14 @@ router.get('/', (req, res, next) => {
   return response.then(data => res.send(data));
 });
 
-function getUserInfo(username, months) {
-  months = (months) || 6;
+export function getUserAllDataHelper(username) {
+  const list = getUserInfo(username);
+  return Promise.all(list).then(values => {
+    return arrangeValues(values);
+  });
+}
+
+function getUserInfo(username) {
   const qs = [
     queries.stuffBorrowed(username),
     queries.stuffLent(username),
