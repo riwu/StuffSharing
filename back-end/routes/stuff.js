@@ -1,5 +1,5 @@
 import conn from './connection';
-import {getUserInfo} from './user';
+import {getUserInfo} from './users';
 
 const express = require('express');
 const bid = require('./queries/bid');
