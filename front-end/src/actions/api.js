@@ -2,9 +2,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { store } from '../App';
 
-axios.defaults.baseURL = (process.env.NODE_ENV === 'development')
-  ? 'http://localhost:3001/'
-  : 'https://www.wangriwu.com:3001/';
+axios.defaults.baseURL = `${process.env.REACT_APP_MITYSG_URL}/`;
 
 const get = path => axios.get(path).then(response => response.data);
 
