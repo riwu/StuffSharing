@@ -2,25 +2,31 @@ import axios from 'axios';
 import moment from 'moment';
 import { store } from '../App';
 
-axios.defaults.baseURL = `${process.env.REACT_APP_MITYSG_URL}/`;
+axios.defaults.baseURL = `${process.env.REACT_APP_STUFFSHARING_URL}/`;
 
 const get = path => axios.get(path).then(response => response.data);
 
-const [post, del] = ['post', 'delete'].map(method =>
-  (path, payload) => {
-    const { username, password, id } = store.getState().user.info;
-    return axios({
-      method,
-      url: path,
-      data: { ...payload, user: { username, password, id } },
-    })
+const [post, del] = ['post', 'delete'].map(method => (path, payload) => {
+  const { username, password, id } = store.getState().user.info;
+  return axios({
+    method,
+    url: path,
+    data: { ...payload, user: { username, password, id } },
+  })
     .then(response => response.data)
     .catch((err) => {
-      console.log('encountered error for', path, ':', 'method:', method, (err.response || {}).data, payload);
+      console.log(
+        'encountered error for',
+        path,
+        ':',
+        'method:',
+        method,
+        (err.response || {}).data,
+        payload,
+      );
       throw new Error((err.response || {}).data);
     });
-  });
-
+});
 
 export default {
   getStuffs: (search) => {
@@ -33,8 +39,9 @@ export default {
     };
     const query = {
       ...Object.entries(search)
-        .filter(([key, value]) => ['name', 'count', 'page',
-          'sort', 'name', 'asc', 'maxLoan', 'owner'].includes(key))
+        .filter(([key, value]) =>
+          ['name', 'count', 'page', 'sort', 'name', 'asc', 'maxLoan', 'owner'].includes(key),
+        )
         .reduce((obj, [key, value]) => {
           obj[key] = value;
           return obj;
@@ -51,11 +58,15 @@ export default {
 
     console.log('query', query);
 
-    const filteredQuery = Object.entries(query).filter(([key, value]) =>
-      value !== undefined && (typeof value !== 'string' || value.trim() !== ''));
+    const filteredQuery = Object.entries(query).filter(
+      ([key, value]) => value !== undefined && (typeof value !== 'string' || value.trim() !== ''),
+    );
 
-    return get(`stuff?${filteredQuery.reduce((str, [key, value]) =>
-      `${str + key}=${encodeURIComponent(value)}&`, '').slice(0, -1)}`);
+    return get(
+      `stuff?${filteredQuery
+        .reduce((str, [key, value]) => `${str + key}=${encodeURIComponent(value)}&`, '')
+        .slice(0, -1)}`,
+    );
   },
   getUser: username => get(`users/${username}`),
   login: (username, password) => post('login', { username, password }),
