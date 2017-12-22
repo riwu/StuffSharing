@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -20,16 +19,28 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(logger((tokens, req, res) => [
-  tokens.method(req, res),
-  tokens.url(req, res),
-  tokens['response-time'](req, res), 'ms',
-  JSON.stringify(req.body),
-].join(' ')));
+app.use(
+  logger((tokens, req, res) =>
+    [
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens['response-time'](req, res),
+      'ms',
+      JSON.stringify(req.body),
+    ].join(' '),
+  ),
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.end();
+});
+app.get('/favicon.ico', (req, res) => {
+  // for browser request
+  res.status(204).send();
+});
 
 app.use('/', index);
 app.use('/me', me);
