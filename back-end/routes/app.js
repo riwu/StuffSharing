@@ -19,6 +19,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  res.end();
+});
+app.get('/favicon.ico', (req, res) => {
+  // for browser request
+  res.status(204).send();
+});
+
 app.use(
   logger((tokens, req, res) =>
     [
@@ -33,14 +41,6 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-app.get('/', (req, res) => {
-  res.end();
-});
-app.get('/favicon.ico', (req, res) => {
-  // for browser request
-  res.status(204).send();
-});
 
 app.use('/', index);
 app.use('/me', me);
