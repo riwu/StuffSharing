@@ -2,7 +2,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { store } from '../App';
 
-axios.defaults.baseURL = `${process.env.REACT_APP_STUFFSHARING_URL}/`;
+axios.defaults.baseURL = '/api/';
 
 const get = path => axios.get(path).then(response => response.data);
 

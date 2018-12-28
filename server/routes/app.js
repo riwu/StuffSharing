@@ -12,13 +12,6 @@ const users = require('./users');
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  next();
-});
-
 app.get('/', (req, res) => {
   res.end();
 });
@@ -34,9 +27,9 @@ app.use(
       tokens.url(req, res),
       tokens['response-time'](req, res),
       'ms',
-      JSON.stringify(req.body),
-    ].join(' '),
-  ),
+      JSON.stringify(req.body)
+    ].join(' ')
+  )
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
